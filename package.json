@@ -2,6 +2,11 @@
   "name": "@medram/ui",
   "version": "0.1.1",
   "description": "Reusable shadcn/ui component library for React and Next.js applications.",
+  "keywords": ["react", "nextjs", "shadcn-ui", "tailwindcss", "component-library", "design-system"],
+  "homepage": "https://medram.github.io/ui/",
+  "bugs": {
+    "url": "https://github.com/medram/ui/issues"
+  },
   "type": "module",
   "sideEffects": [
     "**/*.css"
