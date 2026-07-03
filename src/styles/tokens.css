@@ -1,0 +1,101 @@
+/*
+ * Design tokens for @medram/ui.
+ * Import once in the host app (e.g. `@import "@medram/ui/styles.css";`) so the
+ * CSS variables the Tailwind preset references are defined for light + dark.
+ */
+@layer base {
+  :root {
+    --radius: 0.8rem;
+    --background: 0 0% 100%;
+    --foreground: 222.2 84% 4.9%;
+
+    --card: 0 0% 100%;
+    --card-foreground: 222.2 84% 4.9%;
+
+    --popover: 0 0% 100%;
+    --popover-foreground: 222.2 84% 4.9%;
+
+    --primary: 222.2 47.4% 11.2%;
+    --primary-foreground: 210 40% 98%;
+
+    --secondary: 210 40% 96.1%;
+    --secondary-foreground: 222.2 47.4% 11.2%;
+
+    --muted: 210 40% 96.1%;
+    --muted-foreground: 215.4 16.3% 46.9%;
+
+    --accent: 210 40% 96.1%;
+    --accent-foreground: 222.2 47.4% 11.2%;
+
+    --destructive: 0 84.2% 60.2%;
+    --destructive-foreground: 210 40% 98%;
+
+    --border: 214.3 31.8% 91.4%;
+    --input: 214.3 31.8% 91.4%;
+    --ring: 222.2 84% 4.9%;
+
+    --chart-1: #e76e50;
+    --chart-2: #2a9d90;
+    --chart-3: #f4a462;
+    --chart-4: #e8c468;
+    --chart-5: #274754;
+    --chart-6: #6a4c93;
+    --chart-7: #4cc9f0;
+    --chart-8: #ffca3a;
+    --chart-9: #d00000;
+    --chart-10: #4361ee;
+    --chart-11: #90be6d;
+    --chart-12: #f94144;
+    --chart-13: #577590;
+    --chart-14: #f3722c;
+    --chart-15: #43aa8b;
+
+    --sidebar-background: 0 0% 98%;
+    --sidebar-foreground: 240 5.3% 26.1%;
+    --sidebar-primary: 240 5.9% 10%;
+    --sidebar-primary-foreground: 0 0% 98%;
+    --sidebar-accent: 240 4.8% 95.9%;
+    --sidebar-accent-foreground: 240 5.9% 10%;
+    --sidebar-border: 220 13% 91%;
+    --sidebar-ring: 217.2 91.2% 59.8%;
+  }
+
+  .dark {
+    --background: 222.2 13% 10%; /* Dark background */
+    --foreground: 0 0% 90%; /* Light gray text for contrast */
+
+    --card: 222.2 13% 12%; /* Slightly lighter for separation */
+    --card-foreground: 0 0% 90%; /* Light gray for readability */
+
+    --popover: 222.2 13% 12%; /* Matches card for consistency */
+    --popover-foreground: 0 0% 90%; /* Light gray for contrast */
+
+    --primary: 0 0% 100%; /* Pure white for primary */
+    --primary-foreground: 0 0% 10%; /* Dark text for contrast */
+
+    --secondary: 0 0% 80%; /* Softer white for secondary */
+    --secondary-foreground: 0 0% 95%; /* Lighter gray for better contrast */
+
+    --muted: 0 0% 20%; /* Muted dark tone */
+    --muted-foreground: 0 0% 70%; /* Softer gray */
+
+    --accent: 0 0% 100%; /* Pure white accent */
+    --secondary-foreground: 0 0% 15%; /* Softer dark for contrast */
+
+    --destructive: 0 80% 50%; /* Darker red */
+    --destructive-foreground: 0 0% 90%; /* Light text for visibility */
+
+    --border: 0 0% 25%; /* Subtle border */
+    --input: 0 0% 25%; /* Matches border for uniformity */
+    --ring: 0 0% 100%; /* Pure white for focus */
+
+    --sidebar-background: 222.2 13% 12%; /* Matches card background */
+    --sidebar-foreground: 0 0% 80%; /* Light gray for text */
+    --sidebar-primary: 222.2 20% 20%; /* Slightly darker for emphasis */
+    --sidebar-primary-foreground: 0 0% 100%; /* White text */
+    --sidebar-accent: 222.2 15% 18%; /* Subtle dark accent */
+    --sidebar-accent-foreground: 0 0% 90%; /* Light gray for readability */
+    --sidebar-border: 220 15% 25%; /* Subtle border */
+    --sidebar-ring: 220 60% 50%; /* Consistent vibrant ring for focus */
+  }
+}
