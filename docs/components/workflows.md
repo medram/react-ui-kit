@@ -12,15 +12,15 @@ This package includes a few higher-level modules that solve more than a single U
 
 | Feature | Required setup |
 | --- | --- |
-| `@medram/ui/modal` | Wrap the app with `StackedModalsProvider` |
-| `@medram/ui/webcam` | Wrap the app with `CloudStorageProvider` |
+| `@flowui/ui/modal` | Wrap the app with `StackedModalsProvider` |
+| `@flowui/ui/webcam` | Wrap the app with `CloudStorageProvider` |
 | `WebcamImageUploadModal` | `StackedModalsProvider` + `CloudStorageProvider` + Formik |
-| `@medram/ui/time-picker` | No provider required |
-| `@medram/ui/wizard` | No provider required for the high-level `Wizard` component |
+| `@flowui/ui/time-picker` | No provider required |
+| `@flowui/ui/wizard` | No provider required for the high-level `Wizard` component |
 
 ## Wizard module
 
-Use `@medram/ui/wizard` when you want step orchestration without rebuilding navigation, progress, and async transitions.
+Use `@flowui/ui/wizard` when you want step orchestration without rebuilding navigation, progress, and async transitions.
 
 ### Best exports
 
@@ -34,7 +34,7 @@ Use `@medram/ui/wizard` when you want step orchestration without rebuilding navi
 ### Example: account setup wizard
 
 ```tsx
-import { Wizard, type WizardStep } from "@medram/ui/wizard"
+import { Wizard, type WizardStep } from "@flowui/ui/wizard"
 
 const steps: WizardStep[] = [
   { id: "profile", title: "Profile", content: <ProfileStep /> },
@@ -56,7 +56,7 @@ export function AccountSetupWizard() {
 
 ## Modal module
 
-Use `@medram/ui/modal` when one dialog can lead to another and you want stack-aware behavior instead of manual local state in every screen.
+Use `@flowui/ui/modal` when one dialog can lead to another and you want stack-aware behavior instead of manual local state in every screen.
 
 ### Best exports
 
@@ -71,7 +71,7 @@ Use `@medram/ui/modal` when one dialog can lead to another and you want stack-aw
 ### Example: provider plus trigger
 
 ```tsx
-import { StackedModalsProvider, TriggerModal, useModalContext } from "@medram/ui/modal"
+import { StackedModalsProvider, TriggerModal, useModalContext } from "@flowui/ui/modal"
 
 function InviteUserButton() {
   const { open } = useModalContext()
@@ -98,7 +98,7 @@ export function AppProviders({ children }: { children: React.ReactNode }) {
 
 ## Webcam module
 
-Use `@medram/ui/webcam` when users should either upload an image or capture one from the camera.
+Use `@flowui/ui/webcam` when users should either upload an image or capture one from the camera.
 
 ### Best exports
 
@@ -112,8 +112,8 @@ Use `@medram/ui/webcam` when users should either upload an image or capture one 
 ### Example: non-modal upload-or-capture flow
 
 ```tsx
-import { CloudStorageProvider } from "@medram/ui/cloud-storage"
-import { WebcamImageUploader } from "@medram/ui/webcam"
+import { CloudStorageProvider } from "@flowui/ui/cloud-storage"
+import { WebcamImageUploader } from "@flowui/ui/webcam"
 
 export function ProfileImageStep() {
   return (
@@ -132,9 +132,9 @@ export function ProfileImageStep() {
 
 ```tsx
 import { Form, Formik } from "formik"
-import { CloudStorageProvider } from "@medram/ui/cloud-storage"
-import { StackedModalsProvider } from "@medram/ui/modal"
-import { WebcamImageUploadModal } from "@medram/ui/webcam"
+import { CloudStorageProvider } from "@flowui/ui/cloud-storage"
+import { StackedModalsProvider } from "@flowui/ui/modal"
+import { WebcamImageUploadModal } from "@flowui/ui/webcam"
 
 export function ProfileImageField() {
   return (
@@ -160,7 +160,7 @@ export function ProfileImageField() {
 
 ## Time picker module
 
-Use `@medram/ui/time-picker` when you need a standalone time input without a full date picker.
+Use `@flowui/ui/time-picker` when you need a standalone time input without a full date picker.
 
 | Export | Use it for |
 | --- | --- |
@@ -171,7 +171,7 @@ Use `@medram/ui/time-picker` when you need a standalone time input without a ful
 
 ```tsx
 import { useState } from "react"
-import { TimePicker } from "@medram/ui/time-picker"
+import { TimePicker } from "@flowui/ui/time-picker"
 
 export function QuietHoursInput() {
   const [value, setValue] = useState(new Date())
@@ -182,7 +182,7 @@ export function QuietHoursInput() {
 
 ## Cloud storage provider
 
-Use `@medram/ui/cloud-storage` to bridge your app's upload APIs into the package.
+Use `@flowui/ui/cloud-storage` to bridge your app's upload APIs into the package.
 
 | Export | Use it for |
 | --- | --- |
@@ -197,7 +197,7 @@ Use `@medram/ui/cloud-storage` to bridge your app's upload APIs into the package
 import {
   CloudStorageProvider,
   type CloudStorageContextValue,
-} from "@medram/ui/cloud-storage"
+} from "@flowui/ui/cloud-storage"
 
 const cloudStorageValue: CloudStorageContextValue = {
   uploadFile: async (file, options) => uploadViaApi(file, options),

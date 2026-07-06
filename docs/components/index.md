@@ -6,11 +6,11 @@ If you know the job to be done, start here.
 
 | You need | Import from | Start with |
 | --- | --- | --- |
-| Formik-ready fields | `@medram/ui/fields` | [Form fields](/components/form-fields) |
-| shadcn-style building blocks | `@medram/ui/primitives` | [Primitives](/components/primitives) |
-| Ready-made dashboard and app helpers | `@medram/ui` | [Root components](/components/root-components) |
-| Recharts wrappers | `@medram/ui/charts` | [Charts](/components/charts) |
-| Wizards, stacked modals, webcam flows, and time input | `@medram/ui/wizard`, `@medram/ui/modal`, `@medram/ui/webcam`, `@medram/ui/time-picker` | [Workflows and providers](/components/workflows) |
+| Formik-ready fields | `@flowui/ui/fields` | [Form fields](/components/form-fields) |
+| shadcn-style building blocks | `@flowui/ui/primitives` | [Primitives](/components/primitives) |
+| Ready-made dashboard and app helpers | `@flowui/ui` | [Root components](/components/root-components) |
+| Recharts wrappers | `@flowui/ui/charts` | [Charts](/components/charts) |
+| Wizards, stacked modals, webcam flows, and time input | `@flowui/ui/wizard`, `@flowui/ui/modal`, `@flowui/ui/webcam`, `@flowui/ui/time-picker` | [Workflows and providers](/components/workflows) |
 
 ::: tip Setup rules that matter
 - Components ending in `Field` expect a Formik form context.
@@ -41,7 +41,7 @@ The primitives layer exposes shadcn/Radix-style building blocks with the project
 
 ### 3. Use the root barrel for app-ready pieces
 
-The root `@medram/ui` entrypoint is the convenience layer. It includes shared components that solve common dashboard problems directly.
+The root `@flowui/ui` entrypoint is the convenience layer. It includes shared components that solve common dashboard problems directly.
 
 - Feedback and state: `AlertBox`, `Loader`, `LoadingSection`, `FullScreenLoading`, `SubmitButton`
 - Navigation and layout: `Tabs`, `VerticalTabs`, `Pagination`, `ModalBox`, `SheetBox`, `MultiStep`

@@ -1,10 +1,10 @@
 import { defineConfig } from "vitepress"
 
-const repoUrl = "https://github.com/medram/ui"
-const repoBase = "/ui/"
+const repoUrl = "https://github.com/medram/flowui"
+const repoBase = "/flowui/"
 
 export default defineConfig({
-  title: "@medram/ui",
+  title: "@flowui/ui",
   description: "Reusable shadcn/ui component library for React and Next.js applications.",
   base: process.env.GITHUB_ACTIONS ? repoBase : "/",
   cleanUrls: true,

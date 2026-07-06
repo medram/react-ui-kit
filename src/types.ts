@@ -1,4 +1,4 @@
-// Shared types for @medram/ui, lifted from the host app so the package is
+// Shared types for @flowui/ui, lifted from the host app so the package is
 import type { ReactNode } from "react"
 // self-contained. Kept structurally compatible with the app's equivalents.
 

@@ -1,9 +1,9 @@
 ---
 layout: home
-title: "@medram/ui"
+title: "@flowui/ui"
 titleTemplate: false
 hero:
-  name: "@medram/ui"
+  name: "@flowui/ui"
   text: A practical React UI kit for product teams
   tagline: Shadcn-style primitives, Formik-ready fields, charts, wizard flows, upload tooling, and dashboard helpers in one package.
   actions:
@@ -34,23 +34,23 @@ features:
 
 ## Public entrypoints
 
-- `@medram/ui`
-- `@medram/ui/primitives`
-- `@medram/ui/fields`
-- `@medram/ui/charts`
-- `@medram/ui/modal`
-- `@medram/ui/wizard`
-- `@medram/ui/webcam`
-- `@medram/ui/time-picker`
-- `@medram/ui/cloud-storage`
-- `@medram/ui/tailwind`
-- `@medram/ui/styles.css`
+- `@flowui/ui`
+- `@flowui/ui/primitives`
+- `@flowui/ui/fields`
+- `@flowui/ui/charts`
+- `@flowui/ui/modal`
+- `@flowui/ui/wizard`
+- `@flowui/ui/webcam`
+- `@flowui/ui/time-picker`
+- `@flowui/ui/cloud-storage`
+- `@flowui/ui/tailwind`
+- `@flowui/ui/styles.css`
 
 ## Friendly rules of thumb
 
 ::: tip
-- Reach for `@medram/ui/fields` when you want Formik wiring done for you.
-- Reach for `@medram/ui/primitives` when you want control over composition.
+- Reach for `@flowui/ui/fields` when you want Formik wiring done for you.
+- Reach for `@flowui/ui/primitives` when you want control over composition.
 - Reach for the root barrel when a ready-made widget already fits the screen.
 :::
 

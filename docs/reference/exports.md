@@ -6,17 +6,17 @@ This page is the shortest path to the right import.
 
 | Import path | Use it for | Best follow-up page |
 | --- | --- | --- |
-| `@medram/ui` | Convenience barrel for commonly reused fields and app-ready widgets | [Root components](/components/root-components) |
-| `@medram/ui/primitives` | shadcn/Radix-style low-level building blocks | [Primitives](/components/primitives) |
-| `@medram/ui/fields` | Formik-ready fields, upload inputs, and field helpers | [Form fields](/components/form-fields) |
-| `@medram/ui/charts` | Lazy-loaded Recharts wrappers | [Charts](/components/charts) |
-| `@medram/ui/modal` | Stacked modal provider, hooks, and modal helpers | [Workflows and providers](/components/workflows) |
-| `@medram/ui/wizard` | Wizard orchestration and wizard types | [Workflows and providers](/components/workflows) |
-| `@medram/ui/webcam` | Webcam capture and upload flows | [Workflows and providers](/components/workflows) |
-| `@medram/ui/time-picker` | Standalone time input controls | [Workflows and providers](/components/workflows) |
-| `@medram/ui/cloud-storage` | Upload provider contract and hooks | [Cloud storage reference](/reference/cloud-storage) |
-| `@medram/ui/tailwind` | Tailwind preset | [Styling](/guide/styling) |
-| `@medram/ui/styles.css` | Shared design-token stylesheet | [Styling](/guide/styling) |
+| `@flowui/ui` | Convenience barrel for commonly reused fields and app-ready widgets | [Root components](/components/root-components) |
+| `@flowui/ui/primitives` | shadcn/Radix-style low-level building blocks | [Primitives](/components/primitives) |
+| `@flowui/ui/fields` | Formik-ready fields, upload inputs, and field helpers | [Form fields](/components/form-fields) |
+| `@flowui/ui/charts` | Lazy-loaded Recharts wrappers | [Charts](/components/charts) |
+| `@flowui/ui/modal` | Stacked modal provider, hooks, and modal helpers | [Workflows and providers](/components/workflows) |
+| `@flowui/ui/wizard` | Wizard orchestration and wizard types | [Workflows and providers](/components/workflows) |
+| `@flowui/ui/webcam` | Webcam capture and upload flows | [Workflows and providers](/components/workflows) |
+| `@flowui/ui/time-picker` | Standalone time input controls | [Workflows and providers](/components/workflows) |
+| `@flowui/ui/cloud-storage` | Upload provider contract and hooks | [Cloud storage reference](/reference/cloud-storage) |
+| `@flowui/ui/tailwind` | Tailwind preset | [Styling](/guide/styling) |
+| `@flowui/ui/styles.css` | Shared design-token stylesheet | [Styling](/guide/styling) |
 
 ## Root barrel highlights
 

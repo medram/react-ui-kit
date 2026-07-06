@@ -1,4 +1,4 @@
-// Pure helpers lifted from the host app's src/utils, scoped to what @medram/ui
+// Pure helpers lifted from the host app's src/utils, scoped to what @flowui/ui
 // components actually use. Verbatim behaviour to preserve parity.
 
 type ColorPalette = {

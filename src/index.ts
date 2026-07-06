@@ -1,4 +1,4 @@
-// Root barrel for @medram/ui. Charts, fields, modal, wizard, time-picker and
+// Root barrel for @flowui/ui. Charts, fields, modal, wizard, time-picker and
 // primitives are exposed via their own subpath entries.
 // Fields that the original reusables barrel re-exported directly.
 // Re-exporting from subpath keeps the single-import pattern working.

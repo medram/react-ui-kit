@@ -2,9 +2,9 @@
 
 The charts package wraps Recharts in app-ready components with lazy loading, shared card chrome, and optional summaries.
 
-For dashboard charts, start with `@medram/ui/charts`, not the root barrel.
+For dashboard charts, start with `@flowui/ui/charts`, not the root barrel.
 
-The `@medram/ui/charts` barrel re-exports the chart defaults as named exports, so you can standardize on named imports.
+The `@flowui/ui/charts` barrel re-exports the chart defaults as named exports, so you can standardize on named imports.
 
 ::: info Good mental model
 Every chart component focuses on one job: accept a typed data shape, render inside a standard card, and keep tooltips, legends, and summaries consistent.
@@ -13,7 +13,7 @@ Every chart component focuses on one job: accept a typed data shape, render insi
 ## Quick example
 
 ```tsx
-import { AreaChart } from "@medram/ui/charts"
+import { AreaChart } from "@flowui/ui/charts"
 
 const monthlyRevenue = [
   {
@@ -56,7 +56,7 @@ export function RevenueChart() {
 ## Example: categorical comparison with `BarChart`
 
 ```tsx
-import { BarChart, type BarChartDataItem } from "@medram/ui/charts"
+import { BarChart, type BarChartDataItem } from "@flowui/ui/charts"
 
 const salesByRegion: BarChartDataItem[] = [
   {
@@ -98,7 +98,7 @@ export function RegionSalesChart() {
 ## Import style and custom composition
 
 ```tsx
-import { AreaChart, BarChart, ChartFallback } from "@medram/ui/charts"
+import { AreaChart, BarChart, ChartFallback } from "@flowui/ui/charts"
 ```
 
 Use the named imports above for consistency. Reach for `ChartFallback` directly only when you are building your own lazy chart wrapper or a custom `BaseChartCard` composition.

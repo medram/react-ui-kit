@@ -17,7 +17,7 @@ export type UploadFileOptions = {
  *
  * Usage in the app's Providers.tsx:
  *
- *   import { CloudStorageProvider } from "@medram/ui/cloud-storage"
+ *   import { CloudStorageProvider } from "@flowui/ui/cloud-storage"
  *   import { useCloudStorage } from "@/hooks/cloudstorage.hook"
  *
  *   function AppCloudStorageProvider({ children }) {
@@ -62,7 +62,7 @@ export function useCloudStorageContext(): CloudStorageContextValue {
   if (!ctx) {
     throw new Error(
       "useCloudStorageContext: no <CloudStorageProvider> found in the tree. " +
-        "Wrap your app root with <CloudStorageProvider value={...}> from @medram/ui/cloud-storage.",
+        "Wrap your app root with <CloudStorageProvider value={...}> from @flowui/ui/cloud-storage.",
     )
   }
   return ctx
