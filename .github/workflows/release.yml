@@ -36,6 +36,10 @@ jobs:
           cache: pnpm
           cache-dependency-path: pnpm-lock.yaml
 
+      - uses: pnpm/action-setup@v6
+        with:
+          version: 11
+
       - name: Enable Corepack
         run: corepack enable
 
