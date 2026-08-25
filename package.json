@@ -1,6 +1,6 @@
 {
   "name": "@medram/react-ui-kit",
-  "version": "0.2.0",
+  "version": "0.3.0",
   "description": "Headless contracts and a shadcn source registry for Medram React workflows.",
   "keywords": [
     "react",
