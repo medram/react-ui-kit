@@ -1,6 +1,6 @@
 "use client"
 
-import React, { createContext, use } from "react"
+import { createContext, useContext, type ReactNode } from "react"
 import type { AttachmentDto } from "../types"
 
 export type UploadFileOptions = {
@@ -41,7 +41,6 @@ export type CloudStorageContextValue = {
   uploadFile: (file: File, options?: UploadFileOptions) => Promise<AttachmentDto>
   fetchAttachment: (id: string) => Promise<AttachmentDto>
   deleteAttachment: (id: string) => Promise<void>
-  /** Called when uploadFile or fetchAttachment throws. Defaults to console.error. */
   onError?: (error: unknown) => void
 }
 
@@ -51,14 +50,14 @@ export function CloudStorageProvider({
   children,
   value,
 }: {
-  children: React.ReactNode
+  children: ReactNode
   value: CloudStorageContextValue
 }) {
   return <CloudStorageContext.Provider value={value}>{children}</CloudStorageContext.Provider>
 }
 
 export function useCloudStorageContext(): CloudStorageContextValue {
-  const ctx = use(CloudStorageContext)
+  const ctx = useContext(CloudStorageContext)
   if (!ctx) {
     throw new Error(
       "useCloudStorageContext: no <CloudStorageProvider> found in the tree. " +

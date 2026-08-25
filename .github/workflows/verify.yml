@@ -1,0 +1,30 @@
+name: Verify package
+
+on:
+  pull_request:
+  push:
+    branches:
+      - main
+
+permissions:
+  contents: read
+
+jobs:
+  verify:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v7
+      - uses: actions/setup-node@v6
+        with:
+          node-version: 24
+          cache: pnpm
+      - uses: pnpm/action-setup@v6
+      - run: corepack enable
+      - run: pnpm install --frozen-lockfile
+      - run: pnpm type:check
+      - run: pnpm registry:validate
+      - run: pnpm verify:consumers
+      - run: pnpm registry:build
+      - run: node scripts/verify-registry.mjs
+      - run: pnpm docs:build
+      - run: pnpm pack --pack-destination .artifacts

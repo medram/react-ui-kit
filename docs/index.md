@@ -4,54 +4,29 @@ title: "@medram/react-ui-kit"
 titleTemplate: false
 hero:
   name: "@medram/react-ui-kit"
-  text: A practical React UI kit for product teams
-  tagline: Shadcn-style primitives, Formik-ready fields, charts, wizard flows, upload tooling, and dashboard helpers in one package.
+  text: Medram workflows for your shadcn application
+  tagline: Install visual workflows as editable source; keep only Cloud Storage contracts in npm.
   actions:
     - theme: brand
-      text: Browse components
-      link: /components/
+      text: Browse registry
+      link: /reference/catalog
     - theme: alt
       text: Get started
       link: /guide/getting-started
 features:
-  - title: Ship forms faster
-    details: Use the Formik-ready field layer for labels, help text, validation feedback, date/time pickers, uploads, and image workflows.
-  - title: Stay close to the metal
-    details: Drop down to themed primitives whenever you want direct control over cards, dialogs, tabs, sheets, tables, and low-level form inputs.
-  - title: Solve real app flows
-    details: The package includes stacked modals, multi-step wizards, webcam capture, upload provider wiring, and chart wrappers for dashboard work.
+  - title: Consumer-owned UI
+    details: Medram registry items depend on your installed shadcn components rather than package-owned primitives.
+  - title: React and Next.js
+    details: Registry sources avoid Next-only imports so the same workflow can build in Vite and Next.js.
+  - title: Explicit storage boundary
+    details: CloudStorageProvider keeps upload, fetch, delete, and authorization code in the application.
 ---
 
-## Pick your starting point
+## Public contract
 
-| If you are building | Go here |
-| --- | --- |
-| A form or settings screen | [Form fields](/components/form-fields) |
-| A custom screen layout | [Primitives](/components/primitives) |
-| A dashboard card or app widget | [Root components](/components/root-components) |
-| A data visualization | [Charts](/components/charts) |
-| A modal, wizard, upload, or camera flow | [Workflows and providers](/components/workflows) |
+The npm package exposes only:
 
-## Public entrypoints
-
-- `@medram/react-ui-kit`
-- `@medram/react-ui-kit/primitives`
-- `@medram/react-ui-kit/fields`
-- `@medram/react-ui-kit/charts`
-- `@medram/react-ui-kit/modal`
-- `@medram/react-ui-kit/wizard`
-- `@medram/react-ui-kit/webcam`
-- `@medram/react-ui-kit/time-picker`
 - `@medram/react-ui-kit/cloud-storage`
-- `@medram/react-ui-kit/tailwind`
-- `@medram/react-ui-kit/styles.css`
+- `@medram/react-ui-kit/types`
 
-## Friendly rules of thumb
-
-::: tip
-- Reach for `@medram/react-ui-kit/fields` when you want Formik wiring done for you.
-- Reach for `@medram/react-ui-kit/primitives` when you want control over composition.
-- Reach for the root barrel when a ready-made widget already fits the screen.
-:::
-
-Start with the [component guide](/components/) if you want the fastest path from requirement to import.
+All visual components are installed from the source registry. Start with the [registry catalogue](/reference/catalog).

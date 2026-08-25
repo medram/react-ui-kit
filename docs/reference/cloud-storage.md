@@ -1,102 +1,45 @@
-# Cloud storage reference
+# Cloud Storage
 
-Upload-aware components in `@medram/react-ui-kit` do not talk to your API directly. They depend on a provider contract that your app implements once.
-
-## Import
+`@medram/react-ui-kit/cloud-storage` is the only runtime npm integration required by Medram registry upload workflows.
 
 ```tsx
 import {
   CloudStorageProvider,
-  useCloudStorageContext,
   type CloudStorageContextValue,
   type UploadFileOptions,
+  useCloudStorageContext,
 } from "@medram/react-ui-kit/cloud-storage"
 ```
 
 ## Provider contract
 
 ```tsx
-type UploadFileOptions = {
-  name?: string
-  onProgress?: (pct: number) => void
-}
-
-type CloudStorageContextValue = {
-  uploadFile: (file: File, options?: UploadFileOptions) => Promise<AttachmentDto>
-  fetchAttachment: (id: string) => Promise<AttachmentDto>
-  deleteAttachment: (id: string) => Promise<void>
-  onError?: (error: unknown) => void
-}
-```
-
-### What each function is for
-
-| Function | Used by |
-| --- | --- |
-| `uploadFile` | `UploadField`, `BasicImageUploaderField`, `UploadInput`, `WebcamImageUploader`, and `WebcamImageUploadModal` through its internal uploader flow |
-| `fetchAttachment` | Preview and attachment hydration flows |
-| `deleteAttachment` | Upload deletion and cleanup flows |
-| `onError` | Centralized error handling when upload/fetch/delete operations fail |
-
-## App-level setup
-
-```tsx
-import {
-  CloudStorageProvider,
-  type CloudStorageContextValue,
-} from "@medram/react-ui-kit/cloud-storage"
-
-const cloudStorageValue: CloudStorageContextValue = {
-  uploadFile: async (file, { name, onProgress } = {}) =>
-    uploadAttachment({
-      file,
-      name,
-      onUploadProgress: (event) => {
-        if (!event.total) return
-        onProgress?.(Math.round((event.loaded / event.total) * 100))
-      },
-    }),
-  fetchAttachment: async (id) => getAttachment(id),
-  deleteAttachment: async (id) => removeAttachment(id),
+const storage: CloudStorageContextValue = {
+  uploadFile: async (file, options: UploadFileOptions = {}) => {
+    return uploadViaApi(file, options)
+  },
+  fetchAttachment: async (id) => fetchAttachment(id),
+  deleteAttachment: async (id) => deleteAttachment(id),
   onError: (error) => reportError(error),
 }
-
-export function AppProviders({ children }: { children: React.ReactNode }) {
-  return <CloudStorageProvider value={cloudStorageValue}>{children}</CloudStorageProvider>
-}
 ```
 
-## Reading the provider from custom code
+Mount one provider above every Medram upload workflow:
 
 ```tsx
-import { useCloudStorageContext } from "@medram/react-ui-kit/cloud-storage"
-
-export function RetryUploadButton({ file }: { file: File }) {
-  const { uploadFile } = useCloudStorageContext()
-
-  return <button onClick={() => uploadFile(file)}>Retry upload</button>
-}
+<CloudStorageProvider value={storage}>{children}</CloudStorageProvider>
 ```
 
-## Components that need this provider
+`useCloudStorageContext()` throws a clear error when no provider is mounted. It supports React 18 and React 19.
 
-- `UploadField`
-- `BasicImageUploaderField`
-- `UploadInput`
-- `WebcamImageUploader`
-- `WebcamImageUploadModal` via its internal uploader flow
-- flows built on `useCloudStorageOps`
+## Upload state helper
 
-::: warning Missing provider behavior
-`useCloudStorageContext()` throws when no `CloudStorageProvider` exists in the tree. If uploads fail immediately with a provider error, fix the app shell first rather than debugging the field component.
-:::
+Registry upload components use `useCloudStorageOps()` to fetch attachment IDs, upload files with progress, expose optimistic placeholders, and delete attachments. Custom application workflows may use it too:
 
-## Progress reporting
+```tsx
+const { uploadFile, uploadedFiles, isUploading, deleteAttachment } = useCloudStorageOps({
+  attachmentIds,
+})
+```
 
-If your HTTP client exposes upload progress, pass it to `onProgress` as a percentage from `0` to `100`. The package uses that callback to render progress feedback in upload-aware components.
-
-## Practical advice
-
-- Put the provider near the app root instead of inside individual forms.
-- Keep API concerns in the host app and leave the package contract thin.
-- Normalize attachment DTOs once in your provider implementation so every component sees the same shape.
+The application controls persistence and authorization; Medram does not own endpoints, HTTP clients, or authentication.

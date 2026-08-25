@@ -1,68 +1,46 @@
 # @medram/react-ui-kit
 
-Reusable shadcn/ui component library for React and Next.js applications.
+Medram workflow components are installed as editable shadcn source. The npm package ships only the Cloud Storage contract and shared TypeScript types.
 
-## Install
+## Install a visual component
+
+Initialize shadcn with the Radix base. Medram registry sources use the current Radix compound-component API:
+
+```bash
+pnpm dlx shadcn@latest init --base radix
+```
+
+Then install a workflow:
+
+```bash
+pnpm dlx shadcn@latest add medram/react-ui-kit/input-field
+```
+
+The registry installs its declared shadcn primitives and feature dependencies into the consuming application. Import generated source from `@/components/ui/...`; never import a Medram visual component from npm.
+
+For upstream-only composition:
+
+```bash
+pnpm dlx shadcn@latest add button card
+```
+
+## Cloud Storage contract
+
+Install the npm package only when a Medram upload workflow needs application-owned storage operations:
 
 ```bash
 pnpm add @medram/react-ui-kit
 ```
 
-## Links
-
-- Source: `https://github.com/medram/react-ui-kit`
-- Docs: `https://medram.github.io/react-ui-kit/`
-- Issues: `https://github.com/medram/react-ui-kit/issues`
-
-## Documentation
-
-- Repo docs source: `docs/`
-- Published site: `https://medram.github.io/react-ui-kit/`
-- Local preview: `pnpm docs:dev`
-
-## Tailwind setup
-
-Import the preset and add it to `presets`:
-
-```ts
-import preset from "@medram/react-ui-kit/tailwind"
-
-const config = {
-  presets: [preset],
-}
-
-export default config
+```tsx
+import { CloudStorageProvider } from "@medram/react-ui-kit/cloud-storage"
 ```
 
-Consumers also need Tailwind content scanning for the package build output:
+See the [documentation](https://medram.github.io/react-ui-kit/) for the provider contract, registry catalogue, and Tailwind 4.3 setup.
 
-```ts
-content: [
-  "./node_modules/@medram/react-ui-kit/dist/**/*.{js,mjs}",
-]
-```
+## Styling
 
-## Design tokens
-
-Import `@medram/react-ui-kit/styles.css` once unless your host app already defines the same CSS variables.
-
-## Available subpaths
-
-- `.`
-- `./fields`
-- `./modal`
-- `./primitives`
-- `./charts`
-- `./wizard`
-- `./webcam`
-- `./time-picker`
-- `./cloud-storage`
-- `./tailwind`
-- `./styles.css`
-
-## Cloud storage
-
-Upload and webcam components that access attachments require `CloudStorageProvider` from `@medram/react-ui-kit/cloud-storage`.
+Use the consumer application’s shadcn Tailwind 4 CSS-first setup. This package provides no Tailwind preset, stylesheet, content glob, or design-token override.
 
 ## License
 

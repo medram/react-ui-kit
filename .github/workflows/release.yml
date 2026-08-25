@@ -57,6 +57,12 @@ jobs:
       - name: Install dependencies
         run: pnpm install --frozen-lockfile
 
+      - name: Verify registry contract
+        run: pnpm verify:registry
+
+      - name: Build documentation
+        run: pnpm docs:build
+
       - name: Publish package
         run: pnpm publish --access public --no-git-checks
         env:

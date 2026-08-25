@@ -1,74 +1,57 @@
 ---
 name: medram-react-ui
-description: "Use @medram/react-ui-kit correctly in React and Next.js applications. Use this skill whenever an agent installs, configures, builds, refactors, debugs, or reviews UI with this package, including Formik fields, shadcn/Radix primitives, charts, wizards, stacked modals, uploads and cloud storage, webcam, time pickers, Tailwind, or design tokens."
-compatibility: "@medram/react-ui-kit 0.1.3; React 18+; Next.js 14+; Tailwind CSS 3+; feature-specific optional peers are documented in references/setup-and-runtime.md"
+description: "Use Medram shadcn registry workflows and Cloud Storage contracts in React and Next.js applications."
+compatibility: "@medram/react-ui-kit 0.2.0; React 18+; Tailwind CSS 4.3; current shadcn CLI"
 ---
 
-## Source of truth
+## Route requests correctly
 
-1. Inspect the consumer's installed `@medram/react-ui-kit` version before coding.
-2. Read its `package.json#exports` and public `.d.ts` declarations. Those installed contracts win whenever they differ from 0.1.3.
-3. For 0.1.3, use this skill and this repository's public barrels and docs. Treat implementation files only as evidence; never teach consumers to import them.
-4. Use only these manifest entrypoints: root, `/primitives`, `/fields`, `/charts`, `/modal`, `/wizard`, `/webcam`, `/time-picker`, `/cloud-storage`, `/tailwind`, and `/styles.css`.
+1. Visual component request → install a registry item:
 
-Do not import `src/**`, `dist/**`, chart `*.content`, `useCloudStorageOps`, or any other deep path.
+   ```bash
+   pnpm dlx shadcn@latest add medram/react-ui-kit/<item>
+   ```
 
-## Workflow
+   Import the generated consumer source from `@/components/ui/<item>`.
 
-1. Inspect the host's package version, framework boundary, Tailwind config, form-state library, and providers already mounted.
-2. Select a legal package layer below. Install every peer required by the selected feature.
-3. Read the one or two references that answer the task before writing code.
-4. Add `@medram/react-ui-kit/styles.css` once and configure the Tailwind preset/content scan when Tailwind participates.
-5. In Next.js RSC apps, put hooks, callbacks, Formik, providers, charts, webcam, Radix primitives, and hash-aware tabs in a client component or a client child. Keep data fetching above that boundary.
-6. Implement the smallest complete composition. Preserve the primitive accessibility structure rather than replacing compound parts with arbitrary markup.
-7. Run the host app's build or typecheck after integration. Resolve missing peers or configuration at their source rather than changing package imports.
+2. Ordinary button, card, dialog, field, or other primitive composition → use upstream shadcn:
 
-## Choose the package layer
+   ```bash
+   pnpm dlx shadcn@latest add <component>
+   ```
 
-| Need                                                           | Import from                          | Decision                                                                                                |
-| -------------------------------------------------------------- | ------------------------------------ | ------------------------------------------------------------------------------------------------------- |
-| App-ready dashboard helper or explicit compatibility re-export | `@medram/react-ui-kit`               | Use only when the helper's whole workflow matches. `SubmitButton` is root-only.                         |
-| Low-level themed UI and Radix composition                      | `@medram/react-ui-kit/primitives`    | Use for controlled dialogs, conventional tabs, custom form layout, and accessible composition.          |
-| Formik-ready fields or raw custom-state inputs                 | `@medram/react-ui-kit/fields`        | Use `*Field` under Formik. Use `SelectInput`, `ComboBox`, `UploadInput`, or `DropZone` for owned state. |
-| Dashboard charts                                               | `@medram/react-ui-kit/charts`        | Use named chart imports. Normal wrappers already contain their `Suspense` boundary.                     |
-| Stack-aware modal transitions                                  | `@medram/react-ui-kit/modal`         | Use a provider, `useModalContext()`, and `TriggerModal`.                                                |
-| Multi-step flow                                                | `@medram/react-ui-kit/wizard`        | Start with `Wizard`; choose `BaseWizard` only for custom navigation/progress/content.                   |
-| Capture or upload an image                                     | `@medram/react-ui-kit/webcam`        | Mount cloud storage; modal field also needs stacked modals and Formik.                                  |
-| Standalone controlled time                                     | `@medram/react-ui-kit/time-picker`   | Use `TimePicker` with `date` and `onChange`.                                                            |
-| Attachment adapter                                             | `@medram/react-ui-kit/cloud-storage` | Mount one `CloudStorageProvider` near the client app root.                                              |
+3. Upload, attachment, webcam, or custom storage state → install npm package and use:
+
+   ```tsx
+   import {
+     CloudStorageProvider,
+     useCloudStorageContext,
+     useCloudStorageOps,
+   } from "@medram/react-ui-kit/cloud-storage"
+   ```
+
+4. Shared DTOs → import only from `@medram/react-ui-kit/types`.
 
 ## Non-negotiable rules
 
-- [ ] Import `@medram/react-ui-kit/styles.css` once, unless the host intentionally owns the identical CSS variables.
-- [ ] Add the Tailwind preset and package content glob whenever Tailwind is in scope.
-- [ ] Render interactive package surfaces through a client component in Next.js RSC apps.
-- [ ] Put every `*Field` and root `SubmitButton` under Formik. Field `name` values must exist in `initialValues`.
-- [ ] Put upload and webcam flows below `CloudStorageProvider`.
-- [ ] Open stacked modals only from `TriggerModal`; `open()` must run synchronously in its click handler.
-- [ ] Preserve primitive accessibility: full compound family, labels and IDs, title/description, alt text, and explicit destructive-flow cancellation.
-- [ ] Install every optional peer used by the selected feature. Optional package metadata is not a runtime fallback.
-
-High-risk corrections:
-
-- `SubmitButton` is root-only and Formik-dependent. Never import it from `/fields`.
-- `TextEditor` returns `null`; do not recommend it.
-- Public spellings are `FlikeringGrid`, `TimeZoneSelectFiels`, and `LineCharts`.
-- Normal chart wrappers own their `Suspense`; do not wrap them again without a separate reason.
-- `ModalStackedBox` and `DialogStack*` are implementation details, not `/modal` exports.
-- `ModalBox` is not truly controlled: it only initializes internal state from `isOpen`; declared `width` and `height` do nothing. Use primitive `Dialog` for controlled state or the stacked-modal API for stack-aware flows.
+- Never import Medram visual components from npm. There is no root visual barrel or primitive subpath.
+- Medram registry source targets current shadcn Radix components. Initialize the host with `pnpm dlx shadcn@latest init --base radix`.
+- Install every visual item through the registry so its dependencies are explicit.
+- Interactive registry items in Next.js App Router belong in a client component.
+- Formik field items require matching `initialValues`; their generated controls must preserve label, error, and disabled associations.
+- Upload workflows require `CloudStorageProvider`; modal webcam flow also requires Formik and `stacked-modals`.
+- When a Next.js host needs routing, keep `router`/`Link` use in the host composition. Registry components expose callbacks and ordinary links so Vite remains supported.
 
 ## Reference map
 
-| Read when                                                                                 | Reference                                                        |
-| ----------------------------------------------------------------------------------------- | ---------------------------------------------------------------- |
-| Installing, configuring Tailwind, resolving Next.js boundaries or feature peers           | [Setup and runtime](references/setup-and-runtime.md)             |
-| Choosing a symbol, import path, value type, alias, or limitation                          | [Component catalog](references/components.md)                    |
-| Building an ordinary Formik form, primitive composition, root helper, raw input, or chart | [Composition patterns](references/patterns.md)                   |
-| Wiring cloud storage, stacked modals, webcam, wizard, or standalone time input            | [Providers and workflows](references/providers-and-workflows.md) |
+| Need | Reference |
+| --- | --- |
+| Choose an item, command, source import, or prerequisite | [Registry catalogue](references/catalog.md) |
+| Cloud upload, fetch, delete, progress, and failure contract | [Cloud Storage](references/cloud-storage.md) |
+| A specific item’s source, dependencies, state, and callback contract | `references/<item>.md` |
 
 ## Before finishing
 
-1. Re-check the consumer's installed exports and declarations if its version is not 0.1.3.
-2. Confirm every import is a manifest entrypoint and every required peer is installed.
-3. Verify provider placement, Formik ownership, client boundaries, accessibility parts, and stored value shape.
-4. Run the host app's own build or typecheck. Missing token styles, missing Tailwind scan paths, and unresolved feature peers are configuration defects, not reasons to deep-import package internals.
+1. Read the item reference and its installed generated source.
+2. Verify registry dependencies, provider placement, Formik ownership, value shape, labels/errors, and client boundaries.
+3. Run the consumer build or typecheck. For UI changes, exercise the actual browser surface.

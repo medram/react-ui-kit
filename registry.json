@@ -1,0 +1,1895 @@
+{
+  "$schema": "https://ui.shadcn.com/schema/registry.json",
+  "name": "medram-react-ui-kit",
+  "homepage": "https://medram.github.io/react-ui-kit/",
+  "items": [
+    {
+      "name": "modal-box",
+      "type": "registry:ui",
+      "title": "Modal Box",
+      "description": "Medram modal box source component.",
+      "registryDependencies": [
+        "button",
+        "dialog"
+      ],
+      "files": [
+        {
+          "path": "registry/source/components/ModalBox.tsx",
+          "type": "registry:ui",
+          "target": "components/ui/modal-box.tsx"
+        }
+      ]
+    },
+    {
+      "name": "form-error",
+      "type": "registry:ui",
+      "title": "Form Error",
+      "description": "Medram form error source component.",
+      "files": [
+        {
+          "path": "registry/source/components/FormError.tsx",
+          "type": "registry:ui",
+          "target": "components/ui/form-error.tsx"
+        }
+      ]
+    },
+    {
+      "name": "full-screen-loading",
+      "type": "registry:ui",
+      "title": "Full Screen Loading",
+      "description": "Medram full screen loading source component.",
+      "dependencies": [
+        "next-themes",
+        "react-spinners"
+      ],
+      "files": [
+        {
+          "path": "registry/source/components/FullScreenLoading.tsx",
+          "type": "registry:ui",
+          "target": "components/ui/full-screen-loading.tsx"
+        }
+      ]
+    },
+    {
+      "name": "help",
+      "type": "registry:ui",
+      "title": "Help",
+      "description": "Medram help source component.",
+      "files": [
+        {
+          "path": "registry/source/components/Help.tsx",
+          "type": "registry:ui",
+          "target": "components/ui/help.tsx"
+        }
+      ]
+    },
+    {
+      "name": "image-preview",
+      "type": "registry:ui",
+      "title": "Image Preview",
+      "description": "Medram image preview source component.",
+      "dependencies": [
+        "@medram/react-ui-kit"
+      ],
+      "files": [
+        {
+          "path": "registry/source/components/ImagePreview.tsx",
+          "type": "registry:ui",
+          "target": "components/ui/image-preview.tsx"
+        }
+      ]
+    },
+    {
+      "name": "loader",
+      "type": "registry:ui",
+      "title": "Loader",
+      "description": "Medram loader source component.",
+      "dependencies": [
+        "next-themes",
+        "react-spinners"
+      ],
+      "files": [
+        {
+          "path": "registry/source/components/Loader.tsx",
+          "type": "registry:ui",
+          "target": "components/ui/loader.tsx"
+        }
+      ]
+    },
+    {
+      "name": "loading-section",
+      "type": "registry:ui",
+      "title": "Loading Section",
+      "description": "Medram loading section source component.",
+      "registryDependencies": [
+        "medram/react-ui-kit/loader"
+      ],
+      "files": [
+        {
+          "path": "registry/source/components/LoadingSection.tsx",
+          "type": "registry:ui",
+          "target": "components/ui/loading-section.tsx"
+        }
+      ]
+    },
+    {
+      "name": "multi-step",
+      "type": "registry:ui",
+      "title": "Multi Step",
+      "description": "Medram multi step source component.",
+      "files": [
+        {
+          "path": "registry/source/components/MultiStep.tsx",
+          "type": "registry:ui",
+          "target": "components/ui/multi-step.tsx"
+        }
+      ]
+    },
+    {
+      "name": "number-ticker",
+      "type": "registry:ui",
+      "title": "Number Ticker",
+      "description": "Medram number ticker source component.",
+      "dependencies": [
+        "framer-motion"
+      ],
+      "files": [
+        {
+          "path": "registry/source/components/NumberTicker.tsx",
+          "type": "registry:ui",
+          "target": "components/ui/number-ticker.tsx"
+        }
+      ]
+    },
+    {
+      "name": "overview-box",
+      "type": "registry:ui",
+      "title": "Overview Box",
+      "description": "Medram overview box source component.",
+      "registryDependencies": [
+        "card",
+        "medram/react-ui-kit/dot-pattern",
+        "medram/react-ui-kit/number-ticker",
+        "tooltip"
+      ],
+      "dependencies": [
+        "lucide-react"
+      ],
+      "files": [
+        {
+          "path": "registry/source/components/OverviewBox.tsx",
+          "type": "registry:ui",
+          "target": "components/ui/overview-box.tsx"
+        }
+      ]
+    },
+    {
+      "name": "pdf-preview",
+      "type": "registry:ui",
+      "title": "Pdf Preview",
+      "description": "Medram pdf preview source component.",
+      "registryDependencies": [
+        "badge",
+        "card",
+        "medram/react-ui-kit/medram-utils",
+        "tooltip"
+      ],
+      "dependencies": [
+        "@medram/react-ui-kit",
+        "dayjs",
+        "lucide-react"
+      ],
+      "files": [
+        {
+          "path": "registry/source/components/PDFPreview.tsx",
+          "type": "registry:ui",
+          "target": "components/ui/pdf-preview.tsx"
+        }
+      ]
+    },
+    {
+      "name": "pagination",
+      "type": "registry:ui",
+      "title": "Pagination",
+      "description": "Medram pagination source component.",
+      "registryDependencies": [
+        "button",
+        "select"
+      ],
+      "dependencies": [
+        "lucide-react"
+      ],
+      "files": [
+        {
+          "path": "registry/source/components/Pagination.tsx",
+          "type": "registry:ui",
+          "target": "components/ui/pagination.tsx"
+        }
+      ]
+    },
+    {
+      "name": "select",
+      "type": "registry:ui",
+      "title": "Select",
+      "description": "Medram select source component.",
+      "registryDependencies": [
+        "select"
+      ],
+      "files": [
+        {
+          "path": "registry/source/components/Select.tsx",
+          "type": "registry:ui",
+          "target": "components/ui/medram-select.tsx"
+        }
+      ]
+    },
+    {
+      "name": "sheet-box",
+      "type": "registry:ui",
+      "title": "Sheet Box",
+      "description": "Medram sheet box source component.",
+      "registryDependencies": [
+        "button",
+        "sheet"
+      ],
+      "dependencies": [
+        "@medram/react-ui-kit"
+      ],
+      "files": [
+        {
+          "path": "registry/source/components/SheetBox.tsx",
+          "type": "registry:ui",
+          "target": "components/ui/sheet-box.tsx"
+        }
+      ]
+    },
+    {
+      "name": "submit-button",
+      "type": "registry:ui",
+      "title": "Submit Button",
+      "description": "Medram submit button source component.",
+      "registryDependencies": [
+        "button",
+        "medram/react-ui-kit/loader"
+      ],
+      "dependencies": [
+        "formik"
+      ],
+      "files": [
+        {
+          "path": "registry/source/components/SubmitButton.tsx",
+          "type": "registry:ui",
+          "target": "components/ui/submit-button.tsx"
+        }
+      ]
+    },
+    {
+      "name": "tabs",
+      "type": "registry:ui",
+      "title": "Tabs",
+      "description": "Medram tabs source component.",
+      "registryDependencies": [
+        "medram/react-ui-kit/loading-section",
+        "medram/react-ui-kit/use-url-hash",
+        "separator"
+      ],
+      "dependencies": [
+        "@medram/react-ui-kit"
+      ],
+      "files": [
+        {
+          "path": "registry/source/components/Tabs.tsx",
+          "type": "registry:ui",
+          "target": "components/ui/medram-tabs.tsx"
+        }
+      ]
+    },
+    {
+      "name": "vertical-tabs",
+      "type": "registry:ui",
+      "title": "Vertical Tabs",
+      "description": "Medram vertical tabs source component.",
+      "registryDependencies": [
+        "medram/react-ui-kit/loading-section",
+        "medram/react-ui-kit/use-url-hash",
+        "separator"
+      ],
+      "dependencies": [
+        "@medram/react-ui-kit"
+      ],
+      "files": [
+        {
+          "path": "registry/source/components/VerticalTabs.tsx",
+          "type": "registry:ui",
+          "target": "components/ui/vertical-tabs.tsx"
+        }
+      ]
+    },
+    {
+      "name": "wizard-card",
+      "type": "registry:ui",
+      "title": "Wizard Card",
+      "description": "Medram wizard card source component.",
+      "registryDependencies": [
+        "card"
+      ],
+      "dependencies": [
+        "@medram/react-ui-kit",
+        "lucide-react"
+      ],
+      "files": [
+        {
+          "path": "registry/source/components/WizardCard.tsx",
+          "type": "registry:ui",
+          "target": "components/ui/wizard-card.tsx"
+        }
+      ]
+    },
+    {
+      "name": "wizard-completion",
+      "type": "registry:ui",
+      "title": "Wizard Completion",
+      "description": "Medram wizard completion source component.",
+      "registryDependencies": [
+        "button"
+      ],
+      "dependencies": [
+        "lucide-react"
+      ],
+      "files": [
+        {
+          "path": "registry/source/components/WizardCompletion.tsx",
+          "type": "registry:ui",
+          "target": "components/ui/wizard-completion.tsx"
+        }
+      ]
+    },
+    {
+      "name": "gradient-separator",
+      "type": "registry:ui",
+      "title": "Gradient Separator",
+      "description": "Medram gradient separator source component.",
+      "files": [
+        {
+          "path": "registry/source/components/gradientSeparator.tsx",
+          "type": "registry:ui",
+          "target": "components/ui/gradient-separator.tsx"
+        }
+      ]
+    },
+    {
+      "name": "alert-box",
+      "type": "registry:ui",
+      "title": "Alert Box",
+      "description": "Medram alert box source component.",
+      "registryDependencies": [
+        "alert"
+      ],
+      "dependencies": [
+        "@radix-ui/react-icons"
+      ],
+      "files": [
+        {
+          "path": "registry/source/components/AlertBox.tsx",
+          "type": "registry:ui",
+          "target": "components/ui/alert-box.tsx"
+        }
+      ]
+    },
+    {
+      "name": "attachments-preview",
+      "type": "registry:ui",
+      "title": "Attachments Preview",
+      "description": "Medram attachments preview source component.",
+      "dependencies": [
+        "@medram/react-ui-kit",
+        "lucide-react",
+        "pretty-bytes"
+      ],
+      "files": [
+        {
+          "path": "registry/source/components/AttachmentsPreview.tsx",
+          "type": "registry:ui",
+          "target": "components/ui/attachments-preview.tsx"
+        }
+      ]
+    },
+    {
+      "name": "avatar",
+      "type": "registry:ui",
+      "title": "Avatar",
+      "description": "Medram avatar source component.",
+      "registryDependencies": [
+        "avatar",
+        "tooltip"
+      ],
+      "files": [
+        {
+          "path": "registry/source/components/Avatar.tsx",
+          "type": "registry:ui",
+          "target": "components/ui/medram-avatar.tsx"
+        }
+      ]
+    },
+    {
+      "name": "base-select",
+      "type": "registry:ui",
+      "title": "Base Select",
+      "description": "Medram base select source component.",
+      "registryDependencies": [
+        "select"
+      ],
+      "files": [
+        {
+          "path": "registry/source/components/BaseSelect.tsx",
+          "type": "registry:ui",
+          "target": "components/ui/base-select.tsx"
+        }
+      ]
+    },
+    {
+      "name": "calendar-date-picker",
+      "type": "registry:ui",
+      "title": "Calendar Date Picker",
+      "description": "Medram calendar date picker source component.",
+      "registryDependencies": [
+        "button",
+        "calendar",
+        "popover",
+        "select"
+      ],
+      "dependencies": [
+        "class-variance-authority",
+        "date-fns",
+        "date-fns-tz",
+        "lucide-react",
+        "react-day-picker"
+      ],
+      "files": [
+        {
+          "path": "registry/source/components/CalendarDatePicker.tsx",
+          "type": "registry:ui",
+          "target": "components/ui/calendar-date-picker.tsx"
+        }
+      ]
+    },
+    {
+      "name": "card-box",
+      "type": "registry:ui",
+      "title": "Card Box",
+      "description": "Medram card box source component.",
+      "registryDependencies": [
+        "card"
+      ],
+      "files": [
+        {
+          "path": "registry/source/components/CardBox.tsx",
+          "type": "registry:ui",
+          "target": "components/ui/card-box.tsx"
+        }
+      ]
+    },
+    {
+      "name": "check-in-heatmap",
+      "type": "registry:ui",
+      "title": "Check In Heatmap",
+      "description": "Medram check in heatmap source component.",
+      "registryDependencies": [
+        "tooltip"
+      ],
+      "dependencies": [
+        "@medram/react-ui-kit",
+        "dayjs"
+      ],
+      "files": [
+        {
+          "path": "registry/source/components/CheckInHeatmap.tsx",
+          "type": "registry:ui",
+          "target": "components/ui/check-in-heatmap.tsx"
+        }
+      ]
+    },
+    {
+      "name": "copy-button",
+      "type": "registry:ui",
+      "title": "Copy Button",
+      "description": "Medram copy button source component.",
+      "dependencies": [
+        "lucide-react"
+      ],
+      "files": [
+        {
+          "path": "registry/source/components/CopyableButton.tsx",
+          "type": "registry:ui",
+          "target": "components/ui/copy-button.tsx"
+        }
+      ]
+    },
+    {
+      "name": "custom-badge",
+      "type": "registry:ui",
+      "title": "Custom Badge",
+      "description": "Medram custom badge source component.",
+      "registryDependencies": [
+        "badge",
+        "medram/react-ui-kit/medram-utils"
+      ],
+      "dependencies": [
+        "next-themes"
+      ],
+      "files": [
+        {
+          "path": "registry/source/components/CustomBadge.tsx",
+          "type": "registry:ui",
+          "target": "components/ui/custom-badge.tsx"
+        }
+      ]
+    },
+    {
+      "name": "dot-pattern",
+      "type": "registry:ui",
+      "title": "Dot Pattern",
+      "description": "Medram dot pattern source component.",
+      "files": [
+        {
+          "path": "registry/source/components/DotPattern.tsx",
+          "type": "registry:ui",
+          "target": "components/ui/dot-pattern.tsx"
+        }
+      ]
+    },
+    {
+      "name": "drop-down-buttons",
+      "type": "registry:ui",
+      "title": "Drop Down Buttons",
+      "description": "Medram drop down buttons source component.",
+      "registryDependencies": [
+        "button",
+        "dropdown-menu",
+        "medram/react-ui-kit/loader",
+        "medram/react-ui-kit/stacked-modals"
+      ],
+      "dependencies": [
+        "lucide-react"
+      ],
+      "files": [
+        {
+          "path": "registry/source/components/DropDownButtons.tsx",
+          "type": "registry:ui",
+          "target": "components/ui/drop-down-buttons.tsx"
+        }
+      ]
+    },
+    {
+      "name": "flickering-grid",
+      "type": "registry:ui",
+      "title": "Flickering Grid",
+      "description": "Medram flickering grid source component.",
+      "files": [
+        {
+          "path": "registry/source/components/FlikeringGrid.tsx",
+          "type": "registry:ui",
+          "target": "components/ui/flickering-grid.tsx"
+        }
+      ]
+    },
+    {
+      "name": "switch-field",
+      "type": "registry:ui",
+      "title": "Switch Field",
+      "description": "Medram switch field source component.",
+      "registryDependencies": [
+        "label",
+        "medram/react-ui-kit/form-error",
+        "medram/react-ui-kit/help",
+        "switch"
+      ],
+      "dependencies": [
+        "formik"
+      ],
+      "files": [
+        {
+          "path": "registry/source/fields/SwitchField.tsx",
+          "type": "registry:ui",
+          "target": "components/ui/switch-field.tsx"
+        }
+      ]
+    },
+    {
+      "name": "text-area-field",
+      "type": "registry:ui",
+      "title": "Text Area Field",
+      "description": "Medram text area field source component.",
+      "registryDependencies": [
+        "label",
+        "medram/react-ui-kit/form-error",
+        "medram/react-ui-kit/help",
+        "textarea"
+      ],
+      "dependencies": [
+        "formik"
+      ],
+      "files": [
+        {
+          "path": "registry/source/fields/TextAreaField.tsx",
+          "type": "registry:ui",
+          "target": "components/ui/text-area-field.tsx"
+        }
+      ]
+    },
+    {
+      "name": "time-picker-field",
+      "type": "registry:ui",
+      "title": "Time Picker Field",
+      "description": "Medram time picker field source component.",
+      "registryDependencies": [
+        "label",
+        "medram/react-ui-kit/form-error",
+        "medram/react-ui-kit/help",
+        "medram/react-ui-kit/medram-utils",
+        "medram/react-ui-kit/time-picker"
+      ],
+      "dependencies": [
+        "formik"
+      ],
+      "files": [
+        {
+          "path": "registry/source/fields/TimePickerField.tsx",
+          "type": "registry:ui",
+          "target": "components/ui/time-picker-field.tsx"
+        }
+      ]
+    },
+    {
+      "name": "time-zone-select-field",
+      "type": "registry:ui",
+      "title": "Time Zone Select Field",
+      "description": "Medram time zone select field source component.",
+      "registryDependencies": [
+        "medram/react-ui-kit/select-field"
+      ],
+      "dependencies": [
+        "react-timezone-select"
+      ],
+      "files": [
+        {
+          "path": "registry/source/fields/TimeZoneSelectFiels.tsx",
+          "type": "registry:ui",
+          "target": "components/ui/time-zone-select-field.tsx"
+        }
+      ]
+    },
+    {
+      "name": "upload-field",
+      "type": "registry:ui",
+      "title": "Upload Field",
+      "description": "Medram upload field source component.",
+      "registryDependencies": [
+        "medram/react-ui-kit/form-error",
+        "medram/react-ui-kit/help",
+        "medram/react-ui-kit/upload-input"
+      ],
+      "dependencies": [
+        "@medram/react-ui-kit",
+        "@radix-ui/react-label",
+        "formik"
+      ],
+      "files": [
+        {
+          "path": "registry/source/fields/UploadField.tsx",
+          "type": "registry:ui",
+          "target": "components/ui/upload-field.tsx"
+        }
+      ]
+    },
+    {
+      "name": "copyable-input-field",
+      "type": "registry:ui",
+      "title": "Copyable Input Field",
+      "description": "Medram copyable input field source component.",
+      "registryDependencies": [
+        "button",
+        "input",
+        "label",
+        "medram/react-ui-kit/form-error",
+        "medram/react-ui-kit/help"
+      ],
+      "dependencies": [
+        "formik",
+        "lucide-react"
+      ],
+      "files": [
+        {
+          "path": "registry/source/fields/CopyableInputField.tsx",
+          "type": "registry:ui",
+          "target": "components/ui/copyable-input-field.tsx"
+        }
+      ]
+    },
+    {
+      "name": "date-picker-field",
+      "type": "registry:ui",
+      "title": "Date Picker Field",
+      "description": "Medram date picker field source component.",
+      "registryDependencies": [
+        "button",
+        "calendar",
+        "label",
+        "medram/react-ui-kit/form-error",
+        "medram/react-ui-kit/help",
+        "popover"
+      ],
+      "dependencies": [
+        "date-fns",
+        "formik",
+        "lucide-react"
+      ],
+      "files": [
+        {
+          "path": "registry/source/fields/DatePickerField.tsx",
+          "type": "registry:ui",
+          "target": "components/ui/date-picker-field.tsx"
+        }
+      ]
+    },
+    {
+      "name": "date-range-picker-field",
+      "type": "registry:ui",
+      "title": "Date Range Picker Field",
+      "description": "Medram date range picker field source component.",
+      "registryDependencies": [
+        "button",
+        "calendar",
+        "label",
+        "medram/react-ui-kit/form-error",
+        "medram/react-ui-kit/help",
+        "popover"
+      ],
+      "dependencies": [
+        "date-fns",
+        "formik",
+        "lucide-react"
+      ],
+      "files": [
+        {
+          "path": "registry/source/fields/DateRangePickerField.tsx",
+          "type": "registry:ui",
+          "target": "components/ui/date-range-picker-field.tsx"
+        }
+      ]
+    },
+    {
+      "name": "date-range-yup-schema",
+      "type": "registry:ui",
+      "title": "Date Range Yup Schema",
+      "description": "Medram date range yup schema source component.",
+      "dependencies": [
+        "yup"
+      ],
+      "files": [
+        {
+          "path": "registry/source/fields/DateRangeYupSchema.ts",
+          "type": "registry:ui",
+          "target": "components/ui/date-range-yup-schema.ts"
+        }
+      ]
+    },
+    {
+      "name": "date-selector-field",
+      "type": "registry:ui",
+      "title": "Date Selector Field",
+      "description": "Medram date selector field source component.",
+      "registryDependencies": [
+        "button",
+        "calendar",
+        "label",
+        "medram/react-ui-kit/form-error",
+        "medram/react-ui-kit/help",
+        "popover"
+      ],
+      "dependencies": [
+        "date-fns",
+        "formik",
+        "lucide-react"
+      ],
+      "files": [
+        {
+          "path": "registry/source/fields/DateSelectorField.tsx",
+          "type": "registry:ui",
+          "target": "components/ui/date-selector-field.tsx"
+        }
+      ]
+    },
+    {
+      "name": "date-time-picker-field",
+      "type": "registry:ui",
+      "title": "Date Time Picker Field",
+      "description": "Medram date time picker field source component.",
+      "registryDependencies": [
+        "button",
+        "calendar",
+        "input",
+        "label",
+        "medram/react-ui-kit/form-error",
+        "medram/react-ui-kit/help",
+        "popover",
+        "separator"
+      ],
+      "dependencies": [
+        "date-fns",
+        "formik",
+        "lucide-react"
+      ],
+      "files": [
+        {
+          "path": "registry/source/fields/DateTimePickerField.tsx",
+          "type": "registry:ui",
+          "target": "components/ui/date-time-picker-field.tsx"
+        }
+      ]
+    },
+    {
+      "name": "dropdown-box-field",
+      "type": "registry:ui",
+      "title": "Dropdown Box Field",
+      "description": "Medram dropdown box field source component.",
+      "registryDependencies": [
+        "dropdown-menu"
+      ],
+      "dependencies": [
+        "formik"
+      ],
+      "files": [
+        {
+          "path": "registry/source/fields/DropdownBoxField.tsx",
+          "type": "registry:ui",
+          "target": "components/ui/dropdown-box-field.tsx"
+        }
+      ]
+    },
+    {
+      "name": "input-field",
+      "type": "registry:ui",
+      "title": "Input Field",
+      "description": "Medram input field source component.",
+      "registryDependencies": [
+        "input",
+        "label",
+        "medram/react-ui-kit/form-error",
+        "medram/react-ui-kit/help"
+      ],
+      "dependencies": [
+        "formik"
+      ],
+      "files": [
+        {
+          "path": "registry/source/fields/InputField.tsx",
+          "type": "registry:ui",
+          "target": "components/ui/input-field.tsx"
+        }
+      ]
+    },
+    {
+      "name": "month-year-picker-field",
+      "type": "registry:ui",
+      "title": "Month Year Picker Field",
+      "description": "Medram month year picker field source component.",
+      "registryDependencies": [
+        "button",
+        "label",
+        "medram/react-ui-kit/form-error",
+        "medram/react-ui-kit/help",
+        "popover",
+        "select"
+      ],
+      "dependencies": [
+        "date-fns",
+        "formik",
+        "lucide-react"
+      ],
+      "files": [
+        {
+          "path": "registry/source/fields/MonthYearPickerField.tsx",
+          "type": "registry:ui",
+          "target": "components/ui/month-year-picker-field.tsx"
+        }
+      ]
+    },
+    {
+      "name": "multi-check-box-input-field",
+      "type": "registry:ui",
+      "title": "Multi Check Box Input Field",
+      "description": "Medram multi check box input field source component.",
+      "registryDependencies": [
+        "label",
+        "medram/react-ui-kit/check-box-input-thin-field",
+        "medram/react-ui-kit/form-error",
+        "medram/react-ui-kit/help"
+      ],
+      "dependencies": [
+        "formik"
+      ],
+      "files": [
+        {
+          "path": "registry/source/fields/MultiCheckBoxInputField.tsx",
+          "type": "registry:ui",
+          "target": "components/ui/multi-check-box-input-field.tsx"
+        }
+      ]
+    },
+    {
+      "name": "multi-select-field",
+      "type": "registry:ui",
+      "title": "Multi Select Field",
+      "description": "Medram multi select field source component.",
+      "registryDependencies": [
+        "input",
+        "label",
+        "medram/react-ui-kit/form-error",
+        "medram/react-ui-kit/help"
+      ],
+      "dependencies": [
+        "formik",
+        "lucide-react"
+      ],
+      "files": [
+        {
+          "path": "registry/source/fields/MultiSelectField.tsx",
+          "type": "registry:ui",
+          "target": "components/ui/multi-select-field.tsx"
+        }
+      ]
+    },
+    {
+      "name": "radio-group-field",
+      "type": "registry:ui",
+      "title": "Radio Group Field",
+      "description": "Medram radio group field source component.",
+      "registryDependencies": [
+        "label",
+        "medram/react-ui-kit/help",
+        "radio-group"
+      ],
+      "dependencies": [
+        "formik"
+      ],
+      "files": [
+        {
+          "path": "registry/source/fields/RadioGroupField.tsx",
+          "type": "registry:ui",
+          "target": "components/ui/radio-group-field.tsx"
+        }
+      ]
+    },
+    {
+      "name": "select-field",
+      "type": "registry:ui",
+      "title": "Select Field",
+      "description": "Medram select field source component.",
+      "registryDependencies": [
+        "label",
+        "medram/react-ui-kit/form-error",
+        "medram/react-ui-kit/help",
+        "select"
+      ],
+      "dependencies": [
+        "formik"
+      ],
+      "files": [
+        {
+          "path": "registry/source/fields/SelectField.tsx",
+          "type": "registry:ui",
+          "target": "components/ui/select-field.tsx"
+        }
+      ]
+    },
+    {
+      "name": "sensitive-field",
+      "type": "registry:ui",
+      "title": "Sensitive Field",
+      "description": "Medram sensitive field source component.",
+      "registryDependencies": [
+        "button",
+        "input",
+        "label",
+        "medram/react-ui-kit/form-error",
+        "medram/react-ui-kit/help"
+      ],
+      "dependencies": [
+        "formik",
+        "lucide-react"
+      ],
+      "files": [
+        {
+          "path": "registry/source/fields/SensitiveField.tsx",
+          "type": "registry:ui",
+          "target": "components/ui/sensitive-field.tsx"
+        }
+      ]
+    },
+    {
+      "name": "basic-image-uploader-field",
+      "type": "registry:ui",
+      "title": "Basic Image Uploader Field",
+      "description": "Medram basic image uploader field source component.",
+      "registryDependencies": [
+        "label",
+        "medram/react-ui-kit/drop-zone"
+      ],
+      "dependencies": [
+        "@medram/react-ui-kit",
+        "formik",
+        "lucide-react",
+        "react-dropzone",
+        "react-hot-toast"
+      ],
+      "files": [
+        {
+          "path": "registry/source/fields/BasicImageUploaderField.tsx",
+          "type": "registry:ui",
+          "target": "components/ui/basic-image-uploader-field.tsx"
+        }
+      ]
+    },
+    {
+      "name": "basic-time-zones-select-field",
+      "type": "registry:ui",
+      "title": "Basic Time Zones Select Field",
+      "description": "Medram basic time zones select field source component.",
+      "registryDependencies": [
+        "medram/react-ui-kit/medram-utils",
+        "medram/react-ui-kit/select-field"
+      ],
+      "files": [
+        {
+          "path": "registry/source/fields/BasicTimeZonesSelectField.tsx",
+          "type": "registry:ui",
+          "target": "components/ui/basic-time-zones-select-field.tsx"
+        }
+      ]
+    },
+    {
+      "name": "calendar-date-picker-field",
+      "type": "registry:ui",
+      "title": "Calendar Date Picker Field",
+      "description": "Medram calendar date picker field source component.",
+      "registryDependencies": [
+        "label",
+        "medram/react-ui-kit/calendar-date-picker",
+        "medram/react-ui-kit/form-error",
+        "medram/react-ui-kit/help"
+      ],
+      "dependencies": [
+        "formik",
+        "react-day-picker"
+      ],
+      "files": [
+        {
+          "path": "registry/source/fields/CalendarDatePickerField.tsx",
+          "type": "registry:ui",
+          "target": "components/ui/calendar-date-picker-field.tsx"
+        }
+      ]
+    },
+    {
+      "name": "check-box-field",
+      "type": "registry:ui",
+      "title": "Check Box Field",
+      "description": "Medram check box field source component.",
+      "registryDependencies": [
+        "label",
+        "medram/react-ui-kit/check-box-input-thin-field",
+        "medram/react-ui-kit/form-error",
+        "medram/react-ui-kit/help"
+      ],
+      "dependencies": [
+        "formik"
+      ],
+      "files": [
+        {
+          "path": "registry/source/fields/CheckBoxField.tsx",
+          "type": "registry:ui",
+          "target": "components/ui/check-box-field.tsx"
+        }
+      ]
+    },
+    {
+      "name": "check-box-input-thin-field",
+      "type": "registry:ui",
+      "title": "Check Box Input Thin Field",
+      "description": "Medram check box input thin field source component.",
+      "registryDependencies": [
+        "checkbox"
+      ],
+      "files": [
+        {
+          "path": "registry/source/fields/CheckBoxInputThinField.tsx",
+          "type": "registry:ui",
+          "target": "components/ui/check-box-input-thin-field.tsx"
+        }
+      ]
+    },
+    {
+      "name": "combo-box-field",
+      "type": "registry:ui",
+      "title": "Combo Box Field",
+      "description": "Medram combo box field source component.",
+      "registryDependencies": [
+        "button",
+        "command",
+        "label",
+        "medram/react-ui-kit/form-error",
+        "medram/react-ui-kit/help"
+      ],
+      "dependencies": [
+        "@radix-ui/react-popover",
+        "formik",
+        "lucide-react"
+      ],
+      "files": [
+        {
+          "path": "registry/source/fields/ComboBoxField.tsx",
+          "type": "registry:ui",
+          "target": "components/ui/combo-box-field.tsx"
+        }
+      ]
+    },
+    {
+      "name": "special-select-field",
+      "type": "registry:ui",
+      "title": "Special Select Field",
+      "description": "Medram special select field source component.",
+      "registryDependencies": [
+        "label",
+        "medram/react-ui-kit/help",
+        "select"
+      ],
+      "dependencies": [
+        "@medram/react-ui-kit"
+      ],
+      "files": [
+        {
+          "path": "registry/source/inputs/SpecialSelectField.tsx",
+          "type": "registry:ui",
+          "target": "components/ui/special-select-field.tsx"
+        }
+      ]
+    },
+    {
+      "name": "upload-input",
+      "type": "registry:ui",
+      "title": "Upload Input",
+      "description": "Medram upload input source component.",
+      "registryDependencies": [
+        "medram/react-ui-kit/attachment-inputs",
+        "medram/react-ui-kit/drop-zone"
+      ],
+      "dependencies": [
+        "@medram/react-ui-kit",
+        "lucide-react",
+        "pretty-bytes",
+        "react-dropzone",
+        "react-hot-toast"
+      ],
+      "files": [
+        {
+          "path": "registry/source/inputs/UploadInput.tsx",
+          "type": "registry:ui",
+          "target": "components/ui/upload-input.tsx"
+        }
+      ]
+    },
+    {
+      "name": "attachment-inputs",
+      "type": "registry:ui",
+      "title": "Attachment Inputs",
+      "description": "Medram attachment inputs source component.",
+      "files": [
+        {
+          "path": "registry/source/inputs/attachments.ts",
+          "type": "registry:ui",
+          "target": "components/ui/attachment-inputs.ts"
+        }
+      ]
+    },
+    {
+      "name": "combo-box",
+      "type": "registry:ui",
+      "title": "Combo Box",
+      "description": "Medram combo box source component.",
+      "registryDependencies": [
+        "button",
+        "command",
+        "popover"
+      ],
+      "dependencies": [
+        "lucide-react"
+      ],
+      "files": [
+        {
+          "path": "registry/source/inputs/ComboBox.tsx",
+          "type": "registry:ui",
+          "target": "components/ui/combo-box.tsx"
+        }
+      ]
+    },
+    {
+      "name": "drop-zone",
+      "type": "registry:ui",
+      "title": "Drop Zone",
+      "description": "Medram drop zone source component.",
+      "registryDependencies": [
+        "medram/react-ui-kit/attachment-inputs"
+      ],
+      "dependencies": [
+        "browser-image-compression",
+        "react-dropzone"
+      ],
+      "files": [
+        {
+          "path": "registry/source/inputs/DropZone.tsx",
+          "type": "registry:ui",
+          "target": "components/ui/drop-zone.tsx"
+        }
+      ]
+    },
+    {
+      "name": "select-input",
+      "type": "registry:ui",
+      "title": "Select Input",
+      "description": "Medram select input source component.",
+      "registryDependencies": [
+        "select"
+      ],
+      "files": [
+        {
+          "path": "registry/source/inputs/SelectInput.tsx",
+          "type": "registry:ui",
+          "target": "components/ui/select-input.tsx"
+        }
+      ]
+    },
+    {
+      "name": "pie-chart",
+      "type": "registry:ui",
+      "title": "Pie Chart",
+      "description": "Medram pie chart source component.",
+      "registryDependencies": [
+        "medram/react-ui-kit/base-chart-card",
+        "medram/react-ui-kit/medram-utils",
+        "medram/react-ui-kit/pie-chart-content",
+        "table"
+      ],
+      "dependencies": [
+        "@medram/react-ui-kit"
+      ],
+      "files": [
+        {
+          "path": "registry/source/charts/PieChart.tsx",
+          "type": "registry:ui",
+          "target": "components/ui/pie-chart.tsx"
+        }
+      ]
+    },
+    {
+      "name": "radar-chart-content",
+      "type": "registry:ui",
+      "title": "Radar Chart Content",
+      "description": "Medram radar chart content source component.",
+      "registryDependencies": [
+        "card",
+        "chart",
+        "separator",
+        "table"
+      ],
+      "dependencies": [
+        "recharts"
+      ],
+      "files": [
+        {
+          "path": "registry/source/charts/RadarChart.content.tsx",
+          "type": "registry:ui",
+          "target": "components/ui/radar-chart-content.tsx"
+        }
+      ]
+    },
+    {
+      "name": "radar-chart",
+      "type": "registry:ui",
+      "title": "Radar Chart",
+      "description": "Medram radar chart source component.",
+      "registryDependencies": [
+        "medram/react-ui-kit/base-chart-card",
+        "medram/react-ui-kit/medram-utils",
+        "medram/react-ui-kit/radar-chart-content",
+        "table"
+      ],
+      "dependencies": [
+        "@medram/react-ui-kit"
+      ],
+      "files": [
+        {
+          "path": "registry/source/charts/RadarChart.tsx",
+          "type": "registry:ui",
+          "target": "components/ui/radar-chart.tsx"
+        }
+      ]
+    },
+    {
+      "name": "stack-bar-chart-content",
+      "type": "registry:ui",
+      "title": "Stack Bar Chart Content",
+      "description": "Medram stack bar chart content source component.",
+      "registryDependencies": [
+        "card",
+        "chart",
+        "medram/react-ui-kit/stack-bar-chart",
+        "separator",
+        "table"
+      ],
+      "dependencies": [
+        "recharts"
+      ],
+      "files": [
+        {
+          "path": "registry/source/charts/StackBarChart.content.tsx",
+          "type": "registry:ui",
+          "target": "components/ui/stack-bar-chart-content.tsx"
+        }
+      ]
+    },
+    {
+      "name": "stack-bar-chart",
+      "type": "registry:ui",
+      "title": "Stack Bar Chart",
+      "description": "Medram stack bar chart source component.",
+      "registryDependencies": [
+        "chart",
+        "medram/react-ui-kit/base-chart-card",
+        "medram/react-ui-kit/medram-utils",
+        "medram/react-ui-kit/stack-bar-chart-content",
+        "table"
+      ],
+      "dependencies": [
+        "@medram/react-ui-kit"
+      ],
+      "files": [
+        {
+          "path": "registry/source/charts/StackBarChart.tsx",
+          "type": "registry:ui",
+          "target": "components/ui/stack-bar-chart.tsx"
+        }
+      ]
+    },
+    {
+      "name": "bar-chart",
+      "type": "registry:ui",
+      "title": "Bar Chart",
+      "description": "Medram bar chart source component.",
+      "registryDependencies": [
+        "chart",
+        "medram/react-ui-kit/bar-chart-content",
+        "medram/react-ui-kit/base-chart-card",
+        "medram/react-ui-kit/medram-utils",
+        "table"
+      ],
+      "dependencies": [
+        "@medram/react-ui-kit"
+      ],
+      "files": [
+        {
+          "path": "registry/source/charts/BarChart.tsx",
+          "type": "registry:ui",
+          "target": "components/ui/bar-chart.tsx"
+        }
+      ]
+    },
+    {
+      "name": "base-chart-card",
+      "type": "registry:ui",
+      "title": "Base Chart Card",
+      "description": "Medram base chart card source component.",
+      "registryDependencies": [
+        "card",
+        "medram/react-ui-kit/select-input"
+      ],
+      "files": [
+        {
+          "path": "registry/source/charts/BaseChartCard.tsx",
+          "type": "registry:ui",
+          "target": "components/ui/base-chart-card.tsx"
+        }
+      ]
+    },
+    {
+      "name": "line-chart-content",
+      "type": "registry:ui",
+      "title": "Line Chart Content",
+      "description": "Medram line chart content source component.",
+      "registryDependencies": [
+        "chart"
+      ],
+      "dependencies": [
+        "recharts"
+      ],
+      "files": [
+        {
+          "path": "registry/source/charts/LineCharts.content.tsx",
+          "type": "registry:ui",
+          "target": "components/ui/line-chart-content.tsx"
+        }
+      ]
+    },
+    {
+      "name": "line-charts",
+      "type": "registry:ui",
+      "title": "Line Charts",
+      "description": "Medram line charts source component.",
+      "registryDependencies": [
+        "chart",
+        "medram/react-ui-kit/base-chart-card",
+        "medram/react-ui-kit/line-chart-content"
+      ],
+      "dependencies": [
+        "@medram/react-ui-kit"
+      ],
+      "files": [
+        {
+          "path": "registry/source/charts/LineCharts.tsx",
+          "type": "registry:ui",
+          "target": "components/ui/line-charts.tsx"
+        }
+      ]
+    },
+    {
+      "name": "pie-chart-content",
+      "type": "registry:ui",
+      "title": "Pie Chart Content",
+      "description": "Medram pie chart content source component.",
+      "registryDependencies": [
+        "card",
+        "chart",
+        "separator",
+        "table"
+      ],
+      "dependencies": [
+        "recharts"
+      ],
+      "files": [
+        {
+          "path": "registry/source/charts/PieChart.content.tsx",
+          "type": "registry:ui",
+          "target": "components/ui/pie-chart-content.tsx"
+        }
+      ]
+    },
+    {
+      "name": "area-chart-content",
+      "type": "registry:ui",
+      "title": "Area Chart Content",
+      "description": "Medram area chart content source component.",
+      "registryDependencies": [
+        "card",
+        "chart",
+        "table"
+      ],
+      "dependencies": [
+        "recharts"
+      ],
+      "files": [
+        {
+          "path": "registry/source/charts/AreaChart.content.tsx",
+          "type": "registry:ui",
+          "target": "components/ui/area-chart-content.tsx"
+        }
+      ]
+    },
+    {
+      "name": "area-chart",
+      "type": "registry:ui",
+      "title": "Area Chart",
+      "description": "Medram area chart source component.",
+      "registryDependencies": [
+        "chart",
+        "medram/react-ui-kit/area-chart-content",
+        "medram/react-ui-kit/base-chart-card"
+      ],
+      "dependencies": [
+        "@medram/react-ui-kit"
+      ],
+      "files": [
+        {
+          "path": "registry/source/charts/AreaChart.tsx",
+          "type": "registry:ui",
+          "target": "components/ui/area-chart.tsx"
+        }
+      ]
+    },
+    {
+      "name": "bar-chart-content",
+      "type": "registry:ui",
+      "title": "Bar Chart Content",
+      "description": "Medram bar chart content source component.",
+      "registryDependencies": [
+        "card",
+        "chart",
+        "medram/react-ui-kit/bar-chart",
+        "separator",
+        "table"
+      ],
+      "dependencies": [
+        "recharts"
+      ],
+      "files": [
+        {
+          "path": "registry/source/charts/BarChart.content.tsx",
+          "type": "registry:ui",
+          "target": "components/ui/bar-chart-content.tsx"
+        }
+      ]
+    },
+    {
+      "name": "stacked-modal-box",
+      "type": "registry:ui",
+      "title": "Stacked Modal Box",
+      "description": "Medram stacked modal box source component.",
+      "registryDependencies": [
+        "dialog",
+        "medram/react-ui-kit/stacked-dialog"
+      ],
+      "files": [
+        {
+          "path": "registry/source/modal/ModalStackedBox.tsx",
+          "type": "registry:ui",
+          "target": "components/ui/stacked-modal-box.tsx"
+        }
+      ]
+    },
+    {
+      "name": "stacked-dialog",
+      "type": "registry:ui",
+      "title": "Stacked Dialog",
+      "description": "Medram stacked dialog source component.",
+      "dependencies": [
+        "@radix-ui/react-dialog",
+        "lucide-react"
+      ],
+      "files": [
+        {
+          "path": "registry/source/modal/StackedDialog.tsx",
+          "type": "registry:ui",
+          "target": "components/ui/stacked-dialog.tsx"
+        }
+      ]
+    },
+    {
+      "name": "modal-context",
+      "type": "registry:ui",
+      "title": "Modal Context",
+      "description": "Medram modal context source component.",
+      "files": [
+        {
+          "path": "registry/source/modal/modal-context.tsx",
+          "type": "registry:ui",
+          "target": "components/ui/modal-context.tsx"
+        }
+      ]
+    },
+    {
+      "name": "stacked-modals",
+      "type": "registry:ui",
+      "title": "Stacked Modals",
+      "description": "Medram stacked modals source component.",
+      "registryDependencies": [
+        "button",
+        "medram/react-ui-kit/loading-section",
+        "medram/react-ui-kit/modal-context",
+        "medram/react-ui-kit/stacked-modal-box"
+      ],
+      "files": [
+        {
+          "path": "registry/source/modal/modal.hook.tsx",
+          "type": "registry:ui",
+          "target": "components/ui/stacked-modals.tsx"
+        }
+      ]
+    },
+    {
+      "name": "image-upload-card",
+      "type": "registry:ui",
+      "title": "Image Upload Card",
+      "description": "Medram image upload card source component.",
+      "dependencies": [
+        "@medram/react-ui-kit",
+        "lucide-react"
+      ],
+      "files": [
+        {
+          "path": "registry/source/webcam/ImageUploadCard.tsx",
+          "type": "registry:ui",
+          "target": "components/ui/image-upload-card.tsx"
+        }
+      ]
+    },
+    {
+      "name": "webcam-capture",
+      "type": "registry:ui",
+      "title": "Webcam Capture",
+      "description": "Medram webcam capture source component.",
+      "registryDependencies": [
+        "button"
+      ],
+      "dependencies": [
+        "lucide-react",
+        "react-hot-toast",
+        "react-webcam"
+      ],
+      "files": [
+        {
+          "path": "registry/source/webcam/WebcamCapture.tsx",
+          "type": "registry:ui",
+          "target": "components/ui/webcam-capture.tsx"
+        }
+      ]
+    },
+    {
+      "name": "webcam-image-upload-modal",
+      "type": "registry:ui",
+      "title": "Webcam Image Upload Modal",
+      "description": "Medram webcam image upload modal source component.",
+      "registryDependencies": [
+        "label",
+        "medram/react-ui-kit/stacked-modals",
+        "medram/react-ui-kit/webcam-image-uploader"
+      ],
+      "dependencies": [
+        "formik",
+        "lucide-react"
+      ],
+      "files": [
+        {
+          "path": "registry/source/webcam/WebcamIamgeUploadModal.tsx",
+          "type": "registry:ui",
+          "target": "components/ui/webcam-image-upload-modal.tsx"
+        }
+      ]
+    },
+    {
+      "name": "webcam-image-uploader",
+      "type": "registry:ui",
+      "title": "Webcam Image Uploader",
+      "description": "Medram webcam image uploader source component.",
+      "registryDependencies": [
+        "button",
+        "medram/react-ui-kit/image-upload-card",
+        "medram/react-ui-kit/webcam-capture",
+        "medram/react-ui-kit/webcam-file-upload"
+      ],
+      "dependencies": [
+        "@medram/react-ui-kit",
+        "lucide-react",
+        "react-hot-toast"
+      ],
+      "files": [
+        {
+          "path": "registry/source/webcam/WebcamImageUploader.tsx",
+          "type": "registry:ui",
+          "target": "components/ui/webcam-image-uploader.tsx"
+        }
+      ]
+    },
+    {
+      "name": "webcam-file-upload",
+      "type": "registry:ui",
+      "title": "Webcam File Upload",
+      "description": "Medram webcam file upload source component.",
+      "files": [
+        {
+          "path": "registry/source/webcam/utils/fileUpload.ts",
+          "type": "registry:ui",
+          "target": "components/ui/webcam-file-upload.ts"
+        }
+      ]
+    },
+    {
+      "name": "wizard-controller",
+      "type": "registry:ui",
+      "title": "Wizard Controller",
+      "description": "Medram wizard controller source component.",
+      "registryDependencies": [
+        "medram/react-ui-kit/wizard-types"
+      ],
+      "files": [
+        {
+          "path": "registry/source/wizard/wizard-controller.ts",
+          "type": "registry:ui",
+          "target": "components/ui/wizard-controller.ts"
+        }
+      ]
+    },
+    {
+      "name": "wizard-context-hook",
+      "type": "registry:ui",
+      "title": "Wizard Context Hook",
+      "description": "Medram wizard context hook source component.",
+      "registryDependencies": [
+        "medram/react-ui-kit/wizard-context"
+      ],
+      "files": [
+        {
+          "path": "registry/source/wizard/wizard.hook.tsx",
+          "type": "registry:ui",
+          "target": "components/ui/wizard-context-hook.tsx"
+        }
+      ]
+    },
+    {
+      "name": "wizard-types",
+      "type": "registry:ui",
+      "title": "Wizard Types",
+      "description": "Medram wizard types source component.",
+      "files": [
+        {
+          "path": "registry/source/wizard/wizard.types.ts",
+          "type": "registry:ui",
+          "target": "components/ui/wizard-types.ts"
+        }
+      ]
+    },
+    {
+      "name": "base-wizard",
+      "type": "registry:ui",
+      "title": "Base Wizard",
+      "description": "Medram base wizard source component.",
+      "registryDependencies": [
+        "medram/react-ui-kit/wizard-content",
+        "medram/react-ui-kit/wizard-context",
+        "medram/react-ui-kit/wizard-navigation",
+        "medram/react-ui-kit/wizard-progress-bar"
+      ],
+      "files": [
+        {
+          "path": "registry/source/wizard/BaseWizard.ts",
+          "type": "registry:ui",
+          "target": "components/ui/base-wizard.ts"
+        }
+      ]
+    },
+    {
+      "name": "wizard",
+      "type": "registry:ui",
+      "title": "Wizard",
+      "description": "Medram wizard source component.",
+      "registryDependencies": [
+        "medram/react-ui-kit/base-wizard",
+        "medram/react-ui-kit/loading-section",
+        "medram/react-ui-kit/wizard-types"
+      ],
+      "files": [
+        {
+          "path": "registry/source/wizard/Wizard.tsx",
+          "type": "registry:ui",
+          "target": "components/ui/wizard.tsx"
+        }
+      ]
+    },
+    {
+      "name": "wizard-content",
+      "type": "registry:ui",
+      "title": "Wizard Content",
+      "description": "Medram wizard content source component.",
+      "registryDependencies": [
+        "medram/react-ui-kit/wizard-context-hook"
+      ],
+      "files": [
+        {
+          "path": "registry/source/wizard/WizardContent.tsx",
+          "type": "registry:ui",
+          "target": "components/ui/wizard-content.tsx"
+        }
+      ]
+    },
+    {
+      "name": "wizard-context",
+      "type": "registry:ui",
+      "title": "Wizard Context",
+      "description": "Medram wizard context source component.",
+      "registryDependencies": [
+        "medram/react-ui-kit/wizard-controller",
+        "medram/react-ui-kit/wizard-types"
+      ],
+      "files": [
+        {
+          "path": "registry/source/wizard/WizardContext.tsx",
+          "type": "registry:ui",
+          "target": "components/ui/wizard-context.tsx"
+        }
+      ]
+    },
+    {
+      "name": "wizard-navigation",
+      "type": "registry:ui",
+      "title": "Wizard Navigation",
+      "description": "Medram wizard navigation source component.",
+      "registryDependencies": [
+        "button",
+        "medram/react-ui-kit/wizard-context-hook"
+      ],
+      "dependencies": [
+        "lucide-react"
+      ],
+      "files": [
+        {
+          "path": "registry/source/wizard/WizardNavigation.tsx",
+          "type": "registry:ui",
+          "target": "components/ui/wizard-navigation.tsx"
+        }
+      ]
+    },
+    {
+      "name": "wizard-progress-bar",
+      "type": "registry:ui",
+      "title": "Wizard Progress Bar",
+      "description": "Medram wizard progress bar source component.",
+      "registryDependencies": [
+        "medram/react-ui-kit/wizard-context-hook"
+      ],
+      "dependencies": [
+        "lucide-react"
+      ],
+      "files": [
+        {
+          "path": "registry/source/wizard/WizardProgressBar.tsx",
+          "type": "registry:ui",
+          "target": "components/ui/wizard-progress-bar.tsx"
+        }
+      ]
+    },
+    {
+      "name": "time-picker",
+      "type": "registry:ui",
+      "title": "Time Picker",
+      "description": "Medram time picker source component.",
+      "registryDependencies": [
+        "input",
+        "select"
+      ],
+      "dependencies": [
+        "lucide-react"
+      ],
+      "files": [
+        {
+          "path": "registry/source/time-picker/TimePicker.tsx",
+          "type": "registry:ui",
+          "target": "components/ui/time-picker.tsx"
+        }
+      ]
+    },
+    {
+      "name": "medram-utils",
+      "type": "registry:ui",
+      "title": "Medram Utilities",
+      "description": "Shared utilities required by Medram registry components.",
+      "files": [
+        {
+          "path": "registry/source/shared/medram-utils.ts",
+          "type": "registry:ui",
+          "target": "components/ui/medram-utils.ts"
+        }
+      ]
+    },
+    {
+      "name": "use-url-hash",
+      "type": "registry:hook",
+      "title": "Use URL Hash",
+      "description": "Routing-neutral browser hash state for Medram tabs.",
+      "files": [
+        {
+          "path": "registry/source/hooks/use-url-hash.ts",
+          "type": "registry:hook",
+          "target": "hooks/use-url-hash.ts"
+        }
+      ]
+    }
+  ]
+}

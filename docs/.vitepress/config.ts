@@ -5,44 +5,28 @@ const repoBase = "/react-ui-kit/"
 
 export default defineConfig({
   title: "@medram/react-ui-kit",
-  description: "Reusable shadcn/ui component library for React and Next.js applications.",
+  description: "Medram shadcn source registry and headless React contracts.",
   base: process.env.GITHUB_ACTIONS ? repoBase : "/",
   cleanUrls: true,
   lastUpdated: true,
   themeConfig: {
     nav: [
       { text: "Guide", link: "/guide/getting-started" },
-      { text: "Components", link: "/components/" },
-      { text: "Reference", link: "/reference/exports" },
+      { text: "Registry", link: "/reference/catalog" },
+      { text: "Cloud storage", link: "/reference/cloud-storage" },
     ],
     sidebar: {
       "/guide/": [
         {
           text: "Guide",
-          items: [
-            { text: "Getting started", link: "/guide/getting-started" },
-            { text: "Styling", link: "/guide/styling" },
-          ],
-        },
-      ],
-      "/components/": [
-        {
-          text: "Components",
-          items: [
-            { text: "Overview", link: "/components/" },
-            { text: "Form fields", link: "/components/form-fields" },
-            { text: "Primitives", link: "/components/primitives" },
-            { text: "Root components", link: "/components/root-components" },
-            { text: "Charts", link: "/components/charts" },
-            { text: "Workflows and providers", link: "/components/workflows" },
-          ],
+          items: [{ text: "Getting started", link: "/guide/getting-started" }],
         },
       ],
       "/reference/": [
         {
           text: "Reference",
           items: [
-            { text: "Exports", link: "/reference/exports" },
+            { text: "Registry catalogue", link: "/reference/catalog" },
             { text: "Cloud storage", link: "/reference/cloud-storage" },
           ],
         },
