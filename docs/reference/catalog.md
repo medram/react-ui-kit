@@ -24,12 +24,13 @@ Items ending in `-field` use Formik unless their reference explicitly says other
 
 ## Workflows
 
-`stacked-modals`, `base-wizard`, `wizard`, `image-upload-card`, `webcam-capture`, `webcam-image-uploader`, `webcam-image-upload-modal`, and `time-picker`.
+`stacked-modals`, `base-wizard`, `wizard`, `image-upload-card`, `webcam-capture`, `webcam-image-uploader`, `webcam-image-upload-modal`, `time-picker`, and [table](./table).
 
 - `stacked-modals` installs provider state and the `TriggerModal` button wrapper.
 - `webcam-image-uploader` and `image-upload-card` require `CloudStorageProvider` only when they perform storage operations.
 - `webcam-image-upload-modal` requires Formik, `stacked-modals`, and `CloudStorageProvider`.
 - `wizard-completion` is routing-neutral; provide `onGoBack` when the host needs navigation. Next.js hosts can call `router.back()` from that callback when routing is needed.
+- [Table reference](./table) documents `ColumnDef`, `generateColumnsDefinition`, filters, actions, and server pagination.
 
 ## Headless npm modules
 

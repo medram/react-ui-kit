@@ -113,11 +113,47 @@ try {
   await writeFile(path.join(nextFixture, "postcss.config.mjs"), 'export default { plugins: { "@tailwindcss/postcss": {} } }\n')
   await writeFile(path.join(nextFixture, "app/globals.css"), '@import "tailwindcss";\n')
   await writeFile(path.join(nextFixture, "app/layout.tsx"), 'import "./globals.css"\nexport default function Layout({ children }: { children: React.ReactNode }) { return <html lang="en"><body>{children}</body></html> }\n')
-  await writeFile(path.join(nextFixture, "app/page.tsx"), 'export default function Page() { return <main>fixture</main> }\n')
-  await command("pnpm", ["install"], nextFixture)
-  await command("pnpm", ["dlx", "shadcn@latest", "init", "--template", "next", "--base", "radix", "--defaults", "--force", "--yes"], nextFixture)
+  await writeFile(
+    path.join(nextFixture, "app/page.tsx"),
+    [
+      'import CardBox from "@/components/ui/card-box"',
+      'import { DataTable } from "@/components/ui/data-table"',
+      'import generateColumnsDefinition from "@/components/ui/data-table-columns"',
+      'import { PaginatedDataTable } from "@/components/ui/paginated-data-table"',
+      'import type { ColumnDef } from "@tanstack/react-table"',
+      "type RowData = { id: number; name: string }",
+      "",
+      "const columns: ColumnDef<RowData>[] = [{ accessorKey: \"name\", header: \"Name\" }]",
+      "const generatedColumns = generateColumnsDefinition<RowData>({",
+      "  columnsDef: [{ accessorKey: \"name\", title: \"Name\" }],",
+      "})",
+      "const pagination = {",
+      "  page: 1,",
+      "  page_size: 10,",
+      "  query: \"\",",
+      "  setPage: () => {},",
+      "  setPageSize: () => {},",
+      "}",
+      "",
+      "export default function Page() {",
+      "  const rows = [{ id: 1, name: \"fixture\" }]",
+      "  return (",
+      "    <main>",
+      "      <CardBox title=\"Registry fixture\">ready</CardBox>",
+      "      <DataTable columns={columns} data={rows} hidePagination />",
+      "      <PaginatedDataTable",
+      "        columns={generatedColumns}",
+      "        paginatedData={{ results: rows, count: rows.length, page_size: 10 }}",
+      "        pagination={pagination}",
+      "      />",
+      "    </main>",
+      "  )",
+      "}",
+      "",
+    ].join("\n"),
+  )
   await command("pnpm", ["dlx", "shadcn@latest", "add", path.join(root, "public/r/card-box.json"), "--yes"], nextFixture)
-  await writeFile(path.join(nextFixture, "app/page.tsx"), 'import CardBox from "@/components/ui/card-box"\nexport default function Page() { return <CardBox title="Registry fixture">ready</CardBox> }\n')
+  await command("pnpm", ["dlx", "shadcn@latest", "add", path.join(root, "public/r/table.json"), "--yes"], nextFixture)
   await command("pnpm", ["build"], nextFixture)
 
   console.log("verified React 18, React 19, and latest Next.js consumer fixtures")

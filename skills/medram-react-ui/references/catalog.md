@@ -98,6 +98,7 @@ Each supported registry item has one validated reference. Read that reference be
 | [wizard-context](./wizard-context.md) | `pnpm dlx shadcn@latest add medram/react-ui-kit/wizard-context` | Registry dependencies only |
 | [wizard-navigation](./wizard-navigation.md) | `pnpm dlx shadcn@latest add medram/react-ui-kit/wizard-navigation` | Registry dependencies only |
 | [wizard-progress-bar](./wizard-progress-bar.md) | `pnpm dlx shadcn@latest add medram/react-ui-kit/wizard-progress-bar` | Registry dependencies only |
+| [table](./table.md) | `pnpm dlx shadcn@latest add medram/react-ui-kit/table` | Registry dependencies only |
 | [time-picker](./time-picker.md) | `pnpm dlx shadcn@latest add medram/react-ui-kit/time-picker` | Registry dependencies only |
 | [medram-utils](./medram-utils.md) | `pnpm dlx shadcn@latest add medram/react-ui-kit/medram-utils` | Registry dependencies only |
 | [use-url-hash](./use-url-hash.md) | `pnpm dlx shadcn@latest add medram/react-ui-kit/use-url-hash` | Client-side browser hash state |

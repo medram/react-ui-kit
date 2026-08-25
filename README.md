@@ -16,6 +16,12 @@ Then install a workflow:
 pnpm dlx shadcn@latest add medram/react-ui-kit/input-field
 ```
 
+The same source-registry workflow installs the reusable data table suite:
+
+```bash
+pnpm dlx shadcn@latest add medram/react-ui-kit/table
+```
+
 The registry installs its declared shadcn primitives and feature dependencies into the consuming application. Import generated source from `@/components/ui/...`; never import a Medram visual component from npm.
 
 For upstream-only composition:

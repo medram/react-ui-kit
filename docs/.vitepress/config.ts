@@ -27,7 +27,7 @@ export default defineConfig({
           text: "Reference",
           items: [
             { text: "Registry catalogue", link: "/reference/catalog" },
-            { text: "Cloud storage", link: "/reference/cloud-storage" },
+            { text: "Table", link: "/reference/table" },
           ],
         },
       ],

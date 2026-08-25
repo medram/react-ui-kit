@@ -38,6 +38,12 @@ The registry adds its declared upstream shadcn components and feature dependenci
 import InputField from "@/components/ui/input-field"
 ```
 
+The table workflow is installed as one item; its internal filters, pagination, and action files are implementation support. See the [table reference](/reference/table) for the full `ColumnDef`, `generateColumnsDefinition`, filter, action, and pagination contracts.
+
+```bash
+pnpm dlx shadcn@latest add medram/react-ui-kit/table
+```
+
 For ordinary UI composition without a Medram workflow, use upstream shadcn directly:
 
 ```bash

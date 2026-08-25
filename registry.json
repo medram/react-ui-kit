@@ -1846,6 +1846,103 @@
       ]
     },
     {
+      "name": "table",
+      "type": "registry:ui",
+      "title": "Table",
+      "description": "Medram data table source component.",
+      "registryDependencies": [
+        "button",
+        "checkbox",
+        "command",
+        "dropdown-menu",
+        "input",
+        "popover",
+        "select",
+        "separator",
+        "table",
+        "tooltip",
+        "medram/react-ui-kit/calendar-date-picker",
+        "medram/react-ui-kit/copy-button"
+      ],
+      "dependencies": [
+        "@tanstack/react-table",
+        "lucide-react",
+        "react-day-picker"
+      ],
+      "files": [
+        {
+          "path": "registry/source/table/data-table.tsx",
+          "type": "registry:ui",
+          "target": "components/ui/data-table.tsx"
+        },
+        {
+          "path": "registry/source/table/paginated-data-table.tsx",
+          "type": "registry:ui",
+          "target": "components/ui/paginated-data-table.tsx"
+        },
+        {
+          "path": "registry/source/table/data-table.types.ts",
+          "type": "registry:ui",
+          "target": "components/ui/data-table.types.ts"
+        },
+        {
+          "path": "registry/source/table/filters.tsx",
+          "type": "registry:ui",
+          "target": "components/ui/filters.tsx"
+        },
+        {
+          "path": "registry/source/table/data-table-utils.ts",
+          "type": "registry:ui",
+          "target": "components/ui/data-table-utils.ts"
+        },
+        {
+          "path": "registry/source/table/data-table-toolbar.tsx",
+          "type": "registry:ui",
+          "target": "components/ui/data-table-toolbar.tsx"
+        },
+        {
+          "path": "registry/source/table/data-table-filters.tsx",
+          "type": "registry:ui",
+          "target": "components/ui/data-table-filters.tsx"
+        },
+        {
+          "path": "registry/source/table/data-table-faceted-filter.tsx",
+          "type": "registry:ui",
+          "target": "components/ui/data-table-faceted-filter.tsx"
+        },
+        {
+          "path": "registry/source/table/data-table-multi-row-actions.tsx",
+          "type": "registry:ui",
+          "target": "components/ui/data-table-multi-row-actions.tsx"
+        },
+        {
+          "path": "registry/source/table/data-table-row-actions.tsx",
+          "type": "registry:ui",
+          "target": "components/ui/data-table-row-actions.tsx"
+        },
+        {
+          "path": "registry/source/table/data-table-view-options.tsx",
+          "type": "registry:ui",
+          "target": "components/ui/data-table-view-options.tsx"
+        },
+        {
+          "path": "registry/source/table/data-table-pagination.tsx",
+          "type": "registry:ui",
+          "target": "components/ui/data-table-pagination.tsx"
+        },
+        {
+          "path": "registry/source/table/data-table-column-header.tsx",
+          "type": "registry:ui",
+          "target": "components/ui/data-table-column-header.tsx"
+        },
+        {
+          "path": "registry/source/table/data-table-columns.tsx",
+          "type": "registry:ui",
+          "target": "components/ui/data-table-columns.tsx"
+        }
+      ]
+    },
+    {
       "name": "time-picker",
       "type": "registry:ui",
       "title": "Time Picker",
