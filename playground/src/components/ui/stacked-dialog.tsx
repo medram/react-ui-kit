@@ -34,11 +34,13 @@ function DialogStackBody({
   ...props
 }: React.HTMLAttributes<HTMLDivElement> & { ref?: React.Ref<HTMLDivElement> }) {
   return (
-    <div
-      ref={ref}
-      className={cn("fixed inset-0 z-50 flex items-center justify-center", className)}
-      {...props}
-    />
+    <DialogPrimitive.Portal>
+      <div
+        ref={ref}
+        className={cn("fixed inset-0 z-50 flex items-center justify-center", className)}
+        {...props}
+      />
+    </DialogPrimitive.Portal>
   )
 }
 
