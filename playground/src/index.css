@@ -306,7 +306,7 @@ select:focus-visible,
   font-size: 12px;
   line-height: 1;
   padding: 11px 10px;
-  transition: border-color 160ms ease, color 160ms ease, background 160ms ease, transform 160ms ease;
+  transition: border-color 160ms ease, color 160ms ease, background 160ms ease;
 }
 
 .lab-nav a:hover,
@@ -314,13 +314,18 @@ select:focus-visible,
   border-color: var(--lab-line);
   background: rgba(145, 242, 195, 0.06);
   color: var(--lab-text);
-  transform: translateX(2px);
 }
 
 .lab-nav a svg {
   width: 15px;
   height: 15px;
   color: #7182a5;
+  transition: transform 160ms ease;
+}
+
+.lab-nav a:hover svg,
+.lab-nav a:focus-visible svg {
+  transform: translateX(2px);
 }
 
 .lab-sidebar-footer {
@@ -508,7 +513,7 @@ select:focus-visible,
   gap: 8px;
   font-size: 12px;
   font-weight: 650;
-  transition: color 160ms ease, transform 160ms ease, background 160ms ease;
+  transition: color 160ms ease, background 160ms ease;
 }
 
 .lab-primary-button {
@@ -522,13 +527,18 @@ select:focus-visible,
 .lab-primary-button:hover {
   background: #b1f8d6;
   color: #0a1520;
-  transform: translateY(-2px);
 }
 
 .lab-primary-button svg,
 .lab-quiet-link svg {
   width: 14px;
   height: 14px;
+  transition: transform 160ms ease;
+}
+
+.lab-primary-button:hover svg,
+.lab-quiet-link:hover svg {
+  transform: translateX(2px);
 }
 
 .lab-quiet-link {
@@ -537,7 +547,6 @@ select:focus-visible,
 
 .lab-quiet-link:hover {
   color: var(--lab-text);
-  transform: translateX(2px);
 }
 
 .lab-hero-instrument {
@@ -811,13 +820,12 @@ select:focus-visible,
   border-radius: 11px 11px 11px 2px;
   background: rgba(16, 26, 45, 0.76);
   box-shadow: 0 12px 30px rgba(0, 0, 0, 0.12);
-  transition: border-color 180ms ease, transform 180ms ease, background 180ms ease;
+  transition: border-color 180ms ease, background 180ms ease;
 }
 
 .lab-card:hover {
   border-color: var(--lab-line-strong);
   background: rgba(20, 33, 58, 0.78);
-  transform: translateY(-2px);
 }
 
 .lab-card-wide {
