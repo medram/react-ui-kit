@@ -4,10 +4,10 @@ import FormError from "@/components/ui/form-error"
 import Help from "@/components/ui/help"
 import { cn } from "@/lib/utils"
 import { Label } from "@/components/ui/label"
-import CheckBoxInputFieldThin, { CheckBoxInputFieldThinProps } from "@/components/ui/check-box-input-thin-field"
+import BaseCheckBoxField, { type BaseCheckBoxFieldProps } from "@/components/ui/base-check-box-field"
 
 export type CheckBoxFieldProps = InputHTMLAttributes<HTMLInputElement> &
-  Omit<CheckBoxInputFieldThinProps, "checked" | "onCheckedChange"> & {
+  Omit<BaseCheckBoxFieldProps, "checked" | "onCheckedChange"> & {
     label?: string
     className?: string
     required?: boolean
@@ -39,7 +39,7 @@ export default function CheckBoxField({
           {required && <span className="text-red-500 ml-1">*</span>}
         </Label>
       )}
-      <CheckBoxInputFieldThin
+      <BaseCheckBoxField
         checked={field.value}
         onCheckedChange={handleCheckedChange}
         {...props}

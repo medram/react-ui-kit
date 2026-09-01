@@ -83,7 +83,7 @@ import BasicImageUploaderField from "@/components/ui/basic-image-uploader-field"
 import BasicTimeZonesSelectField from "@/components/ui/basic-time-zones-select-field"
 import CalendarDatePickerField from "@/components/ui/calendar-date-picker-field"
 import CheckBoxField from "@/components/ui/check-box-field"
-import CheckBoxInputFieldThin from "@/components/ui/check-box-input-thin-field"
+import BaseCheckBoxField from "@/components/ui/base-check-box-field"
 import ComboboxField from "@/components/ui/combo-box-field"
 import CopyableInputField from "@/components/ui/copyable-input-field"
 import DatePickerField from "@/components/ui/date-picker-field"
@@ -93,7 +93,7 @@ import DateTimePickerField from "@/components/ui/date-time-picker-field"
 import DropdownBoxField from "@/components/ui/dropdown-box-field"
 import InputField from "@/components/ui/input-field"
 import MonthYearPickerField from "@/components/ui/month-year-picker-field"
-import MultiCheckBoxInputField from "@/components/ui/multi-check-box-input-field"
+import CheckBoxGroupField from "@/components/ui/check-box-group-field"
 import MultiSelectField from "@/components/ui/multi-select-field"
 import RadioGroupField from "@/components/ui/radio-group-field"
 import SelectField from "@/components/ui/select-field"
@@ -321,6 +321,7 @@ const liveDemoNames = new Set([
   "attachments-preview",
   "avatar",
   "base-select",
+  "base-check-box-field",
   "calendar-date-picker",
   "card-box",
   "check-in-heatmap",
@@ -364,7 +365,7 @@ const liveDemoNames = new Set([
   "dropdown-box-field",
   "input-field",
   "month-year-picker-field",
-  "multi-check-box-input-field",
+  "check-box-group-field",
   "multi-select-field",
   "radio-group-field",
   "select-field",
@@ -373,7 +374,6 @@ const liveDemoNames = new Set([
   "basic-time-zones-select-field",
   "calendar-date-picker-field",
   "check-box-field",
-  "check-box-input-thin-field",
   "combo-box-field",
   "special-select-field",
   "upload-input",
@@ -421,6 +421,7 @@ const registryInventory = [
   "attachments-preview",
   "avatar",
   "base-select",
+  "base-check-box-field",
   "calendar-date-picker",
   "card-box",
   "check-in-heatmap",
@@ -443,7 +444,7 @@ const registryInventory = [
   "dropdown-box-field",
   "input-field",
   "month-year-picker-field",
-  "multi-check-box-input-field",
+  "check-box-group-field",
   "multi-select-field",
   "radio-group-field",
   "select-field",
@@ -452,7 +453,6 @@ const registryInventory = [
   "basic-time-zones-select-field",
   "calendar-date-picker-field",
   "check-box-field",
-  "check-box-input-thin-field",
   "combo-box-field",
   "special-select-field",
   "upload-input",
@@ -799,10 +799,10 @@ function LabPage() {
                 {isVisible("base-select", "component") && <DemoCard name="base-select" source="components/BaseSelect.tsx"><BaseSelect name="workspaceCount" defaultValue={2} options={numericOptions} onChange={(value) => setSelectedNumber(Number(value))} /><p className="lab-event-readout">Selected: <strong>{selectedNumber}</strong></p></DemoCard>}
                 {isVisible("switch-field", "field") && <DemoCard name="switch-field" source="fields/SwitchField.tsx"><SwitchField name="notifications" label="Notifications" switchLabel="Send weekly digest" help="Toggle the Formik boolean value." /></DemoCard>}
                 {isVisible("check-box-field", "field") && <DemoCard name="check-box-field" source="fields/CheckBoxField.tsx"><CheckBoxField name="accepted" label="Terms accepted" checkboxLabel="I understand the demo data is disposable." /></DemoCard>}
-                {isVisible("check-box-input-thin-field", "field") && <DemoCard name="check-box-input-thin-field" source="fields/CheckBoxInputThinField.tsx"><CheckBoxInputFieldThin name="thinAccepted" checked={thinChecked} onCheckedChange={(checked) => { setThinChecked(checked); toast.success(checked ? "Checked" : "Unchecked") }} checkboxLabel="Standalone checkbox" /></DemoCard>}
+                {isVisible("base-check-box-field", "field") && <DemoCard name="base-check-box-field" source="fields/BaseCheckBoxField.tsx"><BaseCheckBoxField name="thinAccepted" checked={thinChecked} onCheckedChange={(checked) => { setThinChecked(checked); toast.success(checked ? "Checked" : "Unchecked") }} checkboxLabel="Standalone checkbox" /></DemoCard>}
                 {isVisible("radio-group-field", "field") && <DemoCard name="radio-group-field" source="fields/RadioGroupField.tsx"><RadioGroupField name="cadence" label="Review cadence" options={radioOptions} help="Choose one option." /></DemoCard>}
                 {isVisible("multi-select-field", "field") && <DemoCard name="multi-select-field" source="fields/MultiSelectField.tsx"><MultiSelectField name="multi" label="Teams in scope" availableItems={multiSelectOptions} enableMoveAll enableSearch help="Double click an item or use the move buttons." /></DemoCard>}
-                {isVisible("multi-check-box-input-field", "field") && <DemoCard name="multi-check-box-input-field" source="fields/MultiCheckBoxInputField.tsx"><MultiCheckBoxInputField name="multi" label="Checkbox group" options={multiSelectOptions.slice(0, 3)} help="A compact multi-value field." /></DemoCard>}
+                {isVisible("check-box-group-field", "field") && <DemoCard name="check-box-group-field" source="fields/CheckBoxGroupField.tsx"><CheckBoxGroupField name="multi" label="Checkbox group" options={multiSelectOptions.slice(0, 3)} help="A compact multi-value field." /></DemoCard>}
                 {isVisible("dropdown-box-field", "field") && <DemoCard name="dropdown-box-field" source="fields/DropdownBoxField.tsx"><DropdownBoxField name="filters" type="checkbox" label="Saved filters" options={dropdownOptions}><Button type="button" variant="outline"><Filter data-icon="inline-start" /> Filters</Button></DropdownBoxField></DemoCard>}
                 {isVisible("combo-box-field", "field") && <DemoCard name="combo-box-field" source="fields/ComboBoxField.tsx"><ComboboxField name="combo" label="Search workspace" availableItems={selectOptions} searchPlaceholder="Find a workspace" selectPlaceholder="Choose a workspace" help="Type to filter the command list." /></DemoCard>}
                 {isVisible("sensitive-field", "field") && <DemoCard name="sensitive-field" source="fields/SensitiveField.tsx"><SensitiveField name="secret" label="API secret" help="The eye button toggles visibility." /></DemoCard>}

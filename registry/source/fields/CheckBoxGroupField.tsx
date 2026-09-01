@@ -2,14 +2,14 @@ import { ErrorMessage, useField } from "formik"
 import FormError from "@/components/ui/form-error"
 import Help from "@/components/ui/help"
 import { Label } from "@/components/ui/label"
-import CheckBoxInputFieldThin from "@/components/ui/check-box-input-thin-field"
+import BaseCheckBoxField from "@/components/ui/base-check-box-field"
 
 type OptionType = {
   label: string
   id: number | string
 }
 
-type MultiCheckBoxInputFieldProps = {
+export type CheckBoxGroupFieldProps = {
   label?: string
   help?: string | React.ReactNode
   options: OptionType[]
@@ -17,13 +17,13 @@ type MultiCheckBoxInputFieldProps = {
   required?: boolean
 }
 
-export default function MultiCheckBoxInputField({
+export default function CheckBoxGroupField({
   label,
   help,
   options,
   name,
   required = false,
-}: MultiCheckBoxInputFieldProps) {
+}: CheckBoxGroupFieldProps) {
   const [field, meta, helpers] = useField<(number | string)[]>(name)
 
   const handleCheckedChange = (checked: boolean, itemId: number | string) => {
@@ -43,7 +43,7 @@ export default function MultiCheckBoxInputField({
         </Label>
       )}
       {options.map((item, i) => (
-        <CheckBoxInputFieldThin
+        <BaseCheckBoxField
           key={item.id}
           name={`checkbox-${i}`}
           checkboxLabel={item.label}

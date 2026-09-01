@@ -1,6 +1,6 @@
 import { Checkbox } from "@/components/ui/checkbox"
 
-export type CheckBoxInputFieldThinProps = {
+export type BaseCheckBoxFieldProps = {
   name: string
   checked: boolean
   onCheckedChange: (checked: boolean) => void
@@ -8,11 +8,11 @@ export type CheckBoxInputFieldThinProps = {
   checkboxLabel?: string
 }
 
-export default function CheckBoxInputFieldThin({
+export default function BaseCheckBoxField({
   checkboxLabel,
   name,
   ...props
-}: CheckBoxInputFieldThinProps) {
+}: BaseCheckBoxFieldProps) {
   return (
     <div className="items-top items-center flex space-x-2">
       <Checkbox {...props} id={name} />
