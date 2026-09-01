@@ -38,6 +38,7 @@
   },
   "scripts": {
     "build": "tsup",
+    "dev": "pnpm --dir playground dev",
     "docs:build": "vitepress build docs",
     "docs:dev": "vitepress dev docs",
     "pack:dry": "pnpm pack --dry-run",
