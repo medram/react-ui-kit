@@ -47,7 +47,7 @@ export default function BaseSelect<
         defaultValue={`${defaultValue ?? ""}`}
         {...props}
       >
-        <SelectTrigger className="h-8">
+        <SelectTrigger className="h-8 w-full">
           <SelectValue placeholder={placeholder} />
         </SelectTrigger>
         <SelectContent>
