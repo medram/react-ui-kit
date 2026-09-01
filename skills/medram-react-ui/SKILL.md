@@ -1,8 +1,25 @@
 ---
 name: medram-react-ui
 description: "Use Medram shadcn registry workflows and Cloud Storage contracts in React and Next.js applications."
-compatibility: "@medram/react-ui-kit 0.2.0; React 18+; Tailwind CSS 4.3; current shadcn CLI"
+compatibility: "@medram/react-ui-kit 0.3.0; React 18+; Tailwind CSS 4.3; current shadcn CLI"
 ---
+
+## Install and update this skill
+
+Install the `medram-react-ui` skill from this repository with either runner:
+
+```bash
+npx skills@latest add medram/react-ui-kit --skill medram-react-ui
+pnpm dlx skills@latest add medram/react-ui-kit --skill medram-react-ui
+```
+
+Use `--global` for a user-wide installation, or `--agent claude-code` /
+`--agent codex` to target a specific agent. Update it with:
+
+```bash
+npx skills@latest update medram-react-ui --yes
+pnpm dlx skills@latest update medram-react-ui --yes
+```
 
 ## Route requests correctly
 
