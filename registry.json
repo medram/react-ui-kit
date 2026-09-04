@@ -367,6 +367,9 @@
       "type": "registry:ui",
       "title": "Attachments Preview",
       "description": "Medram attachments preview source component.",
+      "registryDependencies": [
+        "attachment"
+      ],
       "dependencies": [
         "@medram/react-ui-kit",
         "lucide-react",
@@ -1121,6 +1124,7 @@
       "title": "Upload Input",
       "description": "Medram upload input source component.",
       "registryDependencies": [
+        "attachment",
         "medram/react-ui-kit/attachment-inputs",
         "medram/react-ui-kit/drop-zone"
       ],
