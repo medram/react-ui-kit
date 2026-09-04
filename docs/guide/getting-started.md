@@ -50,6 +50,32 @@ For ordinary UI composition without a Medram workflow, use upstream shadcn direc
 pnpm dlx shadcn@latest add button card
 ```
 
+## Install the agent skill
+
+Install the repository's `medram-react-ui` skill for the current project with
+either `npx` or `pnpm`:
+
+```bash
+npx skills@latest add medram/react-ui-kit --skill medram-react-ui
+pnpm dlx skills@latest add medram/react-ui-kit --skill medram-react-ui
+```
+
+To install every skill exposed by this repository, replace
+`--skill medram-react-ui` with `--skill '*'`.
+
+Append `--global` for a user-wide installation, or
+`--agent claude-code` / `--agent codex` to target one coding agent.
+
+Update the installed skill with:
+
+```bash
+npx skills@latest update medram-react-ui --yes
+pnpm dlx skills@latest update medram-react-ui --yes
+```
+
+For project-scoped skills, run these commands from the consuming project
+directory. Use `--global` on update when the skill was installed globally.
+
 ## Cloud Storage
 
 Upload workflows require the headless provider package:

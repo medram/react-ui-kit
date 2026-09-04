@@ -50,7 +50,7 @@ Each supported registry item has one validated reference. Read that reference be
 | [dropdown-box-field](./dropdown-box-field.md) | `pnpm dlx shadcn@latest add medram/react-ui-kit/dropdown-box-field` | Registry dependencies only |
 | [input-field](./input-field.md) | `pnpm dlx shadcn@latest add medram/react-ui-kit/input-field` | Registry dependencies only |
 | [month-year-picker-field](./month-year-picker-field.md) | `pnpm dlx shadcn@latest add medram/react-ui-kit/month-year-picker-field` | Registry dependencies only |
-| [multi-check-box-input-field](./multi-check-box-input-field.md) | `pnpm dlx shadcn@latest add medram/react-ui-kit/multi-check-box-input-field` | Registry dependencies only |
+| [check-box-group-field](./check-box-group-field.md) | `pnpm dlx shadcn@latest add medram/react-ui-kit/check-box-group-field` | Registry dependencies only |
 | [multi-select-field](./multi-select-field.md) | `pnpm dlx shadcn@latest add medram/react-ui-kit/multi-select-field` | Registry dependencies only |
 | [radio-group-field](./radio-group-field.md) | `pnpm dlx shadcn@latest add medram/react-ui-kit/radio-group-field` | Registry dependencies only |
 | [select-field](./select-field.md) | `pnpm dlx shadcn@latest add medram/react-ui-kit/select-field` | Registry dependencies only |
@@ -58,8 +58,8 @@ Each supported registry item has one validated reference. Read that reference be
 | [basic-image-uploader-field](./basic-image-uploader-field.md) | `pnpm dlx shadcn@latest add medram/react-ui-kit/basic-image-uploader-field` | Cloud Storage/types package when used |
 | [basic-time-zones-select-field](./basic-time-zones-select-field.md) | `pnpm dlx shadcn@latest add medram/react-ui-kit/basic-time-zones-select-field` | Registry dependencies only |
 | [calendar-date-picker-field](./calendar-date-picker-field.md) | `pnpm dlx shadcn@latest add medram/react-ui-kit/calendar-date-picker-field` | Registry dependencies only |
+| [base-check-box-field](./base-check-box-field.md) | `pnpm dlx shadcn@latest add medram/react-ui-kit/base-check-box-field` | Registry dependencies only |
 | [check-box-field](./check-box-field.md) | `pnpm dlx shadcn@latest add medram/react-ui-kit/check-box-field` | Registry dependencies only |
-| [check-box-input-thin-field](./check-box-input-thin-field.md) | `pnpm dlx shadcn@latest add medram/react-ui-kit/check-box-input-thin-field` | Registry dependencies only |
 | [combo-box-field](./combo-box-field.md) | `pnpm dlx shadcn@latest add medram/react-ui-kit/combo-box-field` | Registry dependencies only |
 | [special-select-field](./special-select-field.md) | `pnpm dlx shadcn@latest add medram/react-ui-kit/special-select-field` | Cloud Storage/types package when used |
 | [upload-input](./upload-input.md) | `pnpm dlx shadcn@latest add medram/react-ui-kit/upload-input` | Cloud Storage/types package when used |

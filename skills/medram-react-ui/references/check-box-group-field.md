@@ -1,23 +1,23 @@
-# Multi Check Box Input Field
+# Check Box Group Field
 
 ## Install
 
 ```bash
-pnpm dlx shadcn@latest add medram/react-ui-kit/multi-check-box-input-field
+pnpm dlx shadcn@latest add medram/react-ui-kit/check-box-group-field
 ```
 
-Generated source: `components/ui/multi-check-box-input-field.tsx`.
+Generated source: `components/ui/check-box-group-field.tsx`.
 
 ## Dependencies
 
-- shadcn registry items: label, medram/react-ui-kit/check-box-input-thin-field, medram/react-ui-kit/form-error, medram/react-ui-kit/help
+- shadcn registry items: label, medram/react-ui-kit/base-check-box-field, medram/react-ui-kit/form-error, medram/react-ui-kit/help
 - npm packages: formik
 - runtime prerequisites: Formik form context with a matching initial value.
 
 ## Contract
 
-- Source of truth: [`registry/source/fields/MultiCheckBoxInputField.tsx`](../../../registry/source/fields/MultiCheckBoxInputField.tsx).
-- Exported declarations: `MultiCheckBoxInputField`
+- Source of truth: [`registry/source/fields/CheckBoxGroupField.tsx`](../../../registry/source/fields/CheckBoxGroupField.tsx).
+- Exported declarations: `CheckBoxGroupFieldProps`, `CheckBoxGroupField`
 - Does not own persistent application state.
 - Preserve the source-defined prop, callback, loading, disabled, empty, and error behavior when composing this item.
 

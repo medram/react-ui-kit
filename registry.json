@@ -428,6 +428,22 @@
       ]
     },
     {
+      "name": "base-check-box-field",
+      "type": "registry:ui",
+      "title": "Base Check Box Field",
+      "description": "Medram base check box field source component.",
+      "registryDependencies": [
+        "checkbox"
+      ],
+      "files": [
+        {
+          "path": "registry/source/fields/BaseCheckBoxField.tsx",
+          "type": "registry:ui",
+          "target": "components/ui/base-check-box-field.tsx"
+        }
+      ]
+    },
+    {
       "name": "calendar-date-picker",
       "type": "registry:ui",
       "title": "Calendar Date Picker",
@@ -896,13 +912,13 @@
       ]
     },
     {
-      "name": "multi-check-box-input-field",
+      "name": "check-box-group-field",
       "type": "registry:ui",
-      "title": "Multi Check Box Input Field",
-      "description": "Medram multi check box input field source component.",
+      "title": "Check Box Group Field",
+      "description": "Medram check box group field source component.",
       "registryDependencies": [
         "label",
-        "medram/react-ui-kit/check-box-input-thin-field",
+        "medram/react-ui-kit/base-check-box-field",
         "medram/react-ui-kit/form-error",
         "medram/react-ui-kit/help"
       ],
@@ -911,9 +927,9 @@
       ],
       "files": [
         {
-          "path": "registry/source/fields/MultiCheckBoxInputField.tsx",
+          "path": "registry/source/fields/CheckBoxGroupField.tsx",
           "type": "registry:ui",
-          "target": "components/ui/multi-check-box-input-field.tsx"
+          "target": "components/ui/check-box-group-field.tsx"
         }
       ]
     },
@@ -1078,7 +1094,7 @@
       "description": "Medram check box field source component.",
       "registryDependencies": [
         "label",
-        "medram/react-ui-kit/check-box-input-thin-field",
+        "medram/react-ui-kit/base-check-box-field",
         "medram/react-ui-kit/form-error",
         "medram/react-ui-kit/help"
       ],
@@ -1090,22 +1106,6 @@
           "path": "registry/source/fields/CheckBoxField.tsx",
           "type": "registry:ui",
           "target": "components/ui/check-box-field.tsx"
-        }
-      ]
-    },
-    {
-      "name": "check-box-input-thin-field",
-      "type": "registry:ui",
-      "title": "Check Box Input Thin Field",
-      "description": "Medram check box input thin field source component.",
-      "registryDependencies": [
-        "checkbox"
-      ],
-      "files": [
-        {
-          "path": "registry/source/fields/CheckBoxInputThinField.tsx",
-          "type": "registry:ui",
-          "target": "components/ui/check-box-input-thin-field.tsx"
         }
       ]
     },

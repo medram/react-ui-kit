@@ -30,6 +30,34 @@ For upstream-only composition:
 pnpm dlx shadcn@latest add button card
 ```
 
+## Install the agent skill
+
+This repository includes the `medram-react-ui` agent skill with routing rules,
+registry references, component contracts, and usage guidance.
+
+Install it for the current project with either package runner:
+
+```bash
+npx skills@latest add medram/react-ui-kit --skill medram-react-ui
+pnpm dlx skills@latest add medram/react-ui-kit --skill medram-react-ui
+```
+
+
+To install every skill exposed by this repository, replace
+`--skill medram-react-ui` with `--skill '*'`.
+Use `--global` to install it for all projects, or add
+`--agent claude-code` / `--agent codex` to target a specific coding agent.
+
+Update an installed skill with:
+
+```bash
+npx skills@latest update medram-react-ui --yes
+pnpm dlx skills@latest update medram-react-ui --yes
+```
+
+Run project-scoped commands from the consuming project directory. Use the
+same command with `--global` when the skill was installed globally.
+
 ## Cloud Storage contract
 
 Install the npm package only when a Medram upload workflow needs application-owned storage operations:

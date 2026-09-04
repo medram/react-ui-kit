@@ -10,7 +10,7 @@ The generated source lives under `@/components/ui/`. The command installs the ex
 
 ## Forms and inputs
 
-`basic-image-uploader-field`, `basic-time-zones-select-field`, `calendar-date-picker-field`, `check-box-field`, `check-box-input-thin-field`, `combo-box`, `combo-box-field`, `copyable-input-field`, `date-picker-field`, `date-range-picker-field`, `date-selector-field`, `date-time-picker-field`, `drop-down-buttons`, `drop-zone`, `dropdown-box-field`, `input-field`, `month-year-picker-field`, `multi-check-box-input-field`, `multi-select-field`, `radio-group-field`, `select-field`, `select-input`, `sensitive-field`, `special-select-field`, `switch-field`, `text-area-field`, `time-picker-field`, `time-zone-select-field`, `upload-field`, `upload-input`.
+`base-check-box-field`, `basic-image-uploader-field`, `basic-time-zones-select-field`, `calendar-date-picker-field`, `check-box-field`, `check-box-group-field`, `combo-box`, `combo-box-field`, `copyable-input-field`, `date-picker-field`, `date-range-picker-field`, `date-selector-field`, `date-time-picker-field`, `drop-down-buttons`, `drop-zone`, `dropdown-box-field`, `input-field`, `month-year-picker-field`, `multi-select-field`, `radio-group-field`, `select-field`, `select-input`, `sensitive-field`, `special-select-field`, `switch-field`, `text-area-field`, `time-picker-field`, `time-zone-select-field`, `upload-field`, `upload-input`.
 
 Items ending in `-field` use Formik unless their reference explicitly says otherwise. Use the generated field reference to confirm its value shape. Upload items require `CloudStorageProvider`.
 

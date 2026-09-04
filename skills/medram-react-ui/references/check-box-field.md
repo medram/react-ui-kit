@@ -10,7 +10,7 @@ Generated source: `components/ui/check-box-field.tsx`.
 
 ## Dependencies
 
-- shadcn registry items: label, medram/react-ui-kit/check-box-input-thin-field, medram/react-ui-kit/form-error, medram/react-ui-kit/help
+- shadcn registry items: label, medram/react-ui-kit/base-check-box-field, medram/react-ui-kit/form-error, medram/react-ui-kit/help
 - npm packages: formik
 - runtime prerequisites: Formik form context with a matching initial value.
 
