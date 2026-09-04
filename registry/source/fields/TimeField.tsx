@@ -6,7 +6,7 @@ import { cn } from "@/lib/utils"
 import { Label } from "@/components/ui/label"
 import { TimePicker } from "@/components/ui/time-picker"
 import { convertTimetoDate } from "@/components/ui/medram-utils"
-export type TimePickerFieldProps = InputHTMLAttributes<HTMLInputElement> & {
+export type TimeFieldProps = InputHTMLAttributes<HTMLInputElement> & {
   name: string
   label?: string
   className?: string
@@ -14,7 +14,7 @@ export type TimePickerFieldProps = InputHTMLAttributes<HTMLInputElement> & {
   help?: string | React.ReactNode
   disabled?: boolean
 }
-export default function TimePickerField({
+export default function TimeField({
   name,
   label,
   className,
@@ -22,7 +22,7 @@ export default function TimePickerField({
   help,
   disabled,
   ...props
-}: TimePickerFieldProps) {
+}: TimeFieldProps) {
   const [field, meta, helpers] = useField<string>(name)
 
   function onChange(value: Date | undefined) {

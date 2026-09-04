@@ -129,7 +129,7 @@ function TimePickerSection({
   )
 }
 
-type DateTimePickerFieldProps = {
+type DateTimeFieldProps = {
   name: string
   label?: string
   help?: string | ReactNode
@@ -141,9 +141,9 @@ type DateTimePickerFieldProps = {
   disabled?: boolean
   timeFormat?: "12h" | "24h"
   defaultTime?: { hours: number; minutes: number }
-} & Omit<ComponentProps<typeof Calendar>, "mode" | "selected" | "defaultMonth" | "onSelect" | "disabled">
+} & Omit<ComponentProps<typeof Calendar>, "mode" | "selected" | "defaultMonth" | "onSelect" | "disabled" | "captionLayout">
 
-export default function DateTimePickerField({
+export default function DateTimeField({
   name,
   label,
   help,
@@ -156,7 +156,7 @@ export default function DateTimePickerField({
   timeFormat = "24h",
   defaultTime = { hours: 0, minutes: 0 },
   ...props
-}: DateTimePickerFieldProps) {
+}: DateTimeFieldProps) {
   const [field, meta, helpers] = useField<string>(name)
   const [isOpen, setIsOpen] = useState(false)
 
@@ -229,7 +229,7 @@ export default function DateTimePickerField({
           <Calendar
             {...props}
             mode="single"
-            selected={isValidDate ? selectedDate : undefined}
+            captionLayout="dropdown"
             defaultMonth={isValidDate ? selectedDate : undefined}
             onSelect={handleDateSelect}
             disabled={disableFn}

@@ -148,7 +148,6 @@
       "description": "Medram overview box source component.",
       "registryDependencies": [
         "card",
-        "medram/react-ui-kit/dot-pattern",
         "medram/react-ui-kit/number-ticker",
         "tooltip"
       ],
@@ -345,19 +344,6 @@
       ]
     },
     {
-      "name": "gradient-separator",
-      "type": "registry:ui",
-      "title": "Gradient Separator",
-      "description": "Medram gradient separator source component.",
-      "files": [
-        {
-          "path": "registry/source/components/gradientSeparator.tsx",
-          "type": "registry:ui",
-          "target": "components/ui/gradient-separator.tsx"
-        }
-      ]
-    },
-    {
       "name": "alert-box",
       "type": "registry:ui",
       "title": "Alert Box",
@@ -542,19 +528,6 @@
       ]
     },
     {
-      "name": "dot-pattern",
-      "type": "registry:ui",
-      "title": "Dot Pattern",
-      "description": "Medram dot pattern source component.",
-      "files": [
-        {
-          "path": "registry/source/components/DotPattern.tsx",
-          "type": "registry:ui",
-          "target": "components/ui/dot-pattern.tsx"
-        }
-      ]
-    },
-    {
       "name": "drop-down-buttons",
       "type": "registry:ui",
       "title": "Drop Down Buttons",
@@ -573,19 +546,6 @@
           "path": "registry/source/components/DropDownButtons.tsx",
           "type": "registry:ui",
           "target": "components/ui/drop-down-buttons.tsx"
-        }
-      ]
-    },
-    {
-      "name": "flickering-grid",
-      "type": "registry:ui",
-      "title": "Flickering Grid",
-      "description": "Medram flickering grid source component.",
-      "files": [
-        {
-          "path": "registry/source/components/FlikeringGrid.tsx",
-          "type": "registry:ui",
-          "target": "components/ui/flickering-grid.tsx"
         }
       ]
     },
@@ -634,10 +594,10 @@
       ]
     },
     {
-      "name": "time-picker-field",
+      "name": "time-field",
       "type": "registry:ui",
-      "title": "Time Picker Field",
-      "description": "Medram time picker field source component.",
+      "title": "Time Field",
+      "description": "Medram time field source component.",
       "registryDependencies": [
         "label",
         "medram/react-ui-kit/form-error",
@@ -650,17 +610,17 @@
       ],
       "files": [
         {
-          "path": "registry/source/fields/TimePickerField.tsx",
+          "path": "registry/source/fields/TimeField.tsx",
           "type": "registry:ui",
-          "target": "components/ui/time-picker-field.tsx"
+          "target": "components/ui/time-field.tsx"
         }
       ]
     },
     {
-      "name": "time-zone-select-field",
+      "name": "time-zone-field",
       "type": "registry:ui",
-      "title": "Time Zone Select Field",
-      "description": "Medram time zone select field source component.",
+      "title": "Time Zone Field",
+      "description": "Medram time zone field source component.",
       "registryDependencies": [
         "medram/react-ui-kit/select-field"
       ],
@@ -669,9 +629,9 @@
       ],
       "files": [
         {
-          "path": "registry/source/fields/TimeZoneSelectFiels.tsx",
+          "path": "registry/source/fields/TimeZoneField.tsx",
           "type": "registry:ui",
-          "target": "components/ui/time-zone-select-field.tsx"
+          "target": "components/ui/time-zone-field.tsx"
         }
       ]
     },
@@ -749,10 +709,10 @@
       ]
     },
     {
-      "name": "date-range-picker-field",
+      "name": "date-range-field",
       "type": "registry:ui",
-      "title": "Date Range Picker Field",
-      "description": "Medram date range picker field source component.",
+      "title": "Date Range Field",
+      "description": "Medram date range field source component.",
       "registryDependencies": [
         "button",
         "calendar",
@@ -768,9 +728,9 @@
       ],
       "files": [
         {
-          "path": "registry/source/fields/DateRangePickerField.tsx",
+          "path": "registry/source/fields/DateRangeField.tsx",
           "type": "registry:ui",
-          "target": "components/ui/date-range-picker-field.tsx"
+          "target": "components/ui/date-range-field.tsx"
         }
       ]
     },
@@ -791,10 +751,10 @@
       ]
     },
     {
-      "name": "date-selector-field",
+      "name": "date-field",
       "type": "registry:ui",
-      "title": "Date Selector Field",
-      "description": "Medram date selector field source component.",
+      "title": "Date Field",
+      "description": "Medram date field source component.",
       "registryDependencies": [
         "button",
         "calendar",
@@ -810,17 +770,17 @@
       ],
       "files": [
         {
-          "path": "registry/source/fields/DateSelectorField.tsx",
+          "path": "registry/source/fields/DateField.tsx",
           "type": "registry:ui",
-          "target": "components/ui/date-selector-field.tsx"
+          "target": "components/ui/date-field.tsx"
         }
       ]
     },
     {
-      "name": "date-time-picker-field",
+      "name": "date-time-field",
       "type": "registry:ui",
-      "title": "Date Time Picker Field",
-      "description": "Medram date time picker field source component.",
+      "title": "Date Time Field",
+      "description": "Medram date time field source component.",
       "registryDependencies": [
         "button",
         "calendar",
@@ -838,9 +798,9 @@
       ],
       "files": [
         {
-          "path": "registry/source/fields/DateTimePickerField.tsx",
+          "path": "registry/source/fields/DateTimeField.tsx",
           "type": "registry:ui",
-          "target": "components/ui/date-time-picker-field.tsx"
+          "target": "components/ui/date-time-field.tsx"
         }
       ]
     },
@@ -1048,19 +1008,19 @@
       ]
     },
     {
-      "name": "basic-time-zones-select-field",
+      "name": "basic-time-zones-field",
       "type": "registry:ui",
-      "title": "Basic Time Zones Select Field",
-      "description": "Medram basic time zones select field source component.",
+      "title": "Basic Time Zones Field",
+      "description": "Medram basic time zones field source component.",
       "registryDependencies": [
         "medram/react-ui-kit/medram-utils",
         "medram/react-ui-kit/select-field"
       ],
       "files": [
         {
-          "path": "registry/source/fields/BasicTimeZonesSelectField.tsx",
+          "path": "registry/source/fields/BasicTimeZonesField.tsx",
           "type": "registry:ui",
-          "target": "components/ui/basic-time-zones-select-field.tsx"
+          "target": "components/ui/basic-time-zones-field.tsx"
         }
       ]
     },

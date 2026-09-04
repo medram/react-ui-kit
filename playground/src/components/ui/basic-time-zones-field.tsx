@@ -1,9 +1,9 @@
 import { AVAILABLE_TIMEZONES_OPTIONS } from "@/components/ui/medram-utils"
 import SelectField from "@/components/ui/select-field"
 
-type TimeZonesSelectFieldProps = Omit<React.ComponentProps<typeof SelectField>, "options">
+type BasicTimeZonesFieldProps = Omit<React.ComponentProps<typeof SelectField>, "options">
 
-export default function BasicTimeZonesSelectField({ name, ...props }: TimeZonesSelectFieldProps) {
+export default function BasicTimeZonesField({ name, ...props }: BasicTimeZonesFieldProps) {
   return (
     <SelectField
       name={name}
