@@ -46,13 +46,8 @@ import CardBox from "@/components/ui/card-box"
 import CheckInHeatmap from "@/components/ui/check-in-heatmap"
 import CopyButton from "@/components/ui/copy-button"
 import CustomBadge from "@/components/ui/custom-badge"
-import { DotPattern } from "@/components/ui/dot-pattern"
 import DropDownButtons from "@/components/ui/drop-down-buttons"
-import FlickeringGrid from "@/components/ui/flickering-grid"
-import FormError from "@/components/ui/form-error"
 import FullScreenLoading from "@/components/ui/full-screen-loading"
-import GradientSeparator from "@/components/ui/gradient-separator"
-import Help from "@/components/ui/help"
 import ImagePreview from "@/components/ui/image-preview"
 import Loader from "@/components/ui/loader"
 import LoadingSection from "@/components/ui/loading-section"
@@ -80,16 +75,16 @@ import RadarChart from "@/components/ui/radar-chart"
 import { StackBarChart, type StackBarGroup } from "@/components/ui/stack-bar-chart"
 
 import BasicImageUploaderField from "@/components/ui/basic-image-uploader-field"
-import BasicTimeZonesSelectField from "@/components/ui/basic-time-zones-select-field"
+import BasicTimeZonesField from "@/components/ui/basic-time-zones-field"
 import CalendarDatePickerField from "@/components/ui/calendar-date-picker-field"
 import CheckBoxField from "@/components/ui/check-box-field"
 import BaseCheckBoxField from "@/components/ui/base-check-box-field"
 import ComboboxField from "@/components/ui/combo-box-field"
 import CopyableInputField from "@/components/ui/copyable-input-field"
 import DatePickerField from "@/components/ui/date-picker-field"
-import DateRangePickerField from "@/components/ui/date-range-picker-field"
-import DateSelectorField from "@/components/ui/date-selector-field"
-import DateTimePickerField from "@/components/ui/date-time-picker-field"
+import DateRangeField from "@/components/ui/date-range-field"
+import DateField from "@/components/ui/date-field"
+import DateTimeField from "@/components/ui/date-time-field"
 import DropdownBoxField from "@/components/ui/dropdown-box-field"
 import InputField from "@/components/ui/input-field"
 import MonthYearPickerField from "@/components/ui/month-year-picker-field"
@@ -100,8 +95,8 @@ import SelectField from "@/components/ui/select-field"
 import SensitiveField from "@/components/ui/sensitive-field"
 import SwitchField from "@/components/ui/switch-field"
 import TextAreaField from "@/components/ui/text-area-field"
-import TimePickerField from "@/components/ui/time-picker-field"
-import TimeZoneSelectField from "@/components/ui/time-zone-select-field"
+import TimeField from "@/components/ui/time-field"
+import TimeZoneField from "@/components/ui/time-zone-field"
 import UploadField from "@/components/ui/upload-field"
 
 import { ImageUploadCard } from "@/components/ui/image-upload-card"
@@ -327,13 +322,8 @@ const liveDemoNames = new Set([
   "check-in-heatmap",
   "copy-button",
   "custom-badge",
-  "dot-pattern",
   "drop-down-buttons",
-  "flickering-grid",
-  "form-error",
   "full-screen-loading",
-  "gradient-separator",
-  "help",
   "image-preview",
   "loader",
   "loading-section",
@@ -354,14 +344,14 @@ const liveDemoNames = new Set([
   "wizard-completion",
   "switch-field",
   "text-area-field",
-  "time-picker-field",
-  "time-zone-select-field",
+  "time-field",
+  "time-zone-field",
   "upload-field",
   "copyable-input-field",
   "date-picker-field",
-  "date-range-picker-field",
-  "date-selector-field",
-  "date-time-picker-field",
+  "date-range-field",
+  "date-field",
+  "date-time-field",
   "dropdown-box-field",
   "input-field",
   "month-year-picker-field",
@@ -371,7 +361,7 @@ const liveDemoNames = new Set([
   "select-field",
   "sensitive-field",
   "basic-image-uploader-field",
-  "basic-time-zones-select-field",
+  "basic-time-zones-field",
   "calendar-date-picker-field",
   "check-box-field",
   "combo-box-field",
@@ -416,7 +406,6 @@ const registryInventory = [
   "vertical-tabs",
   "wizard-card",
   "wizard-completion",
-  "gradient-separator",
   "alert-box",
   "attachments-preview",
   "avatar",
@@ -427,20 +416,18 @@ const registryInventory = [
   "check-in-heatmap",
   "copy-button",
   "custom-badge",
-  "dot-pattern",
   "drop-down-buttons",
-  "flickering-grid",
   "switch-field",
   "text-area-field",
-  "time-picker-field",
-  "time-zone-select-field",
+  "time-field",
+  "time-zone-field",
   "upload-field",
   "copyable-input-field",
   "date-picker-field",
-  "date-range-picker-field",
+  "date-range-field",
   "date-range-yup-schema",
-  "date-selector-field",
-  "date-time-picker-field",
+  "date-field",
+  "date-time-field",
   "dropdown-box-field",
   "input-field",
   "month-year-picker-field",
@@ -450,7 +437,7 @@ const registryInventory = [
   "select-field",
   "sensitive-field",
   "basic-image-uploader-field",
-  "basic-time-zones-select-field",
+  "basic-time-zones-field",
   "calendar-date-picker-field",
   "check-box-field",
   "combo-box-field",
@@ -758,7 +745,7 @@ function LabPage() {
         </section>
 
         <section className="lab-summary-grid" aria-label="Playground summary">
-          <div className="lab-summary-item"><span className="lab-summary-icon"><Code2 aria-hidden="true" /></span><strong>98</strong><span>registry records</span></div>
+          <div className="lab-summary-item"><span className="lab-summary-icon"><Code2 aria-hidden="true" /></span><strong>95</strong><span>registry records</span></div>
           <div className="lab-summary-item"><span className="lab-summary-icon"><Settings2 aria-hidden="true" /></span><strong>25</strong><span>field demos</span></div>
           <div className="lab-summary-item"><span className="lab-summary-icon"><ShieldCheck aria-hidden="true" /></span><strong>0</strong><span>network dependencies</span></div>
           <div className="lab-summary-item"><span className="lab-summary-icon"><Activity aria-hidden="true" /></span><strong>LIVE</strong><span>stateful controls</span></div>
@@ -808,13 +795,13 @@ function LabPage() {
                 {isVisible("sensitive-field", "field") && <DemoCard name="sensitive-field" source="fields/SensitiveField.tsx"><SensitiveField name="secret" label="API secret" help="The eye button toggles visibility." /></DemoCard>}
                 {isVisible("copyable-input-field", "field") && <DemoCard name="copyable-input-field" source="fields/CopyableInputField.tsx"><CopyableInputField name="copyable" label="Share link" help="Copy the input without leaving the page." /></DemoCard>}
                 {isVisible("date-picker-field", "field") && <DemoCard name="date-picker-field" source="fields/DatePickerField.tsx"><DatePickerField name="date" label="Launch date" dateOnly help="Open the calendar and choose another date." /></DemoCard>}
-                {isVisible("date-range-picker-field", "field") && <DemoCard name="date-range-picker-field" source="fields/DateRangePickerField.tsx"><DateRangePickerField name="dateRange" label="Review window" numberOfMonths={1} help="Pick a start and end date." /></DemoCard>}
-                {isVisible("date-selector-field", "field") && <DemoCard name="date-selector-field" source="fields/DateSelectorField.tsx"><DateSelectorField name="selectorDate" label="Selector date" help="Use the month and year controls inside the calendar." /></DemoCard>}
-                {isVisible("date-time-picker-field", "field") && <DemoCard name="date-time-picker-field" source="fields/DateTimePickerField.tsx"><DateTimePickerField name="datetime" label="Scheduled handoff" timeFormat="24h" help="Date plus time in one control." /></DemoCard>}
+                {isVisible("date-range-field", "field") && <DemoCard name="date-range-field" source="fields/DateRangeField.tsx"><DateRangeField name="dateRange" label="Review window" numberOfMonths={2} help="Pick a start and end date." /></DemoCard>}
+                {isVisible("date-field", "field") && <DemoCard name="date-field" source="fields/DateField.tsx"><DateField name="selectorDate" label="Date" help="Use the month and year controls inside the calendar." /></DemoCard>}
+                {isVisible("date-time-field", "field") && <DemoCard name="date-time-field" source="fields/DateTimeField.tsx"><DateTimeField name="datetime" label="Scheduled handoff" timeFormat="24h" help="Date plus time in one control." /></DemoCard>}
                 {isVisible("month-year-picker-field", "field") && <DemoCard name="month-year-picker-field" source="fields/MonthYearPickerField.tsx"><MonthYearPickerField name="monthYear" label="Billing month" help="Choose month and year, with a stable day." /></DemoCard>}
-                {isVisible("time-picker-field", "field") && <DemoCard name="time-picker-field" source="fields/TimePickerField.tsx"><TimePickerField name="time" label="Reminder time" help="Keyboard-friendly hour and minute inputs." /></DemoCard>}
-                {isVisible("time-zone-select-field", "field") && <DemoCard name="time-zone-select-field" source="fields/TimeZoneSelectFiels.tsx"><TimeZoneSelectField name="timezone" label="Site timezone" /></DemoCard>}
-                {isVisible("basic-time-zones-select-field", "field") && <DemoCard name="basic-time-zones-select-field" source="fields/BasicTimeZonesSelectField.tsx"><BasicTimeZonesSelectField name="basicTimezone" label="Basic timezone list" /></DemoCard>}
+                {isVisible("time-field", "field") && <DemoCard name="time-field" source="fields/TimeField.tsx"><TimeField name="time" label="Reminder time" help="Keyboard-friendly hour and minute inputs." /></DemoCard>}
+                {isVisible("time-zone-field", "field") && <DemoCard name="time-zone-field" source="fields/TimeZoneField.tsx"><TimeZoneField name="timezone" label="Site timezone" /></DemoCard>}
+                {isVisible("basic-time-zones-field", "field") && <DemoCard name="basic-time-zones-field" source="fields/BasicTimeZonesField.tsx"><BasicTimeZonesField name="basicTimezone" label="Basic timezone list" /></DemoCard>}
                 {isVisible("calendar-date-picker-field", "field") && <DemoCard name="calendar-date-picker-field" source="fields/CalendarDatePickerField.tsx"><CalendarDatePickerField name="calendarRange" label="Calendar range" numberOfMonths={1} className="w-full" help="The range is stored as Date objects." /></DemoCard>}
                 {isVisible("basic-image-uploader-field", "field") && <DemoCard name="basic-image-uploader-field" source="fields/BasicImageUploaderField.tsx"><BasicImageUploaderField name="profileImage" label="Profile image" aspectRatio="16:9" variant="flat" enableUploadIndicator imagePlaceholder="Workspace cover" defaultPlaceholder={demoImageLink} /></DemoCard>}
                 {isVisible("upload-field", "field") && <DemoCard name="upload-field" source="fields/UploadField.tsx"><UploadField name="uploadIds" label="Attachments" multiple maxFiles={3} help="Drop a file or delete the seeded dummy attachment." /></DemoCard>}
@@ -832,8 +819,6 @@ function LabPage() {
             {isVisible("card-box", "component") && <DemoCard name="card-box" source="components/CardBox.tsx"><CardBox title="Card box" description="A composed card with a content slot."><p className="text-sm text-muted-foreground">Card content stays separate from its header and description.</p></CardBox></DemoCard>}
             {isVisible("custom-badge", "component") && <DemoCard name="custom-badge" source="components/CustomBadge.tsx"><div className="flex flex-wrap gap-2"><CustomBadge type="default">Default</CustomBadge><CustomBadge type="warning">Warning</CustomBadge><CustomBadge type="success">Ready</CustomBadge><CustomBadge type="danger">Blocked</CustomBadge><CustomBadge type="random">Workspace</CustomBadge></div></DemoCard>}
             {isVisible("avatar", "component") && <DemoCard name="avatar" source="components/Avatar.tsx"><div className="flex items-center gap-3"><MedramAvatar src={demoImageLink} alt="Amina Rahman" fallback="AR" tooltipContent="Amina Rahman" size={14} /><MedramAvatar fallback="JB" tooltipContent="Jon Bell" size={14} /><MedramAvatar fallback="MP" tooltipContent="Mina Park" size={14} /></div></DemoCard>}
-            {isVisible("help", "component") && <DemoCard name="help" source="components/Help.tsx"><Help>Helper copy sits directly below the control it describes.</Help></DemoCard>}
-            {isVisible("form-error", "component") && <DemoCard name="form-error" source="components/FormError.tsx"><FormError>Example validation message: choose a workspace before continuing.</FormError></DemoCard>}
             {isVisible("number-ticker", "component") && <DemoCard name="number-ticker" source="components/NumberTicker.tsx"><div className="lab-big-number"><NumberTicker value={2847} decimalPlaces={0} /><span>events indexed</span></div></DemoCard>}
             {isVisible("loader", "component") && <DemoCard name="loader" source="components/Loader.tsx"><div className="flex items-center gap-3"><Loader color="#91f2c3" size={10} /><span className="text-sm text-muted-foreground">Syncing dummy state…</span></div></DemoCard>}
             {isVisible("loading-section", "component") && <DemoCard name="loading-section" source="components/LoadingSection.tsx"><div className="h-16"><LoadingSection /></div></DemoCard>}
@@ -843,9 +828,6 @@ function LabPage() {
             {isVisible("image-preview", "component") && <DemoCard name="image-preview" source="components/ImagePreview.tsx"><ImagePreview attachment={demoImageAttachment} /></DemoCard>}
             {isVisible("pdf-preview", "component") && <DemoCard name="pdf-preview" source="components/PDFPreview.tsx"><PDFPreview attachment={demoPdfAttachment} suffixTitle="/ dummy attachment" /></DemoCard>}
             {isVisible("attachments-preview", "component") && <DemoCard name="attachments-preview" source="components/AttachmentsPreview.tsx"><AttachmentsPreview attachmentIds={[demoImageAttachment.id, demoPdfAttachment.id]} /></DemoCard>}
-            {isVisible("dot-pattern", "component") && <DemoCard name="dot-pattern" source="components/DotPattern.tsx"><DotPattern className="lab-pattern-surface"><div className="lab-pattern-copy"><Sparkles aria-hidden="true" /><span>Pattern layer with live children</span></div></DotPattern></DemoCard>}
-            {isVisible("flickering-grid", "component") && <DemoCard name="flickering-grid" source="components/FlikeringGrid.tsx"><div className="h-36 overflow-hidden rounded-lg border border-border/60"><FlickeringGrid squareSize={4} gridGap={5} color="rgba(145, 242, 195, 0.75)" maxOpacity={0.35} /></div></DemoCard>}
-            {isVisible("gradient-separator", "component") && <DemoCard name="gradient-separator" source="components/gradientSeparator.tsx"><div className="grid gap-5"><GradientSeparator color="#91f2c3" speed="7s" /><p className="text-sm text-muted-foreground">A moving divider; reduced motion is respected by the page shell.</p></div></DemoCard>}
             {isVisible("multi-step", "component") && <DemoCard name="multi-step" source="components/MultiStep.tsx"><MultiStep steps={["brief", "build", "review", "ship"]} currentStep="review" /></DemoCard>}
           </div>
         </section>

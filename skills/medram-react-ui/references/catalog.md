@@ -23,7 +23,6 @@ Each supported registry item has one validated reference. Read that reference be
 | [vertical-tabs](./vertical-tabs.md) | `pnpm dlx shadcn@latest add medram/react-ui-kit/vertical-tabs` | Cloud Storage/types package when used |
 | [wizard-card](./wizard-card.md) | `pnpm dlx shadcn@latest add medram/react-ui-kit/wizard-card` | Cloud Storage/types package when used |
 | [wizard-completion](./wizard-completion.md) | `pnpm dlx shadcn@latest add medram/react-ui-kit/wizard-completion` | Registry dependencies only |
-| [gradient-separator](./gradient-separator.md) | `pnpm dlx shadcn@latest add medram/react-ui-kit/gradient-separator` | Registry dependencies only |
 | [alert-box](./alert-box.md) | `pnpm dlx shadcn@latest add medram/react-ui-kit/alert-box` | Registry dependencies only |
 | [attachments-preview](./attachments-preview.md) | `pnpm dlx shadcn@latest add medram/react-ui-kit/attachments-preview` | Cloud Storage/types package when used |
 | [avatar](./avatar.md) | `pnpm dlx shadcn@latest add medram/react-ui-kit/avatar` | Registry dependencies only |
@@ -33,20 +32,18 @@ Each supported registry item has one validated reference. Read that reference be
 | [check-in-heatmap](./check-in-heatmap.md) | `pnpm dlx shadcn@latest add medram/react-ui-kit/check-in-heatmap` | Cloud Storage/types package when used |
 | [copy-button](./copy-button.md) | `pnpm dlx shadcn@latest add medram/react-ui-kit/copy-button` | Registry dependencies only |
 | [custom-badge](./custom-badge.md) | `pnpm dlx shadcn@latest add medram/react-ui-kit/custom-badge` | Registry dependencies only |
-| [dot-pattern](./dot-pattern.md) | `pnpm dlx shadcn@latest add medram/react-ui-kit/dot-pattern` | Registry dependencies only |
 | [drop-down-buttons](./drop-down-buttons.md) | `pnpm dlx shadcn@latest add medram/react-ui-kit/drop-down-buttons` | Registry dependencies only |
-| [flickering-grid](./flickering-grid.md) | `pnpm dlx shadcn@latest add medram/react-ui-kit/flickering-grid` | Registry dependencies only |
 | [switch-field](./switch-field.md) | `pnpm dlx shadcn@latest add medram/react-ui-kit/switch-field` | Registry dependencies only |
 | [text-area-field](./text-area-field.md) | `pnpm dlx shadcn@latest add medram/react-ui-kit/text-area-field` | Registry dependencies only |
-| [time-picker-field](./time-picker-field.md) | `pnpm dlx shadcn@latest add medram/react-ui-kit/time-picker-field` | Registry dependencies only |
-| [time-zone-select-field](./time-zone-select-field.md) | `pnpm dlx shadcn@latest add medram/react-ui-kit/time-zone-select-field` | Registry dependencies only |
+| [time-field](./time-field.md) | `pnpm dlx shadcn@latest add medram/react-ui-kit/time-field` | Registry dependencies only |
+| [time-zone-field](./time-zone-field.md) | `pnpm dlx shadcn@latest add medram/react-ui-kit/time-zone-field` | Registry dependencies only |
 | [upload-field](./upload-field.md) | `pnpm dlx shadcn@latest add medram/react-ui-kit/upload-field` | Cloud Storage/types package when used |
 | [copyable-input-field](./copyable-input-field.md) | `pnpm dlx shadcn@latest add medram/react-ui-kit/copyable-input-field` | Registry dependencies only |
 | [date-picker-field](./date-picker-field.md) | `pnpm dlx shadcn@latest add medram/react-ui-kit/date-picker-field` | Registry dependencies only |
-| [date-range-picker-field](./date-range-picker-field.md) | `pnpm dlx shadcn@latest add medram/react-ui-kit/date-range-picker-field` | Registry dependencies only |
+| [date-range-field](./date-range-field.md) | `pnpm dlx shadcn@latest add medram/react-ui-kit/date-range-field` | Registry dependencies only |
 | [date-range-yup-schema](./date-range-yup-schema.md) | `pnpm dlx shadcn@latest add medram/react-ui-kit/date-range-yup-schema` | Registry dependencies only |
-| [date-selector-field](./date-selector-field.md) | `pnpm dlx shadcn@latest add medram/react-ui-kit/date-selector-field` | Registry dependencies only |
-| [date-time-picker-field](./date-time-picker-field.md) | `pnpm dlx shadcn@latest add medram/react-ui-kit/date-time-picker-field` | Registry dependencies only |
+| [date-field](./date-field.md) | `pnpm dlx shadcn@latest add medram/react-ui-kit/date-field` | Registry dependencies only |
+| [date-time-field](./date-time-field.md) | `pnpm dlx shadcn@latest add medram/react-ui-kit/date-time-field` | Registry dependencies only |
 | [dropdown-box-field](./dropdown-box-field.md) | `pnpm dlx shadcn@latest add medram/react-ui-kit/dropdown-box-field` | Registry dependencies only |
 | [input-field](./input-field.md) | `pnpm dlx shadcn@latest add medram/react-ui-kit/input-field` | Registry dependencies only |
 | [month-year-picker-field](./month-year-picker-field.md) | `pnpm dlx shadcn@latest add medram/react-ui-kit/month-year-picker-field` | Registry dependencies only |
@@ -56,7 +53,7 @@ Each supported registry item has one validated reference. Read that reference be
 | [select-field](./select-field.md) | `pnpm dlx shadcn@latest add medram/react-ui-kit/select-field` | Registry dependencies only |
 | [sensitive-field](./sensitive-field.md) | `pnpm dlx shadcn@latest add medram/react-ui-kit/sensitive-field` | Registry dependencies only |
 | [basic-image-uploader-field](./basic-image-uploader-field.md) | `pnpm dlx shadcn@latest add medram/react-ui-kit/basic-image-uploader-field` | Cloud Storage/types package when used |
-| [basic-time-zones-select-field](./basic-time-zones-select-field.md) | `pnpm dlx shadcn@latest add medram/react-ui-kit/basic-time-zones-select-field` | Registry dependencies only |
+| [basic-time-zones-field](./basic-time-zones-field.md) | `pnpm dlx shadcn@latest add medram/react-ui-kit/basic-time-zones-field` | Registry dependencies only |
 | [calendar-date-picker-field](./calendar-date-picker-field.md) | `pnpm dlx shadcn@latest add medram/react-ui-kit/calendar-date-picker-field` | Registry dependencies only |
 | [base-check-box-field](./base-check-box-field.md) | `pnpm dlx shadcn@latest add medram/react-ui-kit/base-check-box-field` | Registry dependencies only |
 | [check-box-field](./check-box-field.md) | `pnpm dlx shadcn@latest add medram/react-ui-kit/check-box-field` | Registry dependencies only |

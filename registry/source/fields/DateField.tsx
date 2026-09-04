@@ -1,8 +1,7 @@
 import { format, isValid } from "date-fns"
 import { ErrorMessage, useField } from "formik"
 import { CalendarIcon } from "lucide-react"
-import type { ComponentProps, ChangeEvent, ReactNode } from "react"
-import { useState } from "react"
+import type { ComponentProps, ReactNode } from "react"
 import FormError from "@/components/ui/form-error"
 import Help from "@/components/ui/help"
 import { cn } from "@/lib/utils"
@@ -11,7 +10,7 @@ import { Calendar } from "@/components/ui/calendar"
 import { Label } from "@/components/ui/label"
 import { Popover, PopoverContent, PopoverTrigger } from "@/components/ui/popover"
 
-type DatePickerFieldProps = {
+type DateFieldProps = {
   name: string
   label?: string
   help?: string | ReactNode
@@ -21,9 +20,9 @@ type DatePickerFieldProps = {
   disableFn?: (date: Date) => boolean
   onChange?: (date: Date) => void
   disabled?: boolean
-} & Omit<ComponentProps<typeof Calendar>, "mode" | "selected" | "onSelect" | "disabled" | "month">
+} & Omit<ComponentProps<typeof Calendar>, "mode" | "selected" | "onSelect" | "disabled" | "month" | "captionLayout" | "defaultMonth">
 
-export default function DateSelectorField({
+export default function DateField({
   name,
   label,
   help,
@@ -34,19 +33,12 @@ export default function DateSelectorField({
   onChange,
   disabled,
   ...props
-}: DatePickerFieldProps) {
+}: DateFieldProps) {
   const [field, _meta, helpers] = useField<Date | string>(name)
 
   // selectedDate is derived from the form value — no useEffect mirror.
   const parsedDate = field.value ? new Date(field.value) : null
   const selectedDate = parsedDate && isValid(parsedDate) ? parsedDate : null
-
-  // Calendar navigation (which month/year is visible). Initialized once from
-  // the form value; subsequent navigation is user-driven via the dropdowns
-  // and the calendar's arrow buttons.
-  const today = new Date()
-  const [month, setMonth] = useState<number>(selectedDate?.getMonth() ?? today.getMonth())
-  const [year, setYear] = useState<number>(selectedDate?.getFullYear() ?? today.getFullYear())
 
   const setFieldValue = (date: Date | null) => {
     if (date) {
@@ -66,20 +58,6 @@ export default function DateSelectorField({
     }
   }
 
-  const handleMonthChange = (event: ChangeEvent<HTMLSelectElement>) => {
-    const newMonth = parseInt(event.target.value, 10)
-    setMonth(newMonth)
-    const updatedDate = new Date(year, newMonth, selectedDate?.getDate() ?? 1)
-    setFieldValue(updatedDate)
-  }
-
-  const handleYearChange = (event: ChangeEvent<HTMLSelectElement>) => {
-    const newYear = parseInt(event.target.value, 10)
-    setYear(newYear)
-    const updatedDate = new Date(newYear, month, selectedDate?.getDate() ?? 1)
-    setFieldValue(updatedDate)
-  }
-
   return (
     <div key={name} className={cn(`flex flex-col text-primary mb-2 gap-1 ${className}`)}>
       {label && (
@@ -94,6 +72,7 @@ export default function DateSelectorField({
             variant={"outline"}
             className={cn(
               "w-full justify-start text-left font-normal",
+
               !field.value && "text-muted-foreground",
             )}
             disabled={disabled}
@@ -107,43 +86,14 @@ export default function DateSelectorField({
           </Button>
         </PopoverTrigger>
 
-        <PopoverContent className="flex w-auto flex-col space-y-2 p-0">
-          <div className="flex space-x-2 px-2 py-2">
-            <select value={month} onChange={handleMonthChange} className="border rounded p-1">
-              {Array.from({ length: 12 }, (_, index) => (
-                <option key={index} value={index}>
-                  {format(new Date(year, index, 1), "MMMM")}
-                </option>
-              ))}
-            </select>
-            <select
-              value={year}
-              onChange={handleYearChange}
-              className="border rounded p-1"
-              suppressHydrationWarning
-            >
-              {Array.from({ length: 100 }, (_, index) => {
-                const yearOption = new Date().getFullYear() - index
-                return (
-                  <option key={yearOption} value={yearOption}>
-                    {yearOption}
-                  </option>
-                )
-              })}
-            </select>
-          </div>
-
+        <PopoverContent className="w-auto p-0">
           <Calendar
-            key={`${year}-${month}`}
             {...field}
             {...props}
             mode="single"
+            captionLayout="dropdown"
+            defaultMonth={selectedDate ?? undefined}
             selected={selectedDate && isValid(selectedDate) ? selectedDate : undefined}
-            onMonthChange={(date: Date) => {
-              setMonth(date.getMonth())
-              setYear(date.getFullYear())
-            }}
-            month={new Date(year, month)}
             onSelect={(date: Date | undefined) => handleDateChange(date)}
             disabled={disableFn}
             required={required}

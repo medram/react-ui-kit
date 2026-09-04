@@ -2,7 +2,6 @@ import { CircleAlert, LucideIcon, TrendingDown, TrendingUp } from "lucide-react"
 import { cn } from "@/lib/utils"
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card"
 import { Tooltip, TooltipContent, TooltipTrigger } from "@/components/ui/tooltip"
-import { DotPattern } from "@/components/ui/dot-pattern"
 import { NumberTicker } from "@/components/ui/number-ticker"
 
 type OverviewBoxProps = {
@@ -53,37 +52,31 @@ export default function OverviewBox({
   additionalInfo,
 }: OverviewBoxProps) {
   return (
-    <DotPattern
-      className={cn(
-        "[mask-image:radial-gradient(200px_circle_at_center,white,transparent)] p-1 h-full",
-      )}
-    >
-      <Card className={cn("h-[140px] relative bg-transparent", className)}>
-        <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
-          {title && (
-            <CardTitle className="text-sm font-medium flex items-center gap-1">
-              {title}{" "}
-              {additionalInfo && (
-                <Tooltip>
-                  <TooltipTrigger asChild>
-                    <CircleAlert size={18} className="opacity-50 hover:opacity-80" />
-                  </TooltipTrigger>
-                  <TooltipContent side="right">{additionalInfo}</TooltipContent>
-                </Tooltip>
-              )}
-            </CardTitle>
-          )}
-          {Icon && <Icon className="text-primary" />}
-        </CardHeader>
-        <CardContent>
-          {value && <div className="text-2xl font-bold">{value}</div>}
+    <Card className={cn("h-[140px] relative", className)}>
+      <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
+        {title && (
+          <CardTitle className="text-sm font-medium flex items-center gap-1">
+            {title}{" "}
+            {additionalInfo && (
+              <Tooltip>
+                <TooltipTrigger asChild>
+                  <CircleAlert size={18} className="opacity-50 hover:opacity-80" />
+                </TooltipTrigger>
+                <TooltipContent side="right">{additionalInfo}</TooltipContent>
+              </Tooltip>
+            )}
+          </CardTitle>
+        )}
+        {Icon && <Icon className="text-primary" />}
+      </CardHeader>
+      <CardContent>
+        {value && <div className="text-2xl font-bold">{value}</div>}
 
-          <div className="flex justify-between items-center space-x-2 mt-2">
-            {description && <span className="text-xs text-primary">{description}</span>}
-            {change != undefined && getChangeLabel(change)}
-          </div>
-        </CardContent>
-      </Card>
-    </DotPattern>
+        <div className="flex justify-between items-center space-x-2 mt-2">
+          {description && <span className="text-xs text-primary">{description}</span>}
+          {change != undefined && getChangeLabel(change)}
+        </div>
+      </CardContent>
+    </Card>
   )
 }

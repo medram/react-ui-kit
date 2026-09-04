@@ -1,4 +1,4 @@
-import { Download, Paperclip, X } from "lucide-react"
+import { Download, Loader2, Paperclip, X } from "lucide-react"
 import prettyBytes from "pretty-bytes"
 import { useCallback, useEffect, useRef, useState } from "react"
 import { FileRejection } from "react-dropzone"
@@ -8,6 +8,16 @@ import { cn } from "@/lib/utils"
 import type { AttachmentDto, Prettify } from "@medram/react-ui-kit/types"
 import DropZone, { DropZoneProps, onUploadProps } from "@/components/ui/drop-zone"
 import { ALLOWED_ATTACHMENTS } from "@/components/ui/attachment-inputs"
+import {
+  Attachment,
+  AttachmentAction,
+  AttachmentActions,
+  AttachmentContent,
+  AttachmentDescription,
+  AttachmentMedia,
+  AttachmentTitle,
+  AttachmentTrigger,
+} from "@/components/ui/attachment"
 
 const DEFAULT_MAX_SIZE = 1024 * 1024 // 1MB
 
@@ -52,7 +62,6 @@ export default function UploadInput({
     uploadFile,
     isUploading,
     uploadedFiles,
-    setUploadedFiles,
     attachmentPlaceholdersMetadata,
     deleteAttachment,
     handleError,
@@ -134,7 +143,7 @@ export default function UploadInput({
           />
         </div>
       )}
-      <div className="flex flex-col gap-1">
+      <div className="flex flex-col gap-2">
         {uploadedFiles.map((attachment, i) => {
           return (
             <AttachmentContainer
@@ -151,7 +160,7 @@ export default function UploadInput({
               <AttachmentPlaceholder
                 key={`upload-${placeholderId}`}
                 title="Uploading..."
-                progress={progress}
+                progress={formatProgress(progress)}
               />
             )
           })}
@@ -170,43 +179,54 @@ function AttachmentContainer({ attachment, onDelete, readOnly }: AttachmentConta
   const [isDeleting, setDeleting] = useState(false)
 
   return (
-    <div key={attachment.id} className="flex items-center gap-2 p-2 rounded bg-muted max-w-full">
-      <div className="flex-1 flex gap-2 items-center">
-        <Paperclip />{" "}
-        <a
-          href={attachment.link}
-          className="hover:underline !text-ellipsis"
-          target="_blank"
-          rel="noreferrer"
-          title={attachment.name}
-        >
-          {attachment.name}
-        </a>
-        <span className="whitespace-nowrap font-bold">({prettyBytes(attachment.size)})</span>
-      </div>
+    <Attachment state={isDeleting ? "processing" : "done"} className="w-full">
+      <AttachmentMedia>
+        <Paperclip />
+      </AttachmentMedia>
+      <AttachmentContent>
+        <AttachmentTitle title={attachment.name}>{attachment.name}</AttachmentTitle>
+        <AttachmentDescription>
+          {isDeleting ? "Removing attachment" : prettyBytes(attachment.size)}
+        </AttachmentDescription>
+      </AttachmentContent>
+      <AttachmentActions>
+        {attachment.link && !isDeleting && (
+          <AttachmentAction asChild aria-label={`Download ${attachment.name}`}>
+            <a
+              href={attachment.link}
+              download={attachment.name}
+              target="_blank"
+              rel="noreferrer"
+            >
+              <Download />
+            </a>
+          </AttachmentAction>
+        )}
+        {!readOnly && (
+          <AttachmentAction
+            type="button"
+            aria-label={isDeleting ? `Removing ${attachment.name}` : `Remove ${attachment.name}`}
+            disabled={isDeleting}
+            onClick={() => {
+              setDeleting(true)
+              void onDelete(attachment)
+            }}
+          >
+            {isDeleting ? <Loader2 className="animate-spin" /> : <X />}
+          </AttachmentAction>
+        )}
+      </AttachmentActions>
       {attachment.link && !isDeleting && (
-        <a
-          href={attachment.link}
-          download={attachment.name}
-          target="_blank"
-          rel="noreferrer"
-          className="block"
-        >
-          <Download />
-        </a>
+        <AttachmentTrigger asChild>
+          <a
+            href={attachment.link}
+            target="_blank"
+            rel="noreferrer"
+            aria-label={`Open ${attachment.name}`}
+          />
+        </AttachmentTrigger>
       )}
-      {!readOnly && (
-        <button
-          type="button"
-          onClick={() => {
-            setDeleting(true)
-            onDelete(attachment)
-          }}
-        >
-          {!isDeleting ? <X className="" /> : "Deleting..."}
-        </button>
-      )}
-    </div>
+    </Attachment>
   )
 }
 
@@ -217,14 +237,14 @@ type AttachmentPlaceholderProps = {
 
 function AttachmentPlaceholder({ title, progress = 0 }: AttachmentPlaceholderProps) {
   return (
-    <div className={cn("flex items-center gap-2 relative p-2 rounded ")}>
-      <Paperclip /> <span className="truncate max-w-xl">{title}</span> ({progress}%)
-      {progress < 100 && (
-        <div
-          className={`block absolute left-0 bottom-0 h-[3px] rounded-lg transition-transform duration-300 transform z-0 bg-purple-300`}
-          style={{ width: `${progress}%` }}
-        ></div>
-      )}
-    </div>
+    <Attachment state="uploading" className="w-full">
+      <AttachmentMedia>
+        <Loader2 className="animate-spin" />
+      </AttachmentMedia>
+      <AttachmentContent>
+        <AttachmentTitle>{title}</AttachmentTitle>
+        <AttachmentDescription>Uploading · {progress}%</AttachmentDescription>
+      </AttachmentContent>
+    </Attachment>
   )
 }

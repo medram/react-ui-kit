@@ -1,25 +1,29 @@
-# Date Time Picker Field
+# Date Field
 
 ## Install
 
 ```bash
-pnpm dlx shadcn@latest add medram/react-ui-kit/date-time-picker-field
+pnpm dlx shadcn@latest add medram/react-ui-kit/date-field
 ```
 
-Generated source: `components/ui/date-time-picker-field.tsx`.
+Generated source: `components/ui/date-field.tsx`.
 
 ## Dependencies
 
-- shadcn registry items: button, calendar, input, label, medram/react-ui-kit/form-error, medram/react-ui-kit/help, popover, separator
+- shadcn registry items: button, calendar, label, medram/react-ui-kit/form-error, medram/react-ui-kit/help, popover
 - npm packages: date-fns, formik, lucide-react
 - runtime prerequisites: Formik form context with a matching initial value.
 
 ## Contract
 
-- Source of truth: [`registry/source/fields/DateTimePickerField.tsx`](../../../registry/source/fields/DateTimePickerField.tsx).
-- Exported declarations: `DateTimePickerField`
+- Source of truth: [`registry/source/fields/DateField.tsx`](../../../registry/source/fields/DateField.tsx).
+- Exported declarations: `DateField`
 - Owns local interaction state; use documented callback props to observe or control it.
 - Preserve the source-defined prop, callback, loading, disabled, empty, and error behavior when composing this item.
+
+## Calendar navigation
+
+The calendar uses shadcn's `captionLayout="dropdown"` so users can select or change the displayed month and year directly from the calendar caption.
 
 ## Framework boundary
 
