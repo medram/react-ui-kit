@@ -22,7 +22,7 @@ type DatePickerFieldProps = {
   disabled?: boolean
   includingTime?: boolean
   dateOnly?: boolean
-} & Omit<ComponentProps<typeof Calendar>, "mode" | "selected" | "defaultMonth" | "onSelect" | "disabled">
+} & Omit<ComponentProps<typeof Calendar>, "mode" | "selected" | "onSelect" | "disabled">
 
 export default function DatePickerField({
   name,
@@ -34,6 +34,8 @@ export default function DatePickerField({
   disableFn,
   onChange,
   disabled,
+  captionLayout = "dropdown",
+  defaultMonth,
   includingTime = true,
   dateOnly = false,
   ...props
@@ -84,8 +86,9 @@ export default function DatePickerField({
             {...field}
             {...props}
             mode="single"
+            captionLayout={captionLayout}
             selected={selectedDate && isValid(selectedDate) ? selectedDate : undefined}
-            defaultMonth={selectedDate && isValid(selectedDate) ? selectedDate : undefined} // Open calendar to the selected date
+            defaultMonth={defaultMonth ?? (selectedDate && isValid(selectedDate) ? selectedDate : undefined)}
             onSelect={(date: Date | undefined) => {
               helpers.setValue(date ? getFormattedDate(date) : "")
               if (date) onChange?.(date)

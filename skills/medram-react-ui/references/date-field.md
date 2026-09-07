@@ -23,7 +23,16 @@ Generated source: `components/ui/date-field.tsx`.
 
 ## Calendar navigation
 
-The calendar uses shadcn's `captionLayout="dropdown"` so users can select or change the displayed month and year directly from the calendar caption.
+The calendar defaults to `captionLayout="dropdown"` and forwards the shadcn Calendar navigation props. Use `startMonth` and `endMonth` to control the years available in the year dropdown. `captionLayout`, `defaultMonth`, `month`, `onMonthChange`, `reverseYears`, and other DayPicker props are also available; form-owned `mode`, `selected`, `onSelect`, and `disabled` remain internal.
+
+```tsx
+<DateField
+  name="birthDate"
+  startMonth={new Date(1950, 0)}
+  endMonth={new Date(2025, 11)}
+  reverseYears
+/>
+```
 
 ## Framework boundary
 

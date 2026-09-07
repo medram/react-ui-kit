@@ -37,7 +37,16 @@ On desktop, the default `numberOfMonths={2}` layout includes quick range buttons
 
 Selecting a preset updates the Formik field's `from` and `to` values and highlights that preset. Selecting a date manually clears the active preset.
 
-The calendar uses shadcn's `captionLayout="dropdown"` so users can change months and years directly from the calendar captions.
+The calendar defaults to `captionLayout="dropdown"` and forwards the shadcn Calendar navigation props. Use `startMonth` and `endMonth` to control the years available in both month captions. `captionLayout`, `defaultMonth`, `month`, `onMonthChange`, `reverseYears`, and other DayPicker props are also available; form-owned `mode`, `selected`, `onSelect`, `disabled`, and `numberOfMonths` remain internal.
+
+```tsx
+<DateRangeField
+  name="reviewWindow"
+  startMonth={new Date(2020, 0)}
+  endMonth={new Date(2030, 11)}
+  numberOfMonths={2}
+/>
+```
 
 ## Framework boundary
 

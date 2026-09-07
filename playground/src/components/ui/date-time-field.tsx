@@ -141,7 +141,7 @@ type DateTimeFieldProps = {
   disabled?: boolean
   timeFormat?: "12h" | "24h"
   defaultTime?: { hours: number; minutes: number }
-} & Omit<ComponentProps<typeof Calendar>, "mode" | "selected" | "defaultMonth" | "onSelect" | "disabled" | "captionLayout">
+} & Omit<ComponentProps<typeof Calendar>, "mode" | "selected" | "onSelect" | "disabled">
 
 export default function DateTimeField({
   name,
@@ -153,6 +153,8 @@ export default function DateTimeField({
   disableFn,
   onChange,
   disabled,
+  captionLayout = "dropdown",
+  defaultMonth,
   timeFormat = "24h",
   defaultTime = { hours: 0, minutes: 0 },
   ...props
@@ -229,8 +231,8 @@ export default function DateTimeField({
           <Calendar
             {...props}
             mode="single"
-            captionLayout="dropdown"
-            defaultMonth={isValidDate ? selectedDate : undefined}
+            captionLayout={captionLayout}
+            defaultMonth={defaultMonth ?? (isValidDate ? selectedDate : undefined)}
             onSelect={handleDateSelect}
             disabled={disableFn}
           />

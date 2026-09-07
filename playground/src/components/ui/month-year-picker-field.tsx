@@ -34,6 +34,10 @@ type MonthYearPickerFieldProps = {
   onChange?: (date: Date) => void
   disabled?: boolean
   defaultDay?: number
+  yearsRange?: number
+  yearsOrder?: "asc" | "desc"
+  minYear?: number
+  maxYear?: number
 }
 
 export default function MonthYearPickerField({
@@ -46,14 +50,23 @@ export default function MonthYearPickerField({
   onChange,
   disabled,
   defaultDay = 1,
+  yearsRange = 3,
+  yearsOrder = "desc",
+  minYear,
+  maxYear,
 }: MonthYearPickerFieldProps) {
   const [field, meta, helpers] = useField<Date | string>(name)
 
   const selectedDate = field.value ? new Date(field.value) : null
 
   const currentYear = new Date().getFullYear()
-  const years = [currentYear, currentYear - 1, currentYear - 2, currentYear - 3]
-
+  const resolvedMaxYear = maxYear ?? currentYear
+  const resolvedMinYear = Math.min(minYear ?? resolvedMaxYear - Math.max(yearsRange, 0), resolvedMaxYear)
+  const years = Array.from(
+    { length: resolvedMaxYear - resolvedMinYear + 1 },
+    (_, index) => resolvedMinYear + index,
+  )
+  if (yearsOrder === "desc") years.reverse()
   const handleDateChange = (month: number, year: number, day: number = defaultDay) => {
     const newDate = new Date(year, month, day)
     const formattedDate = `${year}-${String(month + 1).padStart(2, "0")}-${String(day).padStart(2, "0")}`

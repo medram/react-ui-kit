@@ -14,6 +14,22 @@ The generated source lives under `@/components/ui/`. The command installs the ex
 
 Items ending in `-field` use Formik unless their reference explicitly says otherwise. Use the generated field reference to confirm its value shape. Upload items require `CloudStorageProvider`.
 
+## Date-field calendar bounds
+
+`date-field`, `date-picker-field`, `date-time-field`, and `date-range-field` expose the shadcn Calendar navigation props. Use `startMonth` and `endMonth` to bound the years available in the calendar dropdowns:
+
+```tsx
+<DateField
+  name="birthDate"
+  startMonth={new Date(1950, 0)}
+  endMonth={new Date(2025, 11)}
+  reverseYears
+/>
+```
+
+They also accept `captionLayout`, `defaultMonth`, `month`, `onMonthChange`, and the other DayPicker customization props. `month-year-picker-field` provides equivalent year controls through `yearsRange`, `minYear`, `maxYear`, and `yearsOrder`. `calendar-date-picker` and `calendar-date-picker-field` support those year controls plus `startMonth` and `endMonth`.
+
+
 ## Dashboard and display
 
 `alert-box`, `attachments-preview`, `avatar`, `base-select`, `calendar-date-picker`, `card-box`, `check-in-heatmap`, `copy-button`, `custom-badge`, `form-error`, `full-screen-loading`, `help`, `image-preview`, `loader`, `loading-section`, `modal-box`, `multi-step`, `number-ticker`, `overview-box`, `pagination`, `pdf-preview`, `select`, `sheet-box`, `submit-button`, `tabs`, `vertical-tabs`, `wizard-card`, `wizard-completion`.

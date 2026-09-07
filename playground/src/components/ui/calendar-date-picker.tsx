@@ -68,6 +68,8 @@ export type CalendarDatePickerProps = React.HTMLAttributes<HTMLButtonElement> &
     minYear?: number
     maxYear?: number
     preventFuture?: boolean
+    startMonth?: Date
+    endMonth?: Date
     onDateSelect: ({ from, to }: { from: Date; to: Date }) => void
     enableWheel?: boolean
     popOverPosition?: "center" | "start" | "end"
@@ -92,6 +94,8 @@ export function CalendarDatePicker({
   yearsOrder = "asc",
   minYear,
   maxYear,
+  startMonth,
+  endMonth,
   preventFuture = false,
   onDateSelect,
   variant,
@@ -268,10 +272,14 @@ export function CalendarDatePicker({
     }
   }
 
-  // Resolve max year bound considering preventFuture
-  let resolvedMaxYear = typeof maxYear === "number" ? maxYear : currentYear
-  if (!preventFuture && typeof maxYear !== "number") {
-    // Preserve previous behavior when no bounds provided: center around today
+  let resolvedMaxYear = maxYear ?? endMonth?.getFullYear() ?? currentYear
+  if (
+    !preventFuture &&
+    typeof maxYear !== "number" &&
+    typeof endMonth === "undefined" &&
+    typeof minYear !== "number" &&
+    typeof startMonth === "undefined"
+  ) {
     resolvedMaxYear = currentYear + Math.floor(yearsRange / 2)
   }
   if (preventFuture) {
@@ -282,6 +290,8 @@ export function CalendarDatePicker({
   let resolvedMinYear: number
   if (typeof minYear === "number") {
     resolvedMinYear = minYear
+  } else if (startMonth) {
+    resolvedMinYear = startMonth.getFullYear()
   } else {
     resolvedMinYear = resolvedMaxYear - yearsRange
   }
@@ -707,6 +717,8 @@ export function CalendarDatePicker({
                     numberOfMonths={numberOfMonths}
                     selected={date}
                     className={className}
+                    startMonth={startMonth}
+                    endMonth={endMonth}
                     captionLayout="dropdown"
                     classNames={classNames}
                   />

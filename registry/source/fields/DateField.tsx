@@ -20,7 +20,7 @@ type DateFieldProps = {
   disableFn?: (date: Date) => boolean
   onChange?: (date: Date) => void
   disabled?: boolean
-} & Omit<ComponentProps<typeof Calendar>, "mode" | "selected" | "onSelect" | "disabled" | "month" | "captionLayout" | "defaultMonth">
+} & Omit<ComponentProps<typeof Calendar>, "mode" | "selected" | "onSelect" | "disabled">
 
 export default function DateField({
   name,
@@ -32,6 +32,8 @@ export default function DateField({
   disableFn,
   onChange,
   disabled,
+  captionLayout = "dropdown",
+  defaultMonth,
   ...props
 }: DateFieldProps) {
   const [field, _meta, helpers] = useField<Date | string>(name)
@@ -91,8 +93,8 @@ export default function DateField({
             {...field}
             {...props}
             mode="single"
-            captionLayout="dropdown"
-            defaultMonth={selectedDate ?? undefined}
+            captionLayout={captionLayout}
+            defaultMonth={defaultMonth ?? selectedDate ?? undefined}
             selected={selectedDate && isValid(selectedDate) ? selectedDate : undefined}
             onSelect={(date: Date | undefined) => handleDateChange(date)}
             disabled={disableFn}

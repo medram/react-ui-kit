@@ -31,8 +31,10 @@ type DateRangeFieldProps = {
   placeholder?: string
   disableFn?: (date: Date) => boolean
   numberOfMonths?: number
-  [key: string]: unknown
-}
+} & Omit<
+  React.ComponentProps<typeof Calendar>,
+  "mode" | "selected" | "onSelect" | "disabled" | "numberOfMonths"
+>
 
 type DateRangePreset = {
   label: string
@@ -51,6 +53,8 @@ export default function DateRangeField({
   placeholder = "Pick a date range",
   disableFn,
   numberOfMonths = 2,
+  captionLayout = "dropdown",
+  defaultMonth,
   ...props
 }: DateRangeFieldProps) {
   const [field, meta, helpers] = useField<CustomDateRange>(name)
@@ -145,13 +149,16 @@ export default function DateRangeField({
               </div>
             )}
             <Calendar
+              {...field}
+              {...props}
               mode="range"
-              captionLayout="dropdown"
+              captionLayout={captionLayout}
+              defaultMonth={defaultMonth ?? (field.value.from ? new Date(field.value.from) : undefined)}
               selected={{
                 from: field.value.from ? new Date(field.value.from) : undefined,
                 to: field.value.to ? new Date(field.value.to) : undefined,
               }}
-              onSelect={(date) => {
+              onSelect={(date: { from?: Date; to?: Date } | undefined) => {
                 if (date) {
                   helpers.setValue({
                     from: date.from ? date.from.toISOString() : "",
@@ -161,9 +168,8 @@ export default function DateRangeField({
                 }
               }}
               disabled={disableFn}
+              required={required}
               numberOfMonths={numberOfMonths}
-              {...field}
-              {...props}
             />
           </div>
         </PopoverContent>
