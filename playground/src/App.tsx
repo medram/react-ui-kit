@@ -578,15 +578,16 @@ function ThemeToggle() {
   const { theme, setTheme } = useTheme()
   const isDark = theme !== "light"
   return (
-    <button
+    <Button
       type="button"
-      className="lab-icon-button"
+      variant="outline"
+      size="icon"
       onClick={() => setTheme(isDark ? "light" : "dark")}
       aria-label={isDark ? "Use light theme" : "Use dark theme"}
       title={isDark ? "Use light theme" : "Use dark theme"}
     >
       {isDark ? <Sun aria-hidden="true" /> : <Moon aria-hidden="true" />}
-    </button>
+    </Button>
   )
 }
 

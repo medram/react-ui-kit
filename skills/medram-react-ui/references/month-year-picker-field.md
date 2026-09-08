@@ -21,13 +21,16 @@ Generated source: `components/ui/month-year-picker-field.tsx`.
 - Does not own persistent application state.
 - Preserve the source-defined prop, callback, loading, disabled, empty, and error behavior when composing this item.
 
-## Year options
+## Value and year options
+
+The field stores an ISO date string using `defaultDay` (default `1`) as the day component, while the trigger displays only the selected month and year. If `defaultDay` exceeds the selected month's length, it is clamped to the last valid day.
 
 The field defaults to the current year plus the previous three years, ordered descending. Use `minYear` and `maxYear` for explicit bounds, or `yearsRange` to control the relative range when a bound is omitted. Set `yearsOrder="asc"` for ascending options.
 
 ```tsx
 <MonthYearPickerField
   name="billingMonth"
+  defaultDay={1}
   minYear={2020}
   maxYear={2030}
   yearsOrder="asc"

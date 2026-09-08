@@ -48,12 +48,12 @@ export function ModalStackedBox({
       <DialogStackBody>
         <DialogStackContent
           className={cn(
-            "bg-background p-6 shadow-lg max-h-[90vh] overflow-y-auto",
+            "max-w-[85vw] sm:max-w-xl max-h-[90vh] overflow-y-auto",
             contentClassName,
           )}
         >
-          <DialogHeader className={cn("flex flex-col gap-2 mb-4", headerClassName)}>
-            <DialogStackTitle className={cn(title ? "" : "hidden", headerClassName)}>
+          <DialogHeader className={headerClassName}>
+            <DialogStackTitle className={cn(title ? "" : "hidden")}>
               {title}
             </DialogStackTitle>
             <DialogStackDescription className={cn(description ? "" : "hidden")}>

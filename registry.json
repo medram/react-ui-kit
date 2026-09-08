@@ -1514,6 +1514,9 @@
       "type": "registry:ui",
       "title": "Stacked Dialog",
       "description": "Medram stacked dialog source component.",
+      "registryDependencies": [
+        "button"
+      ],
       "dependencies": [
         "@radix-ui/react-dialog",
         "lucide-react"

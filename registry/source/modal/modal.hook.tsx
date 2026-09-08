@@ -1,6 +1,5 @@
 "use client"
 
-import LoadingSection from "@/components/ui/loading-section"
 import { ModalStackedBox } from "@/components/ui/stacked-modal-box"
 
 import * as React from "react"
@@ -39,7 +38,7 @@ function Modal({
       description={description}
       showOverlay={showOverlay}
     >
-      <React.Suspense fallback={<LoadingSection />}>{children}</React.Suspense>
+      {children}
     </ModalStackedBox>
   )
 }
