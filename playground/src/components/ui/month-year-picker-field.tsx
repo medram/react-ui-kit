@@ -1,4 +1,4 @@
-import { format, isValid } from "date-fns"
+import { format, isValid, parseISO } from "date-fns"
 import { ErrorMessage, useField } from "formik"
 import { CalendarIcon } from "lucide-react"
 import FormError from "@/components/ui/form-error"
@@ -7,7 +7,14 @@ import { cn } from "@/lib/utils"
 import { Button } from "@/components/ui/button"
 import { Label } from "@/components/ui/label"
 import { Popover, PopoverContent, PopoverTrigger } from "@/components/ui/popover"
-import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select"
+import {
+  Select,
+  SelectContent,
+  SelectGroup,
+  SelectItem,
+  SelectTrigger,
+  SelectValue,
+} from "@/components/ui/select"
 
 const months = [
   { value: 0, label: "January" },
@@ -34,6 +41,10 @@ type MonthYearPickerFieldProps = {
   onChange?: (date: Date) => void
   disabled?: boolean
   defaultDay?: number
+  yearsRange?: number
+  yearsOrder?: "asc" | "desc"
+  minYear?: number
+  maxYear?: number
 }
 
 export default function MonthYearPickerField({
@@ -46,31 +57,54 @@ export default function MonthYearPickerField({
   onChange,
   disabled,
   defaultDay = 1,
+  yearsRange = 3,
+  yearsOrder = "desc",
+  minYear,
+  maxYear,
 }: MonthYearPickerFieldProps) {
   const [field, meta, helpers] = useField<Date | string>(name)
 
-  const selectedDate = field.value ? new Date(field.value) : null
+  const parsedDate =
+    field.value instanceof Date
+      ? field.value
+      : field.value
+        ? parseISO(field.value)
+        : null
+  const selectedDate = parsedDate && isValid(parsedDate) ? parsedDate : null
 
   const currentYear = new Date().getFullYear()
-  const years = [currentYear, currentYear - 1, currentYear - 2, currentYear - 3]
+  const yearRange = Math.max(0, Math.floor(yearsRange))
+  const resolvedMaxYear = maxYear ?? currentYear
+  const resolvedMinYear = Math.min(minYear ?? resolvedMaxYear - yearRange, resolvedMaxYear)
+  const years = Array.from(
+    { length: resolvedMaxYear - resolvedMinYear + 1 },
+    (_, index) => resolvedMinYear + index,
+  )
+  if (yearsOrder === "desc") years.reverse()
+
+  const fallbackYear = resolvedMaxYear
+  const yearId = `${name}-year`
+  const monthId = `${name}-month`
 
   const handleDateChange = (month: number, year: number, day: number = defaultDay) => {
-    const newDate = new Date(year, month, day)
-    const formattedDate = `${year}-${String(month + 1).padStart(2, "0")}-${String(day).padStart(2, "0")}`
+    const lastDayOfMonth = new Date(year, month + 1, 0).getDate()
+    const clampedDay = Math.min(Math.max(Math.trunc(day), 1), lastDayOfMonth)
+    const newDate = new Date(year, month, clampedDay)
+    const formattedDate = `${year}-${String(month + 1).padStart(2, "0")}-${String(clampedDay).padStart(2, "0")}`
 
     helpers.setValue(formattedDate)
     onChange?.(newDate)
   }
 
   const getDisplayText = () => {
-    if (field.value && selectedDate && isValid(selectedDate)) {
-      return format(selectedDate, "MMMM yyyy, dd")
+    if (selectedDate) {
+      return format(selectedDate, "MMMM yyyy")
     }
     return placeholder
   }
 
   return (
-    <div key={name} className={cn(`flex flex-col text-primary mb-2 gap-1 ${className}`)}>
+    <div className={cn("flex flex-col text-primary mb-2 gap-1", className)}>
       {label && (
         <Label htmlFor={name} className="mb-2">
           {label}
@@ -81,62 +115,76 @@ export default function MonthYearPickerField({
       <Popover>
         <PopoverTrigger asChild>
           <Button
+            id={name}
+            type="button"
             variant={"outline"}
+            aria-invalid={meta.touched && Boolean(meta.error)}
+            aria-required={required}
             className={cn(
               "w-full justify-start text-left font-normal",
               !field.value && "text-muted-foreground",
             )}
             disabled={disabled}
           >
-            <CalendarIcon className="mr-2 h-4 w-4" />
+            <CalendarIcon data-icon="inline-start" aria-hidden="true" />
             {getDisplayText()}
           </Button>
         </PopoverTrigger>
 
-        <PopoverContent className="w-80 p-4">
-          <div className="w-full flex gap-4 items-center justify-between">
-            <div className="flex-1">
-              <Label className="text-sm font-medium mb-2 block">Year</Label>
+        <PopoverContent className="w-[calc(100vw-2rem)] max-w-80 p-4">
+          <div className="grid grid-cols-2 gap-3">
+            <div className="min-w-0">
+              <Label htmlFor={yearId} className="mb-2 text-sm font-medium">
+                Year
+              </Label>
               <Select
+                disabled={disabled}
                 value={selectedDate ? selectedDate.getFullYear().toString() : ""}
                 onValueChange={(value) => {
-                  const year = parseInt(value)
+                  const year = parseInt(value, 10)
                   const month = selectedDate ? selectedDate.getMonth() : 0
                   handleDateChange(month, year)
                 }}
               >
-                <SelectTrigger>
+                <SelectTrigger id={yearId} className="w-full">
                   <SelectValue placeholder="Select year" />
                 </SelectTrigger>
                 <SelectContent>
-                  {years.map((year) => (
-                    <SelectItem key={year} value={year.toString()}>
-                      {year}
-                    </SelectItem>
-                  ))}
+                  <SelectGroup>
+                    {years.map((year) => (
+                      <SelectItem key={year} value={year.toString()}>
+                        {year}
+                      </SelectItem>
+                    ))}
+                  </SelectGroup>
                 </SelectContent>
               </Select>
             </div>
 
-            <div className="flex-1">
-              <Label className="text-sm font-medium mb-2 block">Month</Label>
+            <div className="min-w-0">
+              <Label htmlFor={monthId} className="mb-2 text-sm font-medium">
+                Month
+              </Label>
               <Select
+                disabled={disabled}
                 value={selectedDate ? selectedDate.getMonth().toString() : ""}
                 onValueChange={(value) => {
-                  const month = parseInt(value)
-                  const year = selectedDate ? selectedDate.getFullYear() : currentYear
+                  const month = parseInt(value, 10)
+                  const year = selectedDate ? selectedDate.getFullYear() : fallbackYear
                   handleDateChange(month, year)
                 }}
               >
-                <SelectTrigger>
+                <SelectTrigger id={monthId} className="w-full">
                   <SelectValue placeholder="Select month" />
                 </SelectTrigger>
                 <SelectContent>
-                  {months.map((month) => (
-                    <SelectItem key={month.value} value={month.value.toString()}>
-                      {month.label}
-                    </SelectItem>
-                  ))}
+                  <SelectGroup>
+                    {months.map((month) => (
+                      <SelectItem key={month.value} value={month.value.toString()}>
+                        {month.label}
+                      </SelectItem>
+                    ))}
+                  </SelectGroup>
                 </SelectContent>
               </Select>
             </div>

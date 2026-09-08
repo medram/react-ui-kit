@@ -21,6 +21,40 @@ Generated source: `components/ui/modal-box.tsx`.
 - Owns local interaction state; use documented callback props to observe or control it.
 - Preserve the source-defined prop, callback, loading, disabled, empty, and error behavior when composing this item.
 
+## Usage
+
+`ModalBox` is the standalone dialog variant. It owns its `Dialog` trigger and
+local open state, so pass the trigger through `trigger` rather than calling
+`useModalContext()`.
+
+```tsx
+import { Button } from "@/components/ui/button"
+import { Input } from "@/components/ui/input"
+import ModalBox from "@/components/ui/modal-box"
+
+export function EditProfileModal() {
+  return (
+    <ModalBox
+      trigger={
+        <Button type="button" variant="outline">
+          Edit profile
+        </Button>
+      }
+      title="Edit profile"
+      description="Update the details for this workspace member."
+    >
+      <div className="flex flex-col gap-3">
+        <Input defaultValue="Amina Rahman" placeholder="Full name" />
+        <Input defaultValue="amina@example.com" placeholder="Email" />
+      </div>
+    </ModalBox>
+  )
+}
+```
+
+The default footer renders a `Close` button. Set `disabledFooter` when the
+content supplies its own actions.
+
 ## Framework boundary
 
 Use the generated item in a client component when it owns events, hooks, Formik, browser APIs, or media access. The item has no Next-only import; keep Next routing/navigation in the host when needed.

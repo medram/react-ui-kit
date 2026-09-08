@@ -49,9 +49,20 @@ export default function VerticalTabs({
   hasPermission,
   errorBoundary: ErrorBoundary,
 }: VerticalTabsProps) {
-  const [hash, setHash] = useUrlHash(items[0]?.hash, { onUrlChange })
+  const visibleItems = useMemo(
+    () =>
+      items.filter((item) => {
+        if (!item.permissions) return true
+        if (typeof item.permissions === "function") return item.permissions()
+        if (!hasPermission) return true
+        return hasPermission(item.permissions)
+      }),
+    [items, hasPermission],
+  )
+  const [hash, setHash] = useUrlHash(visibleItems[0]?.hash, { onUrlChange })
 
-  const selectedItem = items.find((item) => item.hash === hash)
+  const selectedItem = visibleItems.find((item) => item.hash === hash) ?? visibleItems[0]
+  const selectedHash = selectedItem?.hash ?? ""
 
   const selectedPerms =
     typeof selectedItem?.permissions === "function" ? null : selectedItem?.permissions ?? []
@@ -62,13 +73,12 @@ export default function VerticalTabs({
       <div className="flex flex-col space-y-8 lg:flex-row lg:space-x-12 lg:space-y-0">
         {items && (
           <SidebarNav
-            items={items}
+            items={visibleItems}
             className={tabsClassName}
-            currentHash={hash}
+            currentHash={selectedHash}
             onChange={(hash: hashType) => setHash(hash)}
             selectedItemClassName={selectedItemClassName}
             styleMode={styleMode}
-            hasPermission={hasPermission}
           />
         )}
         {contentVisible && (
@@ -123,7 +133,6 @@ type SidebarProps = {
   itemClassName?: string
   selectedItemClassName?: string
   styleMode?: styleModeType
-  hasPermission?: (perms: any[]) => boolean
 }
 
 function SidebarNav({
@@ -134,19 +143,7 @@ function SidebarNav({
   itemClassName = "",
   selectedItemClassName = "",
   styleMode = "bobble",
-  hasPermission,
 }: SidebarProps) {
-  // Check permissions
-  items = useMemo(
-    () =>
-      items.filter((item) => {
-        if (!item.permissions) return true
-        if (typeof item.permissions === "function") return item.permissions()
-        if (!hasPermission) return true
-        return hasPermission(item.permissions)
-      }),
-    [items, hasPermission],
-  )
 
   return (
     <nav className={cn("lg:w-1/5 min-w-max flex-shrink-0", className)}>

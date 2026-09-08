@@ -10,13 +10,29 @@ The generated source lives under `@/components/ui/`. The command installs the ex
 
 ## Forms and inputs
 
-`base-check-box-field`, `basic-image-uploader-field`, `basic-time-zones-select-field`, `calendar-date-picker-field`, `check-box-field`, `check-box-group-field`, `combo-box`, `combo-box-field`, `copyable-input-field`, `date-picker-field`, `date-range-picker-field`, `date-selector-field`, `date-time-picker-field`, `drop-down-buttons`, `drop-zone`, `dropdown-box-field`, `input-field`, `month-year-picker-field`, `multi-select-field`, `radio-group-field`, `select-field`, `select-input`, `sensitive-field`, `special-select-field`, `switch-field`, `text-area-field`, `time-picker-field`, `time-zone-select-field`, `upload-field`, `upload-input`.
+`base-check-box-field`, `basic-image-uploader-field`, `basic-time-zones-field`, `calendar-date-picker-field`, `check-box-field`, `check-box-group-field`, `combo-box`, `combo-box-field`, `copyable-input-field`, `date-picker-field`, `date-range-field`, `date-field`, `date-time-field`, `drop-down-buttons`, `drop-zone`, `dropdown-box-field`, `input-field`, `month-year-picker-field`, `multi-select-field`, `radio-group-field`, `select-field`, `select-input`, `sensitive-field`, `special-select-field`, `switch-field`, `text-area-field`, `time-field`, `time-zone-field`, `upload-field`, `upload-input`.
 
 Items ending in `-field` use Formik unless their reference explicitly says otherwise. Use the generated field reference to confirm its value shape. Upload items require `CloudStorageProvider`.
 
+## Date-field calendar bounds
+
+`date-field`, `date-picker-field`, `date-time-field`, and `date-range-field` expose the shadcn Calendar navigation props. Use `startMonth` and `endMonth` to bound the years available in the calendar dropdowns:
+
+```tsx
+<DateField
+  name="birthDate"
+  startMonth={new Date(1950, 0)}
+  endMonth={new Date(2025, 11)}
+  reverseYears
+/>
+```
+
+They also accept `captionLayout`, `defaultMonth`, `month`, `onMonthChange`, and the other DayPicker customization props. `month-year-picker-field` provides equivalent year controls through `yearsRange`, `minYear`, `maxYear`, and `yearsOrder`. `calendar-date-picker` and `calendar-date-picker-field` support those year controls plus `startMonth` and `endMonth`.
+
+
 ## Dashboard and display
 
-`alert-box`, `attachments-preview`, `avatar`, `base-select`, `calendar-date-picker`, `card-box`, `check-in-heatmap`, `copy-button`, `custom-badge`, `dot-pattern`, `flickering-grid`, `form-error`, `full-screen-loading`, `gradient-separator`, `help`, `image-preview`, `loader`, `loading-section`, `modal-box`, `multi-step`, `number-ticker`, `overview-box`, `pagination`, `pdf-preview`, `select`, `sheet-box`, `submit-button`, `tabs`, `vertical-tabs`, `wizard-card`, `wizard-completion`.
+`alert-box`, `attachments-preview`, `avatar`, `base-select`, `calendar-date-picker`, `card-box`, `check-in-heatmap`, `copy-button`, `custom-badge`, `form-error`, `full-screen-loading`, `help`, `image-preview`, `loader`, `loading-section`, `modal-box`, `multi-step`, `number-ticker`, `overview-box`, `pagination`, `pdf-preview`, `select`, `sheet-box`, `submit-button`, `tabs`, `vertical-tabs`, `wizard-card`, `wizard-completion`.
 
 ## Charts
 

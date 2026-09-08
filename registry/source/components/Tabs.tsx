@@ -51,21 +51,34 @@ export default function Tabs({
   hasPermission,
   errorBoundary: ErrorBoundary,
 }: TabsProps) {
-  const [hash, setHash] = useUrlHash(items[0]?.hash, { onUrlChange, clearQueryParams: true })
+  const visibleItems = useMemo(
+    () =>
+      items.filter((item) => {
+        if (!item.permissions) return true
+        if (typeof item.permissions === "function") return item.permissions()
+        if (!hasPermission) return true
+        return hasPermission(item.permissions)
+      }),
+    [items, hasPermission],
+  )
+  const [hash, setHash] = useUrlHash(visibleItems[0]?.hash, {
+    onUrlChange,
+    clearQueryParams: true,
+  })
 
-  const selectedItem = items.find((item) => item.hash === hash)
+  const selectedItem = visibleItems.find((item) => item.hash === hash) ?? visibleItems[0]
+  const selectedHash = selectedItem?.hash ?? ""
 
   return (
     <div className={cn("space-y-6 pb-16", className)}>
       {items && (
         <HorizontalNav
-          items={items}
-          currentHash={hash}
+          items={visibleItems}
+          currentHash={selectedHash}
           onChange={(hash: hashType) => setHash(hash)}
           styleMode={styleMode}
           className={tabsClassName}
           selectedItemClassName={selectedItemClassName}
-          hasPermission={hasPermission}
         />
       )}
       {showSeparator && (
@@ -115,7 +128,6 @@ type HorizontalNavProps = {
   itemClassName?: string
   styleMode?: styleModeType
   selectedItemClassName?: string
-  hasPermission?: (perms: any[]) => boolean
 }
 
 function HorizontalNav({
@@ -126,18 +138,7 @@ function HorizontalNav({
   itemClassName = "",
   styleMode = "link",
   selectedItemClassName = "",
-  hasPermission,
 }: HorizontalNavProps) {
-  items = useMemo(
-    () =>
-      items.filter((item) => {
-        if (!item.permissions) return true
-        if (typeof item.permissions === "function") return item.permissions()
-        if (!hasPermission) return true
-        return hasPermission(item.permissions)
-      }),
-    [items, hasPermission],
-  )
 
   const tabRefs = useRef<(HTMLSpanElement | null)[]>([])
   const indicatorRef = useRef<HTMLSpanElement | null>(null)

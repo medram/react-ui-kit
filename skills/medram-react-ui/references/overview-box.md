@@ -10,7 +10,7 @@ Generated source: `components/ui/overview-box.tsx`.
 
 ## Dependencies
 
-- shadcn registry items: card, medram/react-ui-kit/dot-pattern, medram/react-ui-kit/number-ticker, tooltip
+- shadcn registry items: card, medram/react-ui-kit/number-ticker, tooltip
 - npm packages: lucide-react
 - runtime prerequisites: None beyond the generated item dependencies.
 

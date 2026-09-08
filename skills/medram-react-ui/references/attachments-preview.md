@@ -10,7 +10,7 @@ Generated source: `components/ui/attachments-preview.tsx`.
 
 ## Dependencies
 
-- shadcn registry items: None.
+- shadcn registry items: attachment.
 - npm packages: @medram/react-ui-kit, lucide-react, pretty-bytes
 - runtime prerequisites: CloudStorageProvider above the component tree.
 

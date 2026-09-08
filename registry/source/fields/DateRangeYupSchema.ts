@@ -1,4 +1,4 @@
-// Yup schema for the DateRangePickerField. Lives outside the component file so Fast Refresh
+// Yup schema for the DateRangeField. Lives outside the component file so Fast Refresh
 // can preserve component state when only the schema or the component changes.
 import * as yup from "yup"
 

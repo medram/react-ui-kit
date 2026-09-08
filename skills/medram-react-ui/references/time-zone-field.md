@@ -1,23 +1,23 @@
-# Basic Time Zones Select Field
+# Time Zone Field
 
 ## Install
 
 ```bash
-pnpm dlx shadcn@latest add medram/react-ui-kit/basic-time-zones-select-field
+pnpm dlx shadcn@latest add medram/react-ui-kit/time-zone-field
 ```
 
-Generated source: `components/ui/basic-time-zones-select-field.tsx`.
+Generated source: `components/ui/time-zone-field.tsx`.
 
 ## Dependencies
 
-- shadcn registry items: medram/react-ui-kit/medram-utils, medram/react-ui-kit/select-field
-- npm packages: None.
+- shadcn registry items: medram/react-ui-kit/select-field
+- npm packages: react-timezone-select
 - runtime prerequisites: None beyond the generated item dependencies.
 
 ## Contract
 
-- Source of truth: [`registry/source/fields/BasicTimeZonesSelectField.tsx`](../../../registry/source/fields/BasicTimeZonesSelectField.tsx).
-- Exported declarations: `BasicTimeZonesSelectField`
+- Source of truth: [`registry/source/fields/TimeZoneField.tsx`](../../../registry/source/fields/TimeZoneField.tsx).
+- Exported declarations: `TimeZoneField`
 - Does not own persistent application state.
 - Preserve the source-defined prop, callback, loading, disabled, empty, and error behavior when composing this item.
 

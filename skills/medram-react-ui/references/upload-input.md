@@ -10,7 +10,7 @@ Generated source: `components/ui/upload-input.tsx`.
 
 ## Dependencies
 
-- shadcn registry items: medram/react-ui-kit/attachment-inputs, medram/react-ui-kit/drop-zone
+- shadcn registry items: attachment, medram/react-ui-kit/attachment-inputs, medram/react-ui-kit/drop-zone
 - npm packages: @medram/react-ui-kit, lucide-react, pretty-bytes, react-dropzone, react-hot-toast
 - runtime prerequisites: CloudStorageProvider above the component tree.
 

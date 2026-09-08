@@ -2,9 +2,9 @@ import { useMemo } from "react"
 import { allTimezones, useTimezoneSelect } from "react-timezone-select"
 import SelectField from "@/components/ui/select-field"
 
-type TimeZonesSelectFieldProps = Omit<React.ComponentProps<typeof SelectField>, "options">
+type TimeZoneFieldProps = Omit<React.ComponentProps<typeof SelectField>, "options">
 
-export default function TimeZonesSelectField({ name, ...props }: TimeZonesSelectFieldProps) {
+export default function TimeZoneField({ name, ...props }: TimeZoneFieldProps) {
   const { options } = useTimezoneSelect({ timezones: allTimezones })
 
   // 🇵🇸 Always Palestine

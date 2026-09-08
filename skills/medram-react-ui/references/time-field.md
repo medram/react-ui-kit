@@ -1,23 +1,23 @@
-# Date Range Picker Field
+# Time Field
 
 ## Install
 
 ```bash
-pnpm dlx shadcn@latest add medram/react-ui-kit/date-range-picker-field
+pnpm dlx shadcn@latest add medram/react-ui-kit/time-field
 ```
 
-Generated source: `components/ui/date-range-picker-field.tsx`.
+Generated source: `components/ui/time-field.tsx`.
 
 ## Dependencies
 
-- shadcn registry items: button, calendar, label, medram/react-ui-kit/form-error, medram/react-ui-kit/help, popover
-- npm packages: date-fns, formik, lucide-react
+- shadcn registry items: label, medram/react-ui-kit/form-error, medram/react-ui-kit/help, medram/react-ui-kit/medram-utils, medram/react-ui-kit/time-picker
+- npm packages: formik
 - runtime prerequisites: Formik form context with a matching initial value.
 
 ## Contract
 
-- Source of truth: [`registry/source/fields/DateRangePickerField.tsx`](../../../registry/source/fields/DateRangePickerField.tsx).
-- Exported declarations: `DateRangePickerField`
+- Source of truth: [`registry/source/fields/TimeField.tsx`](../../../registry/source/fields/TimeField.tsx).
+- Exported declarations: `TimeFieldProps`, `TimeField`
 - Does not own persistent application state.
 - Preserve the source-defined prop, callback, loading, disabled, empty, and error behavior when composing this item.
 
