@@ -30,6 +30,12 @@ Items ending in `-field` use Formik unless their reference explicitly says other
 They also accept `captionLayout`, `defaultMonth`, `month`, `onMonthChange`, and the other DayPicker customization props. `month-year-picker-field` provides equivalent year controls through `yearsRange`, `minYear`, `maxYear`, and `yearsOrder`. `calendar-date-picker` and `calendar-date-picker-field` support those year controls plus `startMonth` and `endMonth`.
 
 
+## Timezone-aware date fields
+
+`date-picker-field`, `date-field`, and `month-year-picker-field` accept an optional IANA `timezone` prop. When omitted, they use the valid `NEXT_PUBLIC_APPLICATION_TIME_ZONE` value; a valid explicit prop takes precedence. `date-picker-field` converts ISO instants to wall-clock values for the resolved zone, while `date-field` and `month-year-picker-field` preserve strict `YYYY-MM-DD` calendar values without UTC shifts.
+
+See the individual field references for stored-value and callback details.
+
 ## Dashboard and display
 
 `alert-box`, `attachments-preview`, `avatar`, `base-select`, `calendar-date-picker`, `card-box`, `check-in-heatmap`, `copy-button`, `custom-badge`, `form-error`, `full-screen-loading`, `help`, `image-preview`, `loader`, `loading-section`, `modal-box`, `multi-step`, `number-ticker`, `overview-box`, `pagination`, `pdf-preview`, `select`, `sheet-box`, `submit-button`, `tabs`, `vertical-tabs`, `wizard-card`, `wizard-completion`.
