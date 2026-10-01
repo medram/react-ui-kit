@@ -1,5 +1,5 @@
 import { execFile } from "node:child_process"
-import { mkdtemp, mkdir, rm, writeFile } from "node:fs/promises"
+import { mkdir, mkdtemp, readFile, rm, writeFile } from "node:fs/promises"
 import { tmpdir } from "node:os"
 import path from "node:path"
 import { promisify } from "node:util"
@@ -7,6 +7,7 @@ import { promisify } from "node:util"
 const run = promisify(execFile)
 const root = process.cwd()
 const workspace = await mkdtemp(path.join(tmpdir(), "medram-consumers-"))
+const packageJson = JSON.parse(await readFile(path.join(root, "package.json"), "utf8"))
 
 async function command(file, args, cwd) {
   try {
@@ -21,7 +22,7 @@ try {
   const artifacts = path.join(workspace, "artifacts")
   await mkdir(artifacts)
   await command("pnpm", ["pack", "--pack-destination", artifacts], root)
-  const tarball = path.join(artifacts, "medram-react-ui-kit-0.2.0.tgz")
+  const tarball = path.join(artifacts, `medram-react-ui-kit-${packageJson.version}.tgz`)
 
   for (const [name, reactVersion] of [["react18", "18.3.1"], ["react19", "19.2.0"]]) {
     const fixture = path.join(workspace, name)

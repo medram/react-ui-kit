@@ -10,8 +10,8 @@ Generated source: `components/ui/date-field.tsx`.
 
 ## Dependencies
 
-- shadcn registry items: button, calendar, label, medram/react-ui-kit/form-error, medram/react-ui-kit/help, popover
-- npm packages: date-fns, formik, lucide-react
+- shadcn registry items: button, calendar, label, medram/react-ui-kit/form-error, medram/react-ui-kit/help, medram/react-ui-kit/medram-utils, popover
+- npm packages: date-fns, date-fns-tz, formik, lucide-react
 - runtime prerequisites: Formik form context with a matching initial value.
 
 ## Contract
@@ -31,6 +31,17 @@ The calendar defaults to `captionLayout="dropdown"` and forwards the shadcn Cale
   startMonth={new Date(1950, 0)}
   endMonth={new Date(2025, 11)}
   reverseYears
+/>
+```
+
+## Timezone and stored values
+
+Pass an IANA timezone through `timezone`, or set `NEXT_PUBLIC_APPLICATION_TIME_ZONE` for the application default. A valid explicit prop takes precedence over the environment value. This field is calendar-only: it stores strict `YYYY-MM-DD` strings and uses the resolved timezone only for the current-date fallback when `today` or `defaultMonth` is not provided.
+
+```tsx
+<DateField
+  name="birthDate"
+  timezone="America/New_York"
 />
 ```
 

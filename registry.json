@@ -696,10 +696,12 @@
         "label",
         "medram/react-ui-kit/form-error",
         "medram/react-ui-kit/help",
+        "medram/react-ui-kit/medram-utils",
         "popover"
       ],
       "dependencies": [
         "date-fns",
+        "date-fns-tz",
         "formik",
         "lucide-react"
       ],
@@ -764,10 +766,12 @@
         "label",
         "medram/react-ui-kit/form-error",
         "medram/react-ui-kit/help",
+        "medram/react-ui-kit/medram-utils",
         "popover"
       ],
       "dependencies": [
         "date-fns",
+        "date-fns-tz",
         "formik",
         "lucide-react"
       ],
@@ -859,10 +863,12 @@
         "medram/react-ui-kit/form-error",
         "medram/react-ui-kit/help",
         "popover",
+        "medram/react-ui-kit/medram-utils",
         "select"
       ],
       "dependencies": [
         "date-fns",
+        "date-fns-tz",
         "formik",
         "lucide-react"
       ],
@@ -1934,6 +1940,9 @@
       "type": "registry:ui",
       "title": "Medram Utilities",
       "description": "Shared utilities required by Medram registry components.",
+      "dependencies": [
+        "date-fns-tz"
+      ],
       "files": [
         {
           "path": "registry/source/shared/medram-utils.ts",

@@ -12,8 +12,12 @@
     "isolatedModules": true,
     "noEmit": true,
     "declaration": true,
-    "verbatimModuleSyntax": false
+    "verbatimModuleSyntax": false,
+    "baseUrl": ".",
+    "paths": {
+      "@/*": ["playground/src/*"]
+    }
   },
-  "include": ["src/cloud-storage", "src/types.ts", "tsup.config.ts"],
+  "include": ["src/cloud-storage", "src/types.ts", "tests", "tsup.config.ts", "vitest.config.ts"],
   "exclude": ["node_modules", "dist", "public", "registry"]
 }

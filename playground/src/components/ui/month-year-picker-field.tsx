@@ -1,8 +1,16 @@
-import { format, isValid, parseISO } from "date-fns"
+import { format } from "date-fns"
 import { ErrorMessage, useField } from "formik"
 import { CalendarIcon } from "lucide-react"
 import FormError from "@/components/ui/form-error"
 import Help from "@/components/ui/help"
+import {
+  createCalendarDate,
+  currentDateInTimeZone,
+  formatCalendarDate,
+  lastDayOfCalendarMonth,
+  parseCalendarDate,
+  resolveTimeZone,
+} from "@/components/ui/medram-utils"
 import { cn } from "@/lib/utils"
 import { Button } from "@/components/ui/button"
 import { Label } from "@/components/ui/label"
@@ -45,6 +53,7 @@ type MonthYearPickerFieldProps = {
   yearsOrder?: "asc" | "desc"
   minYear?: number
   maxYear?: number
+  timezone?: string
 }
 
 export default function MonthYearPickerField({
@@ -61,18 +70,13 @@ export default function MonthYearPickerField({
   yearsOrder = "desc",
   minYear,
   maxYear,
+  timezone,
 }: MonthYearPickerFieldProps) {
   const [field, meta, helpers] = useField<Date | string>(name)
-
-  const parsedDate =
-    field.value instanceof Date
-      ? field.value
-      : field.value
-        ? parseISO(field.value)
-        : null
-  const selectedDate = parsedDate && isValid(parsedDate) ? parsedDate : null
-
-  const currentYear = new Date().getFullYear()
+  const resolvedTimeZone = resolveTimeZone(timezone)
+  const selectedDate = parseCalendarDate(field.value)
+  const currentDate = currentDateInTimeZone(resolvedTimeZone)
+  const currentYear = currentDate.getFullYear()
   const yearRange = Math.max(0, Math.floor(yearsRange))
   const resolvedMaxYear = maxYear ?? currentYear
   const resolvedMinYear = Math.min(minYear ?? resolvedMaxYear - yearRange, resolvedMaxYear)
@@ -86,13 +90,16 @@ export default function MonthYearPickerField({
   const yearId = `${name}-year`
   const monthId = `${name}-month`
 
-  const handleDateChange = (month: number, year: number, day: number = defaultDay) => {
-    const lastDayOfMonth = new Date(year, month + 1, 0).getDate()
-    const clampedDay = Math.min(Math.max(Math.trunc(day), 1), lastDayOfMonth)
-    const newDate = new Date(year, month, clampedDay)
-    const formattedDate = `${year}-${String(month + 1).padStart(2, "0")}-${String(clampedDay).padStart(2, "0")}`
+  const handleDateChange = (monthIndex: number, year: number, day: number = defaultDay) => {
+    const lastDay = lastDayOfCalendarMonth(year, monthIndex)
+    if (lastDay === null) return
 
-    helpers.setValue(formattedDate)
+    const truncatedDay = Number.isFinite(day) ? Math.trunc(day) : 1
+    const clampedDay = Math.min(Math.max(truncatedDay, 1), lastDay)
+    const newDate = createCalendarDate(year, monthIndex, clampedDay)
+    if (!newDate) return
+
+    helpers.setValue(formatCalendarDate(newDate))
     onChange?.(newDate)
   }
 

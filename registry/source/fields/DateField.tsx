@@ -1,9 +1,16 @@
-import { format, isValid } from "date-fns"
+import { format } from "date-fns"
 import { ErrorMessage, useField } from "formik"
 import { CalendarIcon } from "lucide-react"
 import type { ComponentProps, ReactNode } from "react"
 import FormError from "@/components/ui/form-error"
 import Help from "@/components/ui/help"
+import {
+  createCalendarDate,
+  currentDateInTimeZone,
+  formatCalendarDate,
+  parseCalendarDate,
+  resolveTimeZone,
+} from "@/components/ui/medram-utils"
 import { cn } from "@/lib/utils"
 import { Button } from "@/components/ui/button"
 import { Calendar } from "@/components/ui/calendar"
@@ -20,6 +27,7 @@ type DateFieldProps = {
   disableFn?: (date: Date) => boolean
   onChange?: (date: Date) => void
   disabled?: boolean
+  timezone?: string
 } & Omit<ComponentProps<typeof Calendar>, "mode" | "selected" | "onSelect" | "disabled">
 
 export default function DateField({
@@ -34,30 +42,26 @@ export default function DateField({
   disabled,
   captionLayout = "dropdown",
   defaultMonth,
+  today,
+  timezone,
   ...props
 }: DateFieldProps) {
   const [field, _meta, helpers] = useField<Date | string>(name)
-
-  // selectedDate is derived from the form value — no useEffect mirror.
-  const parsedDate = field.value ? new Date(field.value) : null
-  const selectedDate = parsedDate && isValid(parsedDate) ? parsedDate : null
-
-  const setFieldValue = (date: Date | null) => {
-    if (date) {
-      // Adjust the date to compensate for the timezone difference.
-      const adjustedDate = new Date(date.getTime() - date.getTimezoneOffset() * 60000)
-      const formattedDate = adjustedDate.toISOString().split("T")[0]
-      helpers.setValue(formattedDate)
-    }
-  }
+  const resolvedTimeZone = resolveTimeZone(timezone)
+  const selectedDate = parseCalendarDate(field.value)
+  const currentDate = currentDateInTimeZone(resolvedTimeZone)
 
   const handleDateChange = (date: Date | undefined) => {
-    if (date) {
-      setFieldValue(date)
-      onChange?.(date)
-    } else {
+    if (!date) {
       helpers.setValue("")
+      return
     }
+
+    const calendarDate = createCalendarDate(date.getFullYear(), date.getMonth(), date.getDate())
+    if (!calendarDate) return
+
+    helpers.setValue(formatCalendarDate(calendarDate))
+    onChange?.(calendarDate)
   }
 
   return (
@@ -74,13 +78,12 @@ export default function DateField({
             variant={"outline"}
             className={cn(
               "w-full justify-start text-left font-normal",
-
               !field.value && "text-muted-foreground",
             )}
             disabled={disabled}
           >
             <CalendarIcon className="mr-2 h-4 w-4" />
-            {field.value && selectedDate && isValid(selectedDate) ? (
+            {field.value && selectedDate ? (
               format(selectedDate, "PPP")
             ) : (
               <span>{placeholder}</span>
@@ -94,9 +97,10 @@ export default function DateField({
             {...props}
             mode="single"
             captionLayout={captionLayout}
-            defaultMonth={defaultMonth ?? selectedDate ?? undefined}
-            selected={selectedDate && isValid(selectedDate) ? selectedDate : undefined}
-            onSelect={(date: Date | undefined) => handleDateChange(date)}
+            defaultMonth={defaultMonth ?? selectedDate ?? currentDate}
+            today={today ?? currentDate}
+            selected={selectedDate ?? undefined}
+            onSelect={handleDateChange}
             disabled={disableFn}
             required={required}
           />

@@ -1,6 +1,6 @@
 {
   "name": "@medram/react-ui-kit",
-  "version": "0.3.0",
+  "version": "0.3.1",
   "description": "Headless contracts and a shadcn source registry for Medram React workflows.",
   "keywords": [
     "react",
@@ -44,23 +44,36 @@
     "pack:dry": "pnpm pack --dry-run",
     "registry:build": "shadcn build registry.json --output public/r",
     "registry:validate": "shadcn registry validate ./registry.json",
+    "test:run": "vitest run",
+    "test": "TZ=UTC NEXT_PUBLIC_APPLICATION_TIME_ZONE=Africa/Casablanca pnpm test:run && TZ=America/Los_Angeles NEXT_PUBLIC_APPLICATION_TIME_ZONE=Africa/Casablanca pnpm test:run",
     "verify:registry": "pnpm registry:validate && pnpm registry:build && node scripts/verify-registry.mjs",
     "verify:consumers": "node scripts/verify-consumers.mjs",
     "prepack": "pnpm build && pnpm registry:build",
-    "prepublishOnly": "pnpm type:check",
+    "prepublishOnly": "pnpm type:check && pnpm test",
     "type:check": "tsc --noEmit"
   },
   "peerDependencies": {
     "react": ">=18"
   },
   "devDependencies": {
+    "@testing-library/dom": "^10.4.2",
+    "@testing-library/react": "^16.3.3",
     "@types/node": "^25.0.8",
     "@types/react": "^19",
+    "@types/react-dom": "^19.3.0",
+    "date-fns": "^4.4.0",
+    "date-fns-tz": "^3.2.0",
     "esbuild-plugin-preserve-directives": "^0.0.11",
-    "react": "^19",
+    "formik": "^2.4.9",
+    "jsdom": "^30.1.1",
+    "lucide-react": "^0.468.0",
+    "react": "^19.3.0",
+    "react-dom": "^19.3.0",
     "shadcn": "4.19.0",
     "tsup": "^8",
     "typescript": "^5",
-    "vitepress": "^1.6.4"
+    "vite": "^6.4.3",
+    "vitepress": "^1.6.4",
+    "vitest": "^5.0.3"
   }
 }

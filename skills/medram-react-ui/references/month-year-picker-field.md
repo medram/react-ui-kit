@@ -10,8 +10,8 @@ Generated source: `components/ui/month-year-picker-field.tsx`.
 
 ## Dependencies
 
-- shadcn registry items: button, label, medram/react-ui-kit/form-error, medram/react-ui-kit/help, popover, select
-- npm packages: date-fns, formik, lucide-react
+- shadcn registry items: button, label, medram/react-ui-kit/form-error, medram/react-ui-kit/help, medram/react-ui-kit/medram-utils, popover, select
+- npm packages: date-fns, date-fns-tz, formik, lucide-react
 - runtime prerequisites: Formik form context with a matching initial value.
 
 ## Contract
@@ -34,6 +34,17 @@ The field defaults to the current year plus the previous three years, ordered de
   minYear={2020}
   maxYear={2030}
   yearsOrder="asc"
+/>
+```
+
+## Timezone and stored values
+
+Pass an IANA timezone through `timezone`, or set `NEXT_PUBLIC_APPLICATION_TIME_ZONE` for the application default. A valid explicit prop takes precedence over the environment value. The field stores strict `YYYY-MM-DD` calendar strings; the resolved timezone supplies the current-year fallback when `maxYear` is not provided.
+
+```tsx
+<MonthYearPickerField
+  name="billingMonth"
+  timezone="America/New_York"
 />
 ```
 
