@@ -1,10 +1,18 @@
-import { format, isValid, setHours, setMinutes } from "date-fns"
+import { format, setHours, setMinutes } from "date-fns"
+import { formatInTimeZone } from "date-fns-tz"
 import { ErrorMessage, useField } from "formik"
 import { CalendarIcon, ClockIcon } from "lucide-react"
 import type React from "react"
 import { useState } from "react"
 import FormError from "../components/FormError"
 import Help from "../components/Help"
+import {
+  createCalendarDate,
+  currentDateInTimeZone,
+  instantToWallTime,
+  resolveTimeZone,
+  wallTimeToInstant,
+} from "../lib/date-time"
 import { cn } from "../lib/cn"
 import { Button } from "../primitives/button"
 import { Calendar, CalendarProps } from "../primitives/calendar"
@@ -13,8 +21,10 @@ import { Label } from "../primitives/label"
 import { Popover, PopoverContent, PopoverTrigger } from "../primitives/popover"
 import { Separator } from "../primitives/separator"
 
-const getFormattedValue = (date: Date) => {
-  return format(date, "yyyy-MM-dd'T'HH:mmXXX")
+const getFormattedValue = (date: Date, timezone?: string) => {
+  return timezone
+    ? formatInTimeZone(date, timezone, "yyyy-MM-dd'T'HH:mmXXX")
+    : format(date, "yyyy-MM-dd'T'HH:mmXXX")
 }
 
 type TimePickerSectionProps = {
@@ -141,6 +151,7 @@ type DateTimePickerFieldProps = {
   disabled?: boolean
   timeFormat?: "12h" | "24h"
   defaultTime?: { hours: number; minutes: number }
+  timezone?: string
 } & Omit<CalendarProps, "mode" | "selected" | "onSelect">
 
 export default function DateTimePickerField({
@@ -155,14 +166,24 @@ export default function DateTimePickerField({
   disabled,
   timeFormat = "24h",
   defaultTime = { hours: 0, minutes: 0 },
+  timezone,
+  defaultMonth,
+  today,
   ...props
 }: DateTimePickerFieldProps) {
-  const [field, meta, helpers] = useField<string>(name)
+  const [field, _meta, helpers] = useField<string>(name)
   const [isOpen, setIsOpen] = useState(false)
+  const resolvedTimeZone = resolveTimeZone(timezone)
+  const currentDate = currentDateInTimeZone(resolvedTimeZone)
+  const selectedDate = field.value ? instantToWallTime(field.value, resolvedTimeZone) : null
 
-  // Parse the field value into a valid Date object if it exists
-  const selectedDate = field.value ? new Date(field.value) : null
-  const isValidDate = selectedDate && isValid(selectedDate)
+  const commitZonedWallTime = (wallDate: Date) => {
+    if (!resolvedTimeZone) return
+
+    const instant = wallTimeToInstant(wallDate, resolvedTimeZone)
+    helpers.setValue(getFormattedValue(instant, resolvedTimeZone))
+    onChange?.(instant)
+  }
 
   const getDisplayFormat = (date: Date) => {
     return timeFormat === "12h" ? format(date, "PPP 'at' h:mm a") : format(date, "PPP 'at' HH:mm")
@@ -174,28 +195,57 @@ export default function DateTimePickerField({
       return
     }
 
-    let newDate = date
+    if (!resolvedTimeZone) {
+      let newDate = date
 
-    // If there's an existing time, preserve it; otherwise use default time
-    if (isValidDate) {
-      newDate = setHours(setMinutes(date, selectedDate.getMinutes()), selectedDate.getHours())
-    } else {
-      newDate = setHours(setMinutes(date, defaultTime.minutes), defaultTime.hours)
+      // If there's an existing time, preserve it; otherwise use default time
+      if (selectedDate) {
+        newDate = setHours(setMinutes(date, selectedDate.getMinutes()), selectedDate.getHours())
+      } else {
+        newDate = setHours(setMinutes(date, defaultTime.minutes), defaultTime.hours)
+      }
+
+      const formattedValue = getFormattedValue(newDate)
+      helpers.setValue(formattedValue)
+      onChange?.(newDate)
+      return
     }
 
-    const formattedValue = getFormattedValue(newDate)
-    helpers.setValue(formattedValue)
-    onChange?.(newDate)
+    const wallDate = createCalendarDate(date.getFullYear(), date.getMonth(), date.getDate())
+    if (!wallDate) return
+
+    const timeSource = selectedDate ?? date
+    wallDate.setHours(
+      selectedDate?.getHours() ?? defaultTime.hours,
+      selectedDate?.getMinutes() ?? defaultTime.minutes,
+      timeSource.getSeconds(),
+      timeSource.getMilliseconds(),
+    )
+    commitZonedWallTime(wallDate)
   }
 
   const handleTimeChange = (hours: number, minutes: number) => {
-    let newDate = isValidDate ? new Date(selectedDate) : new Date()
+    if (!resolvedTimeZone) {
+      let newDate = selectedDate ? new Date(selectedDate) : new Date()
 
-    newDate = setHours(setMinutes(newDate, minutes), hours)
+      newDate = setHours(setMinutes(newDate, minutes), hours)
 
-    const formattedValue = getFormattedValue(newDate)
-    helpers.setValue(formattedValue)
-    onChange?.(newDate)
+      const formattedValue = getFormattedValue(newDate)
+      helpers.setValue(formattedValue)
+      onChange?.(newDate)
+      return
+    }
+
+    const wallSource = selectedDate ?? currentDate
+    const wallDate = createCalendarDate(
+      wallSource.getFullYear(),
+      wallSource.getMonth(),
+      wallSource.getDate(),
+    )
+    if (!wallDate) return
+
+    wallDate.setHours(hours, minutes, wallSource.getSeconds(), wallSource.getMilliseconds())
+    commitZonedWallTime(wallDate)
   }
 
   return (
@@ -218,7 +268,7 @@ export default function DateTimePickerField({
             disabled={disabled}
           >
             <CalendarIcon className="mr-2 h-4 w-4" />
-            {isValidDate ? getDisplayFormat(selectedDate) : <span>{placeholder}</span>}
+            {selectedDate ? getDisplayFormat(selectedDate) : <span>{placeholder}</span>}
           </Button>
         </PopoverTrigger>
 
@@ -229,8 +279,9 @@ export default function DateTimePickerField({
           <Calendar
             {...props}
             mode="single"
-            selected={isValidDate ? selectedDate : undefined}
-            defaultMonth={isValidDate ? selectedDate : undefined}
+            selected={selectedDate ?? undefined}
+            defaultMonth={defaultMonth ?? selectedDate ?? (resolvedTimeZone ? currentDate : undefined)}
+            today={today ?? (resolvedTimeZone ? currentDate : undefined)}
             onSelect={handleDateSelect}
             disabled={disableFn}
             initialFocus
@@ -239,8 +290,8 @@ export default function DateTimePickerField({
           <Separator className="md:hidden" />
 
           <TimePickerSection
-            hours={isValidDate ? selectedDate.getHours() : defaultTime.hours}
-            minutes={isValidDate ? selectedDate.getMinutes() : defaultTime.minutes}
+            hours={selectedDate?.getHours() ?? defaultTime.hours}
+            minutes={selectedDate?.getMinutes() ?? defaultTime.minutes}
             onTimeChange={handleTimeChange}
             timeFormat={timeFormat}
             disabled={disabled}

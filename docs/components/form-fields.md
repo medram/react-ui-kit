@@ -116,7 +116,7 @@ export function UserForm() {
 | --- | --- | --- |
 | `DatePickerField` | Single date, optional time | Accepts `Date` or string-like values and supports `includingTime`. |
 | `DateSelectorField` | Date selection with explicit month/year navigation | Useful when users jump across months or years often. |
-| `DateTimePickerField` | Full date-time scheduling | Stores ISO 8601 with timezone information. |
+| `DateTimePickerField` | Full date-time scheduling | Stores ISO 8601 values and accepts an optional IANA `timezone` for display and edits. |
 | `DateRangePickerField` | Start/end date ranges | Uses a dual-month range picker by default. |
 | `CalendarDatePickerField` | Date-range picking backed by `CalendarDatePicker` | Good when you want richer calendar controls. |
 | `MonthYearPickerField` | Billing periods and reporting months | Stores a date built from month, year, and `defaultDay`. |
@@ -136,13 +136,22 @@ export function UserForm() {
   onSubmit={scheduleMeeting}
 >
   <Form className="space-y-4">
-    <DateTimePickerField name="meetingAt" label="Meeting time" timeFormat="24h" />
+    <DateTimePickerField
+      name="meetingAt"
+      label="Meeting time"
+      timeFormat="24h"
+      timezone="Africa/Casablanca"
+    />
     <DateRangePickerField name="coverage" label="Coverage window" numberOfMonths={2} />
     <BasicTimeZonesSelectField name="timezone" label="Timezone" />
     <SubmitButton title="Schedule" />
   </Form>
 </Formik>
 ```
+
+### Timezone-aware date-time values
+
+`DateTimePickerField` validates its optional `timezone` prop and otherwise uses the valid `NEXT_PUBLIC_APPLICATION_TIME_ZONE` environment value. The explicit prop takes precedence. With a resolved timezone, stored ISO values are displayed as wall-clock values in that zone; calendar and time edits are converted back to the same instant. Without a resolved timezone, the existing browser-local behavior remains unchanged.
 
 ## Boolean and multi-checkbox inputs
 

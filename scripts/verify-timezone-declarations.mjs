@@ -81,7 +81,7 @@ for (const sourceFile of sourceFiles) {
 }
 
 const failures = []
-for (const component of ["DatePickerField", "DateSelectorField", "MonthYearPickerField"]) {
+for (const component of ["DatePickerField", "DateSelectorField", "DateTimePickerField", "MonthYearPickerField"]) {
   const declaration = functions.get(component)
   const propsType = declaration?.parameters[0]?.type
   if (!declaration) {
@@ -97,6 +97,6 @@ if (failures.length) {
 }
 
 console.log(
-  `Timezone declarations verified: ${["DatePickerField", "DateSelectorField", "MonthYearPickerField"].join(", ")}`,
+  `Timezone declarations verified: ${["DatePickerField", "DateSelectorField", "DateTimePickerField", "MonthYearPickerField"].join(", ")}`,
 )
 console.log(`Scanned ${declarationFiles.length} declaration files under ${relative(process.cwd(), distDirectory) || "."}`)
