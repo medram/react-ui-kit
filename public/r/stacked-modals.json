@@ -1,0 +1,21 @@
+{
+  "$schema": "https://ui.shadcn.com/schema/registry-item.json",
+  "name": "stacked-modals",
+  "title": "Stacked Modals",
+  "description": "Medram stacked modals source component.",
+  "registryDependencies": [
+    "button",
+    "medram/react-ui-kit/loading-section",
+    "medram/react-ui-kit/modal-context",
+    "medram/react-ui-kit/stacked-modal-box"
+  ],
+  "files": [
+    {
+      "path": "registry/source/modal/modal.hook.tsx",
+      "content": "\"use client\"\n\nimport { ModalStackedBox } from \"@/components/ui/stacked-modal-box\"\n\nimport * as React from \"react\"\nimport { Button } from \"@/components/ui/button\"\nimport {\n  ModalContextType,\n  ModalProps,\n  OpenModalOptions,\n  StackedModalContext,\n  useStackedModalsContext,\n} from \"@/components/ui/modal-context\"\n\nexport type { ModalContextType, ModalProps, OpenModalOptions } from \"@/components/ui/modal-context\"\n\nfunction Modal({\n  isOpen,\n  close,\n  title,\n  description,\n  contentClassName,\n  children,\n  showOverlay,\n}: ModalProps & {\n  title?: string\n  description?: string\n  contentClassName?: string\n  children: React.ReactNode\n  showOverlay?: boolean\n}) {\n  return (\n    <ModalStackedBox\n      isOpen={isOpen}\n      onOpenChange={close}\n      contentClassName={contentClassName}\n      title={title}\n      description={description}\n      showOverlay={showOverlay}\n    >\n      {children}\n    </ModalStackedBox>\n  )\n}\n\ntype ModalStackEntry = {\n  id: string\n  component: React.ReactNode\n  isOpen: boolean\n}\n\nexport function StackedModalsProvider({ children }: { children: React.ReactNode }) {\n  const [modalStack, setModalStack] = React.useState<ModalStackEntry[]>([])\n\n  const open = React.useCallback(\n    ({ modal, title, description, contentClassName, onSuccess, onCancel }: OpenModalOptions) => {\n\n      const handleClose = () => {\n        onCancel?.()\n        setModalStack((prev) => prev.slice(0, -1))\n      }\n\n      const newModal: ModalStackEntry = {\n        id: Math.random().toString(36).slice(2),\n        isOpen: true,\n        component: (\n          <Modal\n            isOpen={true}\n            close={() => {\n              setModalStack((prev) => prev.slice(0, -1))\n              onSuccess?.()\n            }}\n            title={title}\n            description={description}\n            contentClassName={contentClassName}\n            showOverlay={modalStack.length === 0}\n          >\n            {modal({ isOpen: true, close: handleClose })}\n          </Modal>\n        ),\n      }\n\n      setModalStack((prev) => [...prev, newModal])\n    },\n    [modalStack.length],\n  )\n\n  const close = React.useCallback(() => {\n    return setModalStack((prev) => {\n      const newModals = [...prev]\n      newModals.pop()\n      return newModals\n    })\n  }, [])\n\n  const contextValue = React.useMemo<ModalContextType>(\n    () => ({\n      open,\n      close,\n    }),\n    [open, close],\n  )\n\n  return (\n    <StackedModalContext.Provider value={contextValue}>\n      {children}\n      <MountedModals stack={modalStack} />\n    </StackedModalContext.Provider>\n  )\n}\n\nfunction MountedModals({ stack }: { stack: ModalStackEntry[] }) {\n  return (\n    <>\n      {stack.map((modal, index) => (\n        <div key={modal.id} className={index === stack.length - 1 ? \"\" : \"hidden\"}>\n          {modal.component}\n        </div>\n      ))}\n    </>\n  )\n}\n\nexport function TriggerModal({\n  children,\n  ...buttonProps\n}: Omit<React.ComponentProps<typeof Button>, \"type\">) {\n  return (\n    <Button type=\"button\" {...buttonProps}>\n      {children}\n    </Button>\n  )\n}\n\nexport function useModalContext(): ModalContextType {\n  return useStackedModalsContext()\n}\n",
+      "type": "registry:ui",
+      "target": "components/ui/stacked-modals.tsx"
+    }
+  ],
+  "type": "registry:ui"
+}

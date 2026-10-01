@@ -1,0 +1,15 @@
+{
+  "$schema": "https://ui.shadcn.com/schema/registry-item.json",
+  "name": "help",
+  "title": "Help",
+  "description": "Medram help source component.",
+  "files": [
+    {
+      "path": "registry/source/components/Help.tsx",
+      "content": "import type { ComponentProps } from \"react\"\nimport { cn } from \"@/lib/utils\"\n\ntype HelpProps = ComponentProps<\"p\">\n\nexport default function Help({ children, className, ...props }: HelpProps) {\n  return (\n    <p className={cn(\"text-xs text-muted-foreground\", className)} {...props}>\n      {children}\n    </p>\n  )\n}\n",
+      "type": "registry:ui",
+      "target": "components/ui/help.tsx"
+    }
+  ],
+  "type": "registry:ui"
+}

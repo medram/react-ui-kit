@@ -1,0 +1,24 @@
+{
+  "$schema": "https://ui.shadcn.com/schema/registry-item.json",
+  "name": "text-area-field",
+  "title": "Text Area Field",
+  "description": "Medram text area field source component.",
+  "dependencies": [
+    "formik"
+  ],
+  "registryDependencies": [
+    "label",
+    "medram/react-ui-kit/form-error",
+    "medram/react-ui-kit/help",
+    "textarea"
+  ],
+  "files": [
+    {
+      "path": "registry/source/fields/TextAreaField.tsx",
+      "content": "import { ErrorMessage, useField } from \"formik\"\nimport { TextareaHTMLAttributes } from \"react\"\nimport FormError from \"@/components/ui/form-error\"\nimport Help from \"@/components/ui/help\"\nimport { cn } from \"@/lib/utils\"\nimport { Label } from \"@/components/ui/label\"\nimport { Textarea } from \"@/components/ui/textarea\"\n\ntype TextareaFieldProps = TextareaHTMLAttributes<HTMLTextAreaElement> & {\n  name: string\n  label?: string\n  help?: string | React.ReactNode\n  className?: string\n  TextAreaClassName?: string\n  required?: boolean\n}\n\nexport default function TextAreaField({\n  name,\n  label,\n  help,\n  TextAreaClassName,\n  className,\n  required = false,\n  ...props\n}: TextareaFieldProps) {\n  // Use Formik's useField hook to access field properties and helpers\n  const [field] = useField<string>(name)\n\n  return (\n    <div key={name} className={cn(`flex flex-col text-primary mb-2 gap-1 ${className}`)}>\n      {label && (\n        <Label htmlFor={name} className=\"mb-2\">\n          {label}\n          {required && <span className=\"text-red-500 ml-1\">*</span>}\n        </Label>\n      )}\n      <Textarea {...props} {...field} className={TextAreaClassName} />\n      {help && <Help>{help}</Help>}\n      <ErrorMessage name={name} component={FormError} />\n    </div>\n  )\n}\n",
+      "type": "registry:ui",
+      "target": "components/ui/text-area-field.tsx"
+    }
+  ],
+  "type": "registry:ui"
+}

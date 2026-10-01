@@ -1,0 +1,21 @@
+{
+  "$schema": "https://ui.shadcn.com/schema/registry-item.json",
+  "name": "line-chart-content",
+  "title": "Line Chart Content",
+  "description": "Medram line chart content source component.",
+  "dependencies": [
+    "recharts"
+  ],
+  "registryDependencies": [
+    "chart"
+  ],
+  "files": [
+    {
+      "path": "registry/source/charts/LineCharts.content.tsx",
+      "content": "\"use client\"\n\n// react-doctor-disable-next-line react-doctor/prefer-dynamic-import -- this file is itself React.lazy-loaded by its sibling wrapper; recharts is part of the lazy chunk.\nimport { CartesianGrid, Legend, Line, LineChart, XAxis, YAxis } from \"recharts\"\nimport { cn } from \"@/lib/utils\"\nimport {\n  ChartContainer,\n  ChartTooltip,\n  ChartTooltipContent,\n  type ChartConfig,\n} from \"@/components/ui/chart\"\n\nexport type LineChartDataItem = {\n  label: string\n  data: Record<string, number | string>[]\n  suffix?: string\n  headerTitle?: string | React.ReactNode\n  headerDescription?: string | React.ReactNode\n  footerDescription?: string | React.ReactNode\n}\n\nexport type LineChartContentProps = {\n  optionIndex: number\n  data: LineChartDataItem[]\n  chartConfigFromData: ChartConfig[]\n  chartsKeys: string[][]\n  chartContainerClassName?: string\n  strokeWidth: number\n  enableTooltip: boolean\n  enableLegend: boolean\n  legendPosition: \"top\" | \"right\" | \"bottom\" | \"left\"\n}\n\nexport default function LineChartContent({\n  optionIndex,\n  data,\n  chartConfigFromData,\n  chartsKeys,\n  chartContainerClassName,\n  strokeWidth,\n  enableTooltip,\n  enableLegend,\n  legendPosition,\n}: LineChartContentProps) {\n  return (\n    <ChartContainer\n      config={chartConfigFromData[optionIndex]}\n      className={cn(\"w-full h-[200px] sm:h-[250px] lg:h-[300px]\", chartContainerClassName)}\n    >\n      <LineChart accessibilityLayer data={data[optionIndex].data} className=\" lg:p-3\">\n        <CartesianGrid vertical={false} />\n        <XAxis\n          dataKey={chartsKeys[optionIndex][0]}\n          tickLine={false}\n          axisLine={false}\n          tickMargin={8}\n        />\n        <YAxis domain={[\"dataMin\", \"dataMax+2\"]} />\n        {enableTooltip && (\n          <ChartTooltip\n            cursor={false}\n            content={\n              <ChartTooltipContent\n                hideLabel={false}\n                className=\"w-fit\"\n                labelClassName=\"px-2\"\n                formatter={(value, name) => {\n                  const selectedData = data[optionIndex]\n                  const suffix = selectedData.suffix ? ` ${selectedData.suffix}` : \"\"\n                  const color =\n                    typeof name === \"string\" ? chartConfigFromData[optionIndex][name]?.color : \"black\"\n                  return (\n                    <span>\n                      <span style={{ color }}>{\"\\u25CF\"}</span> {name} : {value}\n                      {suffix}\n                    </span>\n                  )\n                }}\n              />\n            }\n          />\n        )}\n\n        {chartsKeys[optionIndex].slice(1).map((key) => (\n          <Line\n            key={key}\n            dataKey={key}\n            type=\"monotone\"\n            stroke={chartConfigFromData[optionIndex][key].color}\n            strokeWidth={strokeWidth}\n            radius={0}\n            dot={{ r: 1 }}\n            activeDot={{ r: 3 }}\n          />\n        ))}\n\n        {enableLegend && (\n          <Legend\n            layout={\n              legendPosition === \"left\" || legendPosition === \"right\" ? \"vertical\" : \"horizontal\"\n            }\n            verticalAlign={legendPosition === \"top\" ? \"top\" : \"bottom\"}\n            align={legendPosition === \"right\" ? \"right\" : \"center\"}\n            formatter={(value) => value.charAt(0).toUpperCase() + value.slice(1)}\n          />\n        )}\n      </LineChart>\n    </ChartContainer>\n  )\n}\n",
+      "type": "registry:ui",
+      "target": "components/ui/line-chart-content.tsx"
+    }
+  ],
+  "type": "registry:ui"
+}

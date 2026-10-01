@@ -1,0 +1,15 @@
+{
+  "$schema": "https://ui.shadcn.com/schema/registry-item.json",
+  "name": "modal-context",
+  "title": "Modal Context",
+  "description": "Medram modal context source component.",
+  "files": [
+    {
+      "path": "registry/source/modal/modal-context.tsx",
+      "content": "\"use client\"\n\nimport * as React from \"react\"\n\nexport type ModalProps = {\n  isOpen: boolean\n  close: () => void\n  showOverlay?: boolean\n}\n\nexport type OpenModalOptions = {\n  modal: (props: ModalProps) => React.ReactNode\n  title?: string\n  description?: string\n  contentClassName?: string\n  onSuccess?: () => void\n  onCancel?: () => void\n}\n\nexport type ModalContextType = {\n  open: (options: OpenModalOptions) => void\n  close: () => void\n}\n\nexport const StackedModalContext = React.createContext<ModalContextType | null>(null)\n\nexport const useStackedModalsContext = () => {\n  const context = React.useContext(StackedModalContext)\n  if (!context) {\n    throw new Error(\"useModalsContext must be used within a ModalsProvider\")\n  }\n  return context\n}\n",
+      "type": "registry:ui",
+      "target": "components/ui/modal-context.tsx"
+    }
+  ],
+  "type": "registry:ui"
+}

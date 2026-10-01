@@ -1,0 +1,23 @@
+{
+  "$schema": "https://ui.shadcn.com/schema/registry-item.json",
+  "name": "special-select-field",
+  "title": "Special Select Field",
+  "description": "Medram special select field source component.",
+  "dependencies": [
+    "@medram/react-ui-kit"
+  ],
+  "registryDependencies": [
+    "label",
+    "medram/react-ui-kit/help",
+    "select"
+  ],
+  "files": [
+    {
+      "path": "registry/source/inputs/SpecialSelectField.tsx",
+      "content": "import { Fragment } from \"react\"\nimport Help from \"@/components/ui/help\"\nimport { cn } from \"@/lib/utils\"\nimport { Label } from \"@/components/ui/label\"\nimport { Select } from \"@/components/ui/select\"\nimport type { Prettify } from \"@medram/react-ui-kit/types\"\n\nexport type SelectOptions<T> = {\n  readonly label: string\n  readonly value: T\n}\nexport type RenderProps<T> = {\n  option: T\n  disabled?: boolean\n  selected?: boolean\n  onClick?: () => void\n}\n\nexport type SpecialSelectFieldProps<T> = Prettify<\n  {\n    label?: string\n    options: T[]\n    required?: boolean\n    className?: string\n    placeholder?: string\n    nullable?: boolean\n    help?: string | React.ReactNode\n    errorMessage?: string\n    onChange?: (value: T | null) => void\n    onSelect: (selectedOption: T | null) => void\n    render: (props: {\n      option: T\n      disabled?: boolean\n      selected?: boolean\n      onClick?: () => void\n    }) => React.ReactNode\n    disabled?: boolean\n    itemContainerClassName?: string\n    value?: T | null\n  } & Omit<React.ComponentProps<typeof Select>, \"onValueChange\" | \"defaultValue\" | \"value\">\n>\n\nexport function SpecialSelectField<T>({\n  label,\n  required = false,\n  options,\n  className,\n  help,\n  errorMessage,\n  render,\n  disabled,\n  itemContainerClassName,\n  onChange,\n  onSelect,\n  value = null,\n}: SpecialSelectFieldProps<T>) {\n  const selectedItem = value\n\n  return (\n    <div className={cn(`flex flex-col text-primary mb-2 gap-1 ${className}`)}>\n      {label && (\n        <Label htmlFor=\"select\" className=\"mb-2\">\n          {label}\n          {required && <span className=\"text-red-500 ml-1\">*</span>}\n        </Label>\n      )}\n      {errorMessage && <p className=\"text-red-500 text-sm my-1\">{errorMessage}</p>}\n\n      <div className={cn(\"flex flex-col gap-2\", itemContainerClassName)}>\n        {options.map((option, index) => (\n          <Fragment key={index}>\n            {render({\n              option,\n              disabled,\n              selected: selectedItem === option,\n              onClick: () => {\n                if (disabled) return\n                if (selectedItem === option) {\n                  onChange?.(null)\n                  onSelect?.(null)\n                } else {\n                  onChange?.(option)\n                  onSelect?.(option)\n                }\n              },\n            })}\n          </Fragment>\n        ))}\n      </div>\n\n      {help && <Help>{help}</Help>}\n    </div>\n  )\n}\n",
+      "type": "registry:ui",
+      "target": "components/ui/special-select-field.tsx"
+    }
+  ],
+  "type": "registry:ui"
+}

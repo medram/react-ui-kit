@@ -1,8 +1,17 @@
-import { format, isValid } from "date-fns"
+import { format } from "date-fns"
 import { ErrorMessage, useField } from "formik"
 import { CalendarIcon } from "lucide-react"
 import FormError from "../components/FormError"
 import Help from "../components/Help"
+import {
+  createCalendarDate,
+  currentDateInTimeZone,
+  formatCalendarDate,
+  instantToWallTime,
+  parseCalendarDate,
+  resolveTimeZone,
+  wallTimeToInstant,
+} from "../lib/date-time"
 import { cn } from "../lib/cn"
 import { Button } from "../primitives/button"
 import { Calendar, CalendarProps } from "../primitives/calendar"
@@ -21,6 +30,7 @@ type DatePickerFieldProps = {
   disabled?: boolean
   includingTime?: boolean
   dateOnly?: boolean
+  timezone?: string
 } & CalendarProps
 
 export default function DatePickerField({
@@ -35,20 +45,56 @@ export default function DatePickerField({
   disabled,
   includingTime = true,
   dateOnly = false,
+  timezone,
+  defaultMonth,
+  today,
   ...props
 }: DatePickerFieldProps) {
-  const [field, meta, helpers] = useField<Date | string>(name)
+  const [field, _meta, helpers] = useField<Date | string>(name)
+  const resolvedTimeZone = resolveTimeZone(timezone)
+  const calendarStorage = dateOnly || !includingTime
+  const selectedDate = calendarStorage
+    ? parseCalendarDate(field.value)
+    : field.value
+      ? instantToWallTime(field.value, resolvedTimeZone)
+      : null
+  const currentDate = currentDateInTimeZone(resolvedTimeZone)
 
-  // Parse the field value into a valid Date object if it exists
-  const selectedDate = field.value ? new Date(field.value) : null
-
-  const getFormattedDate = (date: Date) => {
-    if (dateOnly) {
-      return format(date, "yyyy-MM-dd")
+  const handleDateChange = (date: Date | undefined) => {
+    if (!date) {
+      helpers.setValue("")
+      return
     }
-    return includingTime
-      ? date.toISOString()
-      : new Date(date.getTime() - date.getTimezoneOffset() * 60000).toISOString().split("T")[0]
+
+    if (calendarStorage) {
+      const calendarDate = createCalendarDate(date.getFullYear(), date.getMonth(), date.getDate())
+      if (!calendarDate) return
+
+      helpers.setValue(formatCalendarDate(calendarDate))
+      onChange?.(calendarDate)
+      return
+    }
+
+    if (!resolvedTimeZone) {
+      helpers.setValue(date.toISOString())
+      onChange?.(date)
+      return
+    }
+
+    const wallDate = createCalendarDate(date.getFullYear(), date.getMonth(), date.getDate())
+    if (!wallDate) return
+
+    const timeSource = selectedDate ?? date
+    wallDate.setHours(
+      timeSource.getHours(),
+      timeSource.getMinutes(),
+      timeSource.getSeconds(),
+      timeSource.getMilliseconds(),
+    )
+
+    const instant = wallTimeToInstant(wallDate, resolvedTimeZone)
+    helpers.setValue(instant.toISOString())
+    onChange?.(instant)
   }
 
   return (
@@ -70,7 +116,7 @@ export default function DatePickerField({
             disabled={disabled}
           >
             <CalendarIcon className="mr-2 h-4 w-4" />
-            {field.value && selectedDate && isValid(selectedDate) ? (
+            {field.value && selectedDate ? (
               format(selectedDate, "PPP")
             ) : (
               <span>{placeholder}</span>
@@ -83,12 +129,10 @@ export default function DatePickerField({
             {...field}
             {...props}
             mode="single"
-            selected={selectedDate && isValid(selectedDate) ? selectedDate : undefined}
-            defaultMonth={selectedDate && isValid(selectedDate) ? selectedDate : undefined} // Open calendar to the selected date
-            onSelect={(date) => {
-              helpers.setValue(date ? getFormattedDate(date) : "")
-              if (date) onChange?.(date)
-            }}
+            selected={selectedDate ?? undefined}
+            defaultMonth={defaultMonth ?? selectedDate ?? currentDate}
+            today={today ?? currentDate}
+            onSelect={handleDateChange}
             disabled={disableFn}
             required={required}
           />

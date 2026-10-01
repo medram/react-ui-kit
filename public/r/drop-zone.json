@@ -1,0 +1,22 @@
+{
+  "$schema": "https://ui.shadcn.com/schema/registry-item.json",
+  "name": "drop-zone",
+  "title": "Drop Zone",
+  "description": "Medram drop zone source component.",
+  "dependencies": [
+    "browser-image-compression",
+    "react-dropzone"
+  ],
+  "registryDependencies": [
+    "medram/react-ui-kit/attachment-inputs"
+  ],
+  "files": [
+    {
+      "path": "registry/source/inputs/DropZone.tsx",
+      "content": "import imageCompression, { Options } from \"browser-image-compression\"\nimport { useCallback, useRef } from \"react\"\nimport { type DropzoneOptions, type FileRejection, type FileWithPath, useDropzone } from \"react-dropzone\"\nimport { cn } from \"@/lib/utils\"\nimport { ALLOWED_ATTACHMENTS } from \"@/components/ui/attachment-inputs\"\nconst DEFAULT_MAX_SIZE = 1024 * 1024 // 1MB\n\nexport type onUploadProps = {\n  files: File[]\n}\n\nexport type DropZoneProps = {\n  children?: React.ReactNode\n  className?: string\n  multiple?: boolean\n  onUpload?: (props: onUploadProps) => void\n  onError?: (rejectedFiles: FileRejection[]) => void\n  dropzoneProps?: DropzoneOptions\n  accept?: DropzoneOptions[\"accept\"]\n  maxSize?: number\n  maxFiles?: number\n  enableImageCompression?: boolean\n  imageCompressionOptions?: Options\n}\n\nexport default function DropZone({\n  children,\n  className = \"\",\n  multiple = false,\n  dropzoneProps,\n  onUpload = () => {},\n  onError = () => {},\n  accept = ALLOWED_ATTACHMENTS.IMAGES,\n  maxSize = DEFAULT_MAX_SIZE,\n  maxFiles = 1,\n  enableImageCompression = false,\n  imageCompressionOptions,\n}: DropZoneProps) {\n  const onUploadRef = useRef(onUpload)\n  onUploadRef.current = onUpload\n  const onErrorRef = useRef(onError)\n  onErrorRef.current = onError\n\n  // handle file upload\n  const onDrop = useCallback(\n    (acceptedFiles: File[], rejectedFiles: FileRejection[]) => {\n      // Handle Upload\n      if (acceptedFiles.length) {\n        if (!enableImageCompression) {\n          onUploadRef.current({ files: acceptedFiles })\n        } else {\n          // compress images then pass it to onUpload\n          const compressImages = async () => {\n            const compressedFiles = await Promise.all(\n              acceptedFiles.map(async (file) => {\n                try {\n                  if (file.type.startsWith(\"image\")) {\n                    const compressedFile = await imageCompression(file, {\n                      maxSizeMB: 0.5,\n                      maxWidthOrHeight: 1920,\n                      ...imageCompressionOptions,\n                    })\n                    return compressedFile\n                  } else {\n                    return file\n                  }\n                } catch (error) {\n                  rejectedFiles.push({\n                    file: file as FileWithPath,\n                    errors: [\n                      {\n                        message: `Failed to compress image: ${error}`,\n                        code: \"\",\n                      },\n                    ],\n                  })\n                  return file\n                }\n              }),\n            )\n            onUploadRef.current({ files: compressedFiles })\n          }\n          compressImages()\n        }\n      }\n      // Handle errors\n      if (rejectedFiles.length) {\n        onErrorRef.current(rejectedFiles)\n      }\n    },\n    [enableImageCompression, imageCompressionOptions],\n  )\n\n  const { getRootProps, getInputProps, isDragActive } = useDropzone({\n    accept, // Default is accepting images\n    multiple,\n    onDrop: onDrop,\n    maxSize,\n    maxFiles,\n    ...dropzoneProps,\n  })\n\n  return (\n    <div\n      {...getRootProps()}\n      className={cn(\n        \"flex justify-center items-center h-[100px] rounded-md  border-2 border-dashed cursor-pointer mb-2\",\n        isDragActive && \"border-primary/50\",\n        className,\n      )}\n    >\n      <input {...getInputProps()} />\n      {children || <span>Drag and drop files, or click to select</span>}\n    </div>\n  )\n}\n",
+      "type": "registry:ui",
+      "target": "components/ui/drop-zone.tsx"
+    }
+  ],
+  "type": "registry:ui"
+}

@@ -1,0 +1,24 @@
+{
+  "$schema": "https://ui.shadcn.com/schema/registry-item.json",
+  "name": "radar-chart",
+  "title": "Radar Chart",
+  "description": "Medram radar chart source component.",
+  "dependencies": [
+    "@medram/react-ui-kit"
+  ],
+  "registryDependencies": [
+    "medram/react-ui-kit/base-chart-card",
+    "medram/react-ui-kit/medram-utils",
+    "medram/react-ui-kit/radar-chart-content",
+    "table"
+  ],
+  "files": [
+    {
+      "path": "registry/source/charts/RadarChart.tsx",
+      "content": "\"use client\"\n\nimport {\n  Suspense,\n  lazy,\n  useMemo,\n  type ComponentProps,\n  type ComponentType,\n  type ReactElement,\n} from \"react\"\nimport { cn } from \"@/lib/utils\"\nimport { TableCell, TableRow } from \"@/components/ui/table\"\nimport type { Prettify } from \"@medram/react-ui-kit/types\"\nimport { formatCurrency } from \"@/components/ui/medram-utils\"\nimport { BaseChartCard, ChartFallback } from \"@/components/ui/base-chart-card\"\nimport type { RadarChartContentProps, RadarData, RadarGroup } from \"@/components/ui/radar-chart-content\"\n\nconst RadarChartContent = lazy(() => import(\"@/components/ui/radar-chart-content\"))\n\ntype RadarChartProps = Prettify<\n  ComponentProps<typeof BaseChartCard> & {\n    data: RadarGroup[]\n    multiStack?: boolean\n    radarChartClassName?: string\n    showLegend?: boolean\n    enableTooltip?: boolean\n    showSummary?: boolean\n    renderSummary?: (radarData: RadarData[], suffix?: string, axisSuffix?: string) => ReactElement\n    enableFormatCurrency?: boolean\n  }\n>\n\nexport default function RadarChart({\n  data,\n  showLegend = true,\n  enableTooltip = true,\n  radarChartClassName,\n  showSummary = false,\n  renderSummary: customRenderSummary,\n  enableFormatCurrency = false,\n  contentClassName,\n  ...chartCardProps\n}: RadarChartProps) {\n  const chartData = useMemo(\n    () =>\n      data.map(({ label, data }) => ({\n        label,\n        data: data.map((record, index) => ({\n          ...record,\n          fill: record.fill || `var(--chart-${(index % 14) + 1})`,\n        })),\n      })),\n    [data],\n  )\n\n  const chartConfig = useMemo(\n    () =>\n      data.map((radar) =>\n        radar.data.reduce(\n          (acc, record, index) => {\n            acc[record.name] = {\n              label: record.label || record.name,\n              icon: record.icon,\n              color: record.fill || `var(--chart-${(index % 14) + 1})`,\n            }\n            return acc\n          },\n          {} as Record<string, { label: string; icon?: ComponentType<{}>; color: string }>,\n        ),\n      ),\n    [data],\n  )\n\n  const renderSummaryTable = (radarData: RadarData[], suffix?: string, axisSuffix?: string) => {\n    const total = radarData.reduce((acc, curr) => acc + curr.data, 0)\n    return radarData\n      .toSorted((a, b) => b.data - a.data)\n      .map((item) => {\n        const percentage = total > 0 ? ((item.data / total) * 100).toFixed(0) : 0\n        return (\n          <TableRow key={item.name}>\n            <TableCell>\n              {item.name}\n              {axisSuffix && ` ${axisSuffix}`}\n            </TableCell>\n            <TableCell>\n              {enableFormatCurrency ? formatCurrency(item.data) : item.data} {suffix || \"\"}\n            </TableCell>\n            <TableCell>{percentage}%</TableCell>\n          </TableRow>\n        )\n      })\n  }\n\n  const availableOptions = useMemo(\n    () => data.map((radar, index) => ({ label: radar.label, value: index.toString() })),\n    [data],\n  )\n\n  return (\n    <BaseChartCard\n      options={availableOptions}\n      {...chartCardProps}\n      contentClassName={cn(\n        contentClassName,\n        \"flex lg:flex-row flex-col flex-nowrap items-stretch items-center\",\n      )}\n      footerClassName=\"w-full flex flex-col items-center gap-2\"\n    >\n      {({ optionIndex }) => {\n        if (optionIndex == null || !data[optionIndex]) return null\n        const contentProps: RadarChartContentProps = {\n          optionIndex,\n          data,\n          chartConfig,\n          chartData,\n          radarChartClassName,\n          showLegend,\n          enableTooltip,\n          showSummary,\n          renderSummary: customRenderSummary || renderSummaryTable,\n        }\n        return (\n          <Suspense fallback={<ChartFallback />}>\n            <RadarChartContent {...contentProps} />\n          </Suspense>\n        )\n      }}\n    </BaseChartCard>\n  )\n}\n",
+      "type": "registry:ui",
+      "target": "components/ui/radar-chart.tsx"
+    }
+  ],
+  "type": "registry:ui"
+}

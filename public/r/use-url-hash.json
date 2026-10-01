@@ -1,0 +1,15 @@
+{
+  "$schema": "https://ui.shadcn.com/schema/registry-item.json",
+  "name": "use-url-hash",
+  "title": "Use URL Hash",
+  "description": "Routing-neutral browser hash state for Medram tabs.",
+  "files": [
+    {
+      "path": "registry/source/hooks/use-url-hash.ts",
+      "content": "\"use client\"\n\nimport { useCallback, useEffect, useState } from \"react\"\n\ntype UrlChange = { url: string; hash: string }\n\ntype UseUrlHashOptions = {\n  onUrlChange?: (value: UrlChange) => void\n  clearQueryParams?: boolean\n}\n\nexport function useUrlHash(\n  initialHash: string | undefined,\n  { onUrlChange, clearQueryParams = false }: UseUrlHashOptions = {},\n) {\n  const readHash = useCallback(() => window.location.hash || initialHash || \"\", [initialHash])\n  const [hash, setHashState] = useState(readHash)\n\n  useEffect(() => {\n    const handleHashChange = () => setHashState(readHash())\n    window.addEventListener(\"hashchange\", handleHashChange)\n    return () => window.removeEventListener(\"hashchange\", handleHashChange)\n  }, [readHash])\n\n  const setHash = useCallback(\n    (nextHash: string) => {\n      const url = new URL(window.location.href)\n      if (clearQueryParams) url.search = \"\"\n      url.hash = nextHash\n      window.history.pushState(null, \"\", url)\n      setHashState(nextHash)\n      onUrlChange?.({ url: url.toString(), hash: nextHash })\n    },\n    [clearQueryParams, onUrlChange],\n  )\n\n  return [hash, setHash] as const\n}\n",
+      "type": "registry:hook",
+      "target": "hooks/use-url-hash.ts"
+    }
+  ],
+  "type": "registry:hook"
+}

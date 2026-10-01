@@ -1,0 +1,18 @@
+{
+  "$schema": "https://ui.shadcn.com/schema/registry-item.json",
+  "name": "wizard-content",
+  "title": "Wizard Content",
+  "description": "Medram wizard content source component.",
+  "registryDependencies": [
+    "medram/react-ui-kit/wizard-context-hook"
+  ],
+  "files": [
+    {
+      "path": "registry/source/wizard/WizardContent.tsx",
+      "content": "import { cn } from \"@/lib/utils\"\nimport { useWizardContext } from \"@/components/ui/wizard-context-hook\"\n\ntype WizardContentProps = {\n  className?: string\n}\n\nexport function WizardContent({ className }: WizardContentProps) {\n  const { currentStep, totalSteps, currentStepData, controller } = useWizardContext()\n\n  if (!currentStepData) {\n    return <div className=\"text-destructive\">Step not found</div>\n  }\n\n  const finalTitleClassName = cn(\"text-2xl font-semibold\", currentStepData.titleClassName)\n\n  const finalDescriptionClassName = cn(\n    \"text-muted-foreground\",\n    currentStepData.descriptionClassName,\n  )\n\n  const finalContentClassName = cn(\"wizard-step-content\", currentStepData.contentClassName)\n\n  return (\n    <div className={cn(\"space-y-4\", className)}>\n      <div className=\"space-y-2\">\n        <h2 className={finalTitleClassName}>{currentStepData.title}</h2>\n        {currentStepData.description && (\n          <p className={finalDescriptionClassName}>{currentStepData.description}</p>\n        )}\n      </div>\n\n      <div className={finalContentClassName}>\n        {typeof currentStepData.content === \"function\"\n          ? currentStepData.content({ currentStep, totalSteps, controller })\n          : currentStepData.content}\n      </div>\n    </div>\n  )\n}\n",
+      "type": "registry:ui",
+      "target": "components/ui/wizard-content.tsx"
+    }
+  ],
+  "type": "registry:ui"
+}

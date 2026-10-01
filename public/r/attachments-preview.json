@@ -1,0 +1,23 @@
+{
+  "$schema": "https://ui.shadcn.com/schema/registry-item.json",
+  "name": "attachments-preview",
+  "title": "Attachments Preview",
+  "description": "Medram attachments preview source component.",
+  "dependencies": [
+    "@medram/react-ui-kit",
+    "lucide-react",
+    "pretty-bytes"
+  ],
+  "registryDependencies": [
+    "attachment"
+  ],
+  "files": [
+    {
+      "path": "registry/source/components/AttachmentsPreview.tsx",
+      "content": "import {\n  Download,\n  FileAudio,\n  FileImage,\n  FileText,\n  FileVideo,\n  FolderArchive,\n  Paperclip,\n} from \"lucide-react\"\nimport prettyBytes from \"pretty-bytes\"\nimport { useCloudStorageOps } from \"@medram/react-ui-kit/cloud-storage\"\nimport {\n  Attachment,\n  AttachmentAction,\n  AttachmentActions,\n  AttachmentContent,\n  AttachmentDescription,\n  AttachmentGroup,\n  AttachmentMedia,\n  AttachmentTitle,\n  AttachmentTrigger,\n} from \"@/components/ui/attachment\"\nimport { cn } from \"@/lib/utils\"\n\nexport type AttachmentsPreviewProps = {\n  attachmentIds: string[]\n  className?: string\n}\n\nconst IMAGE_EXTENSION_BY_NAME: Record<string, true> = {\n  avif: true,\n  gif: true,\n  jpeg: true,\n  jpg: true,\n  png: true,\n  svg: true,\n  webp: true,\n}\n\nexport default function AttachmentsPreview({\n  attachmentIds,\n  className,\n}: AttachmentsPreviewProps) {\n  const { uploadedFiles } = useCloudStorageOps({ attachmentIds })\n\n  if (uploadedFiles.length === 0) {\n    return (\n      <p className={cn(\"text-sm text-muted-foreground\", className)}>\n        No attachments available.\n      </p>\n    )\n  }\n\n  return (\n    <AttachmentGroup className={cn(\"w-full\", className)}>\n      {uploadedFiles.map((attachment) => (\n        <AttachmentItem key={attachment.id} attachment={attachment} />\n      ))}\n    </AttachmentGroup>\n  )\n}\n\ntype AttachmentItemProps = {\n  attachment: {\n    id: string\n    name: string\n    size: number\n    link: string\n  }\n}\n\n\nfunction getIconByExtension(extension: string) {\n  switch (extension) {\n    case \"txt\":\n    case \"pdf\":\n    case \"doc\":\n    case \"docx\":\n    case \"xls\":\n    case \"xlsx\":\n    case \"ppt\":\n    case \"pptx\":\n      return <FileText />\n    case \"zip\":\n    case \"rar\":\n    case \"7z\":\n      return <FolderArchive />\n    case \"jpg\":\n    case \"jpeg\":\n    case \"png\":\n    case \"gif\":\n      return <FileImage />\n    case \"mp4\":\n    case \"avi\":\n    case \"mov\":\n      return <FileVideo />\n    case \"mp3\":\n    case \"wav\":\n      return <FileAudio />\n    default:\n      return <Paperclip />\n  }\n}\n\nfunction AttachmentItem({ attachment }: AttachmentItemProps) {\n  const extension = attachment.name.split(\".\").pop()?.toLowerCase() ?? \"\"\n  const isImage = IMAGE_EXTENSION_BY_NAME[extension] === true\n  const metadata = `${extension ? extension.toUpperCase() : \"File\"} · ${prettyBytes(attachment.size)}`\n\n  return (\n    <Attachment className=\"w-64\">\n      <AttachmentMedia variant={isImage ? \"image\" : \"icon\"}>\n        {isImage ? (\n          <img src={attachment.link} alt={`Preview of ${attachment.name}`} />\n        ) : (\n          getIconByExtension(extension)\n        )}\n      </AttachmentMedia>\n      <AttachmentContent>\n        <AttachmentTitle title={attachment.name}>{attachment.name}</AttachmentTitle>\n        <AttachmentDescription>{metadata}</AttachmentDescription>\n      </AttachmentContent>\n      <AttachmentActions>\n        <AttachmentAction asChild aria-label={`Download ${attachment.name}`}>\n          <a\n            href={attachment.link}\n            download={attachment.name}\n            target=\"_blank\"\n            rel=\"noreferrer\"\n          >\n            <Download />\n          </a>\n        </AttachmentAction>\n      </AttachmentActions>\n      <AttachmentTrigger asChild>\n        <a\n          href={attachment.link}\n          target=\"_blank\"\n          rel=\"noreferrer\"\n          aria-label={`Open ${attachment.name}`}\n        />\n      </AttachmentTrigger>\n    </Attachment>\n  )\n}\n",
+      "type": "registry:ui",
+      "target": "components/ui/attachments-preview.tsx"
+    }
+  ],
+  "type": "registry:ui"
+}

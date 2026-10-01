@@ -1,0 +1,24 @@
+{
+  "$schema": "https://ui.shadcn.com/schema/registry-item.json",
+  "name": "switch-field",
+  "title": "Switch Field",
+  "description": "Medram switch field source component.",
+  "dependencies": [
+    "formik"
+  ],
+  "registryDependencies": [
+    "label",
+    "medram/react-ui-kit/form-error",
+    "medram/react-ui-kit/help",
+    "switch"
+  ],
+  "files": [
+    {
+      "path": "registry/source/fields/SwitchField.tsx",
+      "content": "import { ErrorMessage, useField } from \"formik\"\nimport { ButtonHTMLAttributes } from \"react\"\nimport FormError from \"@/components/ui/form-error\"\nimport Help from \"@/components/ui/help\"\nimport { cn } from \"@/lib/utils\"\nimport { Label } from \"@/components/ui/label\"\nimport { Switch } from \"@/components/ui/switch\"\n\ntype SwitchSize = \"small\" | \"medium\" | \"large\"\n\ntype SwitchFieldProps = ButtonHTMLAttributes<HTMLButtonElement> & {\n  name: string\n  label?: string\n  help?: string | React.ReactNode\n  switchLabel?: string\n  switchLabelClassName?: string\n  size?: SwitchSize\n  className?: string\n  labelClassName?: string\n  required?: boolean\n  onChange?: (checked: boolean) => void\n}\n\nexport default function SwitchField({\n  name,\n  label,\n  help,\n  className,\n  required = false,\n  switchLabel,\n  labelClassName,\n  switchLabelClassName,\n  size = \"medium\",\n  onChange,\n  ...props\n}: SwitchFieldProps) {\n  // Use Formik's useField hook to access field properties and helpers\n  const [field, meta, helpers] = useField<boolean>({\n    name,\n    validate: (value) => {\n      if (required && !value) {\n        return \"This field is required\"\n      }\n    },\n  })\n\n  return (\n    <div key={name} className={cn(`flex flex-col text-primary mb-2 gap-1`)}>\n      {label && (\n        <Label htmlFor={name} className={cn(\"mb-2 cursor-pointer\", labelClassName)}>\n          {label}\n          {required && <span className=\"text-red-500 ml-1\">*</span>}\n        </Label>\n      )}\n\n      <div className=\"flex items-center gap-2\">\n        <Switch\n          id={name}\n          {...props}\n          size={size === \"small\" ? \"sm\" : \"default\"}\n          className={cn(size === \"large\" && \"h-6 w-11\", className)}\n          checked={!!field.value}\n          onCheckedChange={(checked) => {\n            helpers.setValue(checked)\n            onChange?.(checked)\n          }}\n        />\n        {switchLabel && (\n          <Label htmlFor={name} className={cn(\"cursor-pointer\", switchLabelClassName)}>\n            {switchLabel}\n          </Label>\n        )}\n      </div>\n      {help && <Help>{help}</Help>}\n      <ErrorMessage name={name} component={FormError} />\n    </div>\n  )\n}\n",
+      "type": "registry:ui",
+      "target": "components/ui/switch-field.tsx"
+    }
+  ],
+  "type": "registry:ui"
+}

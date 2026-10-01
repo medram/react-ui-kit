@@ -1,0 +1,24 @@
+{
+  "$schema": "https://ui.shadcn.com/schema/registry-item.json",
+  "name": "input-field",
+  "title": "Input Field",
+  "description": "Medram input field source component.",
+  "dependencies": [
+    "formik"
+  ],
+  "registryDependencies": [
+    "input",
+    "label",
+    "medram/react-ui-kit/form-error",
+    "medram/react-ui-kit/help"
+  ],
+  "files": [
+    {
+      "path": "registry/source/fields/InputField.tsx",
+      "content": "import { useField } from \"formik\"\nimport type { InputHTMLAttributes } from \"react\"\nimport FormError from \"@/components/ui/form-error\"\nimport Help from \"@/components/ui/help\"\nimport { cn } from \"@/lib/utils\"\nimport { Input } from \"@/components/ui/input\"\nimport { Label } from \"@/components/ui/label\"\n\nexport type InputFieldProps = InputHTMLAttributes<HTMLInputElement> & {\n  name: string\n  label?: string\n  className?: string\n  InputClassName?: string\n  required?: boolean\n  help?: string | React.ReactNode\n}\n\nexport default function InputField({\n  name,\n  label,\n  InputClassName,\n  className,\n  required = false,\n  help,\n  ...props\n}: InputFieldProps) {\n  const [field, meta] = useField<string>(name)\n  const fieldId = `medram-${name}`\n  const helpId = help ? `${fieldId}-help` : undefined\n  const errorId = meta.touched && meta.error ? `${fieldId}-error` : undefined\n\n  return (\n    <div className={cn(\"mb-2 flex flex-col gap-1 text-primary\", className)}>\n      {label && (\n        <Label htmlFor={fieldId} className=\"mb-2\">\n          {label}\n          {required && <span className=\"ml-1 text-destructive\">*</span>}\n        </Label>\n      )}\n      <Input\n        {...field}\n        {...props}\n        id={fieldId}\n        className={InputClassName}\n        value={field.value ?? \"\"}\n        aria-invalid={Boolean(errorId)}\n        aria-describedby={[helpId, errorId].filter(Boolean).join(\" \") || undefined}\n      />\n      {help && <Help id={helpId}>{help}</Help>}\n      {errorId && <FormError id={errorId}>{meta.error}</FormError>}\n    </div>\n  )\n}\n",
+      "type": "registry:ui",
+      "target": "components/ui/input-field.tsx"
+    }
+  ],
+  "type": "registry:ui"
+}

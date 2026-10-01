@@ -1,0 +1,18 @@
+{
+  "$schema": "https://ui.shadcn.com/schema/registry-item.json",
+  "name": "select",
+  "title": "Select",
+  "description": "Medram select source component.",
+  "registryDependencies": [
+    "select"
+  ],
+  "files": [
+    {
+      "path": "registry/source/components/Select.tsx",
+      "content": "import { cn } from \"@/lib/utils\"\nimport {\n  Select as BaseSelect,\n  SelectContent,\n  SelectGroup,\n  SelectItem,\n  SelectLabel,\n  SelectTrigger,\n  SelectValue,\n} from \"@/components/ui/select\"\n\nexport type SelectOptions<T> = {\n  readonly label: string\n  readonly value: T\n}\n\nexport type SelectProps<T extends string | number | null> = {\n  options: SelectOptions<T>[]\n  className?: string\n  placeholder?: string\n  optionLabel?: string\n  value?: T\n  onChange?: (value: T) => void\n} & Omit<React.ComponentProps<typeof BaseSelect>, \"onValueChange\" | \"defaultValue\">\n\nexport default function Select<\n  T extends string | number | null | (string | null) | (number | null),\n>({\n  className,\n  options,\n  placeholder = \"Select an option...\",\n  onChange,\n  optionLabel,\n  value,\n  ...props\n}: SelectProps<T>) {\n  return (\n    <div className={cn(`flex flex-col text-primary mb-2 gap-1 ${className}`)}>\n      <BaseSelect\n        onValueChange={(value) => {\n          if (onChange) onChange(value as T)\n        }}\n        defaultValue={value}\n        {...props}\n      >\n        <SelectTrigger>\n          <SelectValue placeholder={placeholder} />\n        </SelectTrigger>\n        <SelectContent>\n          <SelectGroup>\n            {optionLabel && <SelectLabel>{optionLabel}</SelectLabel>}\n            {options.map((item) => (\n              <SelectItem key={item.value} value={String(item.value)} className=\"cursor-pointer\">\n                {item.label}\n              </SelectItem>\n            ))}\n          </SelectGroup>\n        </SelectContent>\n      </BaseSelect>\n    </div>\n  )\n}\n",
+      "type": "registry:ui",
+      "target": "components/ui/medram-select.tsx"
+    }
+  ],
+  "type": "registry:ui"
+}

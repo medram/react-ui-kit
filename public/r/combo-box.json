@@ -1,0 +1,23 @@
+{
+  "$schema": "https://ui.shadcn.com/schema/registry-item.json",
+  "name": "combo-box",
+  "title": "Combo Box",
+  "description": "Medram combo box source component.",
+  "dependencies": [
+    "lucide-react"
+  ],
+  "registryDependencies": [
+    "button",
+    "command",
+    "popover"
+  ],
+  "files": [
+    {
+      "path": "registry/source/inputs/ComboBox.tsx",
+      "content": "import { Check, ChevronsUpDown } from \"lucide-react\"\nimport { useId, useMemo, useState } from \"react\"\n\nimport { cn } from \"@/lib/utils\"\nimport { Button } from \"@/components/ui/button\"\nimport {\n  Command,\n  CommandEmpty,\n  CommandGroup,\n  CommandInput,\n  CommandItem,\n  CommandList,\n} from \"@/components/ui/command\"\nimport { Popover, PopoverContent, PopoverTrigger } from \"@/components/ui/popover\"\n\ntype ComboBoxOption<T> = { label: string; value: T }\n\nexport type ComboBoxProps<T> = {\n  value?: T\n  availableItems: ComboBoxOption<T>[]\n  className?: string\n  required?: boolean\n  searchPlaceholder?: string\n  selectPlaceholder?: string\n  noItemsFoundMessage?: string\n  onChange?: (value: T, selectedOption: ComboBoxOption<T>) => void\n  onSearchChange?: (search: string) => void\n}\n\nexport default function Combobox<T extends string | number | null>({\n  value,\n  availableItems,\n  className,\n  required,\n  searchPlaceholder = \"Search Items...\",\n  selectPlaceholder = \"Select items...\",\n  noItemsFoundMessage = \"No items found.\",\n  onChange,\n  onSearchChange,\n}: ComboBoxProps<T>) {\n  const listboxId = useId()\n  const [open, setOpen] = useState(false)\n  const [searchQuery, setSearchQuery] = useState(\"\")\n\n  const items = useMemo(() => {\n    let updated = availableItems.filter((item) =>\n      onSearchChange\n        ? item.label.toLowerCase()\n        : item.label.toLowerCase().includes(searchQuery.toLowerCase()),\n    )\n    if (!required) {\n      updated = [{ label: \"--- None ---\", value: \"\" as T }, ...updated]\n    }\n    return updated\n  }, [availableItems, searchQuery, onSearchChange, required])\n\n  const handleSearch = (query: string) => {\n    setSearchQuery(query)\n    if (onSearchChange) {\n      onSearchChange(query)\n    }\n  }\n\n  return (\n    <div className={cn(`flex flex-col text-primary mb-2 gap-1 ${className}`)}>\n      <Popover open={open} onOpenChange={setOpen}>\n        <PopoverTrigger asChild>\n          <Button\n            variant=\"outline\"\n            role=\"combobox\"\n            aria-expanded={open}\n            aria-controls={listboxId}\n            aria-haspopup=\"listbox\"\n            className=\"w-full justify-between\"\n          >\n            {value\n              ? items.find((item) => `${item.value}` === `${value}`)?.label\n              : selectPlaceholder}\n            <ChevronsUpDown className=\"ml-2 h-4 w-4 shrink-0 opacity-50\" />\n          </Button>\n        </PopoverTrigger>\n        <PopoverContent className=\"w-full p-0\">\n          <Command shouldFilter={false}>\n            <CommandInput\n              placeholder={searchPlaceholder}\n              value={searchQuery}\n              onValueChange={handleSearch}\n            />\n            <CommandList id={listboxId}>\n              <CommandEmpty>{noItemsFoundMessage}</CommandEmpty>\n              <CommandGroup>\n                {items.map((item) => {\n                  return (\n                    <CommandItem\n                      key={item.label}\n                      value={`${item.value}`}\n                      onSelect={(currentValue) => {\n                        setOpen(false)\n                        if (typeof item.value === \"number\") {\n                          onChange?.(currentValue as T, item)\n                        } else {\n                          onChange?.(currentValue as T, item)\n                        }\n                      }}\n                    >\n                      <Check\n                        className={cn(\n                          \"mr-2 h-4 w-4\",\n                          value === item.value ? \"opacity-100\" : \"opacity-0\",\n                        )}\n                      />\n                      {item.label}\n                    </CommandItem>\n                  )\n                })}\n              </CommandGroup>\n            </CommandList>\n          </Command>\n        </PopoverContent>\n      </Popover>\n    </div>\n  )\n}\n",
+      "type": "registry:ui",
+      "target": "components/ui/combo-box.tsx"
+    }
+  ],
+  "type": "registry:ui"
+}

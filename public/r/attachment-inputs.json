@@ -1,0 +1,15 @@
+{
+  "$schema": "https://ui.shadcn.com/schema/registry-item.json",
+  "name": "attachment-inputs",
+  "title": "Attachment Inputs",
+  "description": "Medram attachment inputs source component.",
+  "files": [
+    {
+      "path": "registry/source/inputs/attachments.ts",
+      "content": "// Accept maps for react-dropzone / file inputs. Lives outside the component file so\n// Fast Refresh and lint rules treat the component file as components-only.\nexport const ALLOWED_ATTACHMENTS = {\n  IMAGES: {\n    \"image/*\": [\".png\", \".jpg\", \".jpeg\"],\n  },\n  VIDEOS: {\n    \"video/*\": [\".mp4\", \".webm\"],\n  },\n  DOCUMENTS: {\n    \"application/pdf\": [\".pdf\"],\n    \"application/msword\": [\".doc\"],\n    \"application/vnd.openxmlformats-officedocument.wordprocessingml.document\": [\".docx\"],\n    \"application/vnd.ms-excel\": [\".xls\"],\n    \"text/csv\": [\".csv\"],\n    \"application/csv\": [\".csv\"],\n    \"application/vnd.openxmlformats-officedocument.spreadsheetml.sheet\": [\".xlsx\"],\n    \"application/vnd.ms-powerpoint\": [\".ppt\"],\n    \"application/vnd.openxmlformats-officedocument.presentationml.presentation\": [\".pptx\"],\n  },\n  DOCX: {\n    \"application/msword\": [\".doc\"],\n    \"application/vnd.openxmlformats-officedocument.wordprocessingml.document\": [\".docx\"],\n  },\n  PDF: {\n    \"application/pdf\": [\".pdf\"],\n  },\n  AUDIO: {\n    \"audio/*\": [\".mp3\", \".wav\"],\n  },\n  EXCEL: {\n    \"application/vnd.ms-excel\": [\".xls\"],\n    \"application/vnd.openxmlformats-officedocument.spreadsheetml.sheet\": [\".xlsx\"],\n    \"text/csv\": [\".csv\"],\n    \"application/csv\": [\".csv\"],\n  },\n}\n",
+      "type": "registry:ui",
+      "target": "components/ui/attachment-inputs.ts"
+    }
+  ],
+  "type": "registry:ui"
+}

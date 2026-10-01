@@ -1,0 +1,21 @@
+{
+  "$schema": "https://ui.shadcn.com/schema/registry-item.json",
+  "name": "alert-box",
+  "title": "Alert Box",
+  "description": "Medram alert box source component.",
+  "dependencies": [
+    "@radix-ui/react-icons"
+  ],
+  "registryDependencies": [
+    "alert"
+  ],
+  "files": [
+    {
+      "path": "registry/source/components/AlertBox.tsx",
+      "content": "import { CheckCircledIcon, ExclamationTriangleIcon, InfoCircledIcon } from \"@radix-ui/react-icons\"\nimport { cn } from \"@/lib/utils\"\nimport { AlertDescription, AlertTitle } from \"@/components/ui/alert\"\n\nimport { IconProps } from \"@radix-ui/react-icons/dist/types\"\n\ntype AlertType = {\n  title: string\n  icon: React.ComponentType<IconProps>\n  containerClassName: string\n}\n\ntype AlertTypes = {\n  info: AlertType\n  warning: AlertType\n  error: AlertType\n  success: AlertType\n}\n\nconst alertTypes: AlertTypes = {\n  info: {\n    title: \"Info\",\n    icon: InfoCircledIcon,\n    containerClassName: \"text-blue-700 dark:text-blue-100 border-none bg-blue-100 dark:bg-blue-900\",\n  },\n  warning: {\n    title: \"Warning\",\n    icon: ExclamationTriangleIcon,\n    containerClassName:\n      \"text-yellow-700 dark:text-yellow-100 border-none bg-yellow-100 dark:bg-yellow-900\",\n  },\n  error: {\n    title: \"Error\",\n    icon: ExclamationTriangleIcon,\n    containerClassName: \"text-red-700 dark:text-red-100 border-none bg-red-100 dark:bg-red-900\",\n  },\n  success: {\n    title: \"Success\",\n    icon: CheckCircledIcon,\n    containerClassName:\n      \"text-green-700 dark:text-green-300 border-none bg-green-100 dark:bg-green-900\",\n  },\n}\n\ntype AlertBoxProps = {\n  type?: \"info\" | \"warning\" | \"error\" | \"success\"\n  title?: string\n  description?: string\n  className?: string\n  children?: React.ReactNode\n}\n\nexport default function AlertBox({\n  type = \"info\",\n  title,\n  description,\n  className,\n  children,\n}: AlertBoxProps) {\n  const alert = alertTypes[type]\n\n  return (\n    <div\n      className={cn(\n        `border p-4 rounded-md flex items-start ${alert.containerClassName} ${className}`,\n      )}\n    >\n      <div className=\"mr-3\">\n        <alert.icon className=\"h-5 w-5\" />\n      </div>\n      <div className=\"flex flex-col\">\n        {title && (\n          <AlertTitle className={`font-bold ${!description && \"p-0 mb-2\"}`}>{title}</AlertTitle>\n        )}\n        {description && <AlertDescription>{description}</AlertDescription>}\n        {children && <AlertDescription>{children}</AlertDescription>}\n      </div>\n    </div>\n  )\n}\n",
+      "type": "registry:ui",
+      "target": "components/ui/alert-box.tsx"
+    }
+  ],
+  "type": "registry:ui"
+}

@@ -1,0 +1,18 @@
+{
+  "$schema": "https://ui.shadcn.com/schema/registry-item.json",
+  "name": "select-input",
+  "title": "Select Input",
+  "description": "Medram select input source component.",
+  "registryDependencies": [
+    "select"
+  ],
+  "files": [
+    {
+      "path": "registry/source/inputs/SelectInput.tsx",
+      "content": "import { cn } from \"@/lib/utils\"\nimport {\n  Select,\n  SelectContent,\n  SelectGroup,\n  SelectItem,\n  SelectLabel,\n  SelectTrigger,\n  SelectValue,\n} from \"@/components/ui/select\"\n\nexport type SelectOptions<T> = {\n  readonly label: string\n  readonly value: T\n}\n\nexport type SelectInputProps<T extends string | number | null> = {\n  options: SelectOptions<T>[]\n  className?: string\n  optionLabel?: string\n  placeholder?: string\n  onChange?: (value: T, selectedOption: SelectOptions<T>) => void\n} & Omit<React.ComponentProps<typeof Select>, \"onValueChange\" | \"defaultValue\">\n\nexport default function SelectInput<T extends string | number | null>({\n  className,\n  options,\n  optionLabel,\n  placeholder = \"Select an option...\",\n  onChange,\n  ...props\n}: SelectInputProps<T>) {\n  return (\n    <div className={cn(`flex flex-col text-primary mb-2 gap-1 ${className}`)}>\n      <Select\n        onValueChange={(value) => {\n          const selectedOption = options.find((option) => option.value == value)\n          if (selectedOption) onChange?.(value as T, selectedOption)\n        }}\n        {...props}\n      >\n        <SelectTrigger>\n          <SelectValue placeholder={placeholder} />\n        </SelectTrigger>\n        <SelectContent>\n          <SelectGroup>\n            {optionLabel && <SelectLabel>{optionLabel}</SelectLabel>}\n            {options.map((item) => (\n              <SelectItem\n                key={item.value}\n                value={`${item.value === \"\" ? \"-\" : item.value}`}\n                className=\"cursor-pointer\"\n              >\n                {item.label}\n              </SelectItem>\n            ))}\n          </SelectGroup>\n        </SelectContent>\n      </Select>\n    </div>\n  )\n}\n",
+      "type": "registry:ui",
+      "target": "components/ui/select-input.tsx"
+    }
+  ],
+  "type": "registry:ui"
+}

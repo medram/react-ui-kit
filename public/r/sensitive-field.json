@@ -1,0 +1,26 @@
+{
+  "$schema": "https://ui.shadcn.com/schema/registry-item.json",
+  "name": "sensitive-field",
+  "title": "Sensitive Field",
+  "description": "Medram sensitive field source component.",
+  "dependencies": [
+    "formik",
+    "lucide-react"
+  ],
+  "registryDependencies": [
+    "button",
+    "input",
+    "label",
+    "medram/react-ui-kit/form-error",
+    "medram/react-ui-kit/help"
+  ],
+  "files": [
+    {
+      "path": "registry/source/fields/SensitiveField.tsx",
+      "content": "\"use client\"\n\nimport { ErrorMessage, useField } from \"formik\"\nimport { EyeIcon, EyeOffIcon } from \"lucide-react\"\nimport { useState, type ComponentProps } from \"react\"\nimport FormError from \"@/components/ui/form-error\"\nimport Help from \"@/components/ui/help\"\nimport { cn } from \"@/lib/utils\"\nimport { Button } from \"@/components/ui/button\"\nimport { Input } from \"@/components/ui/input\"\nimport { Label } from \"@/components/ui/label\"\n\ntype SensitiveFieldProps = ComponentProps<typeof Input> & {\n  name: string\n  label?: string\n  className?: string\n  InputClassName?: string\n  required?: boolean\n  help?: string | React.ReactNode\n}\n\nfunction SensitiveField({\n  name,\n  label,\n  InputClassName = \"\",\n  className = \"\",\n  required = false,\n  help,\n  ref,\n  ...props\n}: SensitiveFieldProps & { ref?: React.Ref<HTMLInputElement> }) {\n  const [field] = useField<string>(name)\n  const [showData, setShowDate] = useState(false)\n\n  return (\n    <div key={name} className={cn(`flex flex-col text-primary mb-2 gap-1 ${className}`)}>\n      {label && (\n        <Label htmlFor={name} className=\"mb-2\">\n          {label}\n          {required && <span className=\"text-red-500 ml-1\">*</span>}\n        </Label>\n      )}\n      <div className=\"relative\">\n        <Input\n          type={showData ? \"text\" : \"password\"}\n          className={cn(\"hide-password-toggle pr-10 z-0\", className)}\n          ref={ref}\n          {...field}\n          {...props}\n        />\n        <Button\n          type=\"button\"\n          variant=\"ghost\"\n          size=\"sm\"\n          className=\"absolute right-0 top-0 h-full px-3 z-10 py-2 hover:cursor-pointer hover:bg-transparent\"\n          onClick={() => setShowDate((prev) => !prev)}\n          disabled={props.disabled}\n        >\n          {showData ? (\n            <EyeIcon className=\"h-4 w-4\" aria-hidden=\"true\" />\n          ) : (\n            <EyeOffIcon className=\"h-4 w-4\" aria-hidden=\"true\" />\n          )}\n          <span className=\"sr-only\">{showData ? \"Hide password\" : \"Show password\"}</span>\n        </Button>\n\n        {/* hides browsers password toggles */}\n        <style>{`\n              .hide-password-toggle::-ms-reveal,\n              .hide-password-toggle::-ms-clear {\n                visibility: hidden;\n                pointer-events: none;\n                display: none;\n              }\n            `}</style>\n      </div>\n      {help && <Help>{help}</Help>}\n      <ErrorMessage name={name} component={FormError} />\n    </div>\n  )\n}\n\nexport default SensitiveField\n",
+      "type": "registry:ui",
+      "target": "components/ui/sensitive-field.tsx"
+    }
+  ],
+  "type": "registry:ui"
+}

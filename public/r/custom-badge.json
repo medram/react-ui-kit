@@ -1,0 +1,22 @@
+{
+  "$schema": "https://ui.shadcn.com/schema/registry-item.json",
+  "name": "custom-badge",
+  "title": "Custom Badge",
+  "description": "Medram custom badge source component.",
+  "dependencies": [
+    "next-themes"
+  ],
+  "registryDependencies": [
+    "badge",
+    "medram/react-ui-kit/medram-utils"
+  ],
+  "files": [
+    {
+      "path": "registry/source/components/CustomBadge.tsx",
+      "content": "import type { ComponentProps } from \"react\"\nimport { cn } from \"@/lib/utils\"\nimport { Badge } from \"@/components/ui/badge\"\nimport { generateColorsFromString } from \"@/components/ui/medram-utils\"\nimport { useTheme } from \"next-themes\"\n\ntype CustomBadgeProps = ComponentProps<typeof Badge> & {\n  type?: \"default\" | \"warning\" | \"success\" | \"danger\" | \"random\"\n  intensity?: number // used for random type only for tweaking the result\n}\n\nexport default function CustomBadge({\n  children,\n  type,\n  intensity,\n  className,\n  ...props\n}: CustomBadgeProps) {\n  const { theme, systemTheme } = useTheme()\n  className = \"text-nowrap \" + className\n\n  switch (type) {\n    case \"default\":\n      return (\n        <Badge variant=\"secondary\" className={className} {...props}>\n          {children}\n        </Badge>\n      )\n    case \"warning\":\n      return (\n        <Badge\n          variant=\"secondary\"\n          className={cn(\n            `bg-yellow-200 text-yellow-700 dark:bg-yellow-700 dark:text-yellow-200 hover:bg-yellow-200 hover:text-yellow-700 dark:hover:bg-yellow-700 dark:hover:text-yellow-200`,\n            className,\n          )}\n          {...props}\n        >\n          {children}\n        </Badge>\n      )\n    case \"success\":\n      return (\n        <Badge\n          variant=\"secondary\"\n          className={cn(\n            `bg-green-200 text-green-700 dark:bg-green-700 dark:text-green-200 hover:bg-green-200 hover:text-green-700 dark:hover:bg-green-700 dark:hover:text-green-200`,\n            className,\n          )}\n          {...props}\n        >\n          {children}\n        </Badge>\n      )\n    case \"danger\":\n      return (\n        <Badge\n          variant=\"secondary\"\n          className={cn(\n            `bg-red-200 text-red-700 dark:bg-red-700 dark:text-red-200 hover:bg-red-200 hover:text-red-700 dark:hover:bg-red-700 dark:hover:text-red-200`,\n            className,\n          )}\n          {...props}\n        >\n          {children}\n        </Badge>\n      )\n    case \"random\":\n      const normalizedChildren = typeof children === \"string\" ? children : String(children ?? \"\")\n      const { shinyColor, vibrantColor } = generateColorsFromString(normalizedChildren, intensity)\n      const isDarkMode = theme === \"dark\" || (systemTheme === \"dark\" && theme === \"system\")\n      return (\n        <Badge\n          style={{\n            backgroundColor: isDarkMode ? vibrantColor : shinyColor,\n            color: isDarkMode ? shinyColor : vibrantColor,\n          }}\n          className={className}\n          {...props}\n        >\n          {children}\n        </Badge>\n      )\n    default:\n      return (\n        <Badge\n          variant=\"secondary\"\n          className={cn(`bg-sky-200 text-sky-700 hover:bg-sky-200 hover:text-sky-700`, className)}\n          {...props}\n        >\n          {children}\n        </Badge>\n      )\n  }\n}\n",
+      "type": "registry:ui",
+      "target": "components/ui/custom-badge.tsx"
+    }
+  ],
+  "type": "registry:ui"
+}

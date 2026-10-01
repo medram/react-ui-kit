@@ -1,0 +1,28 @@
+{
+  "$schema": "https://ui.shadcn.com/schema/registry-item.json",
+  "name": "date-field",
+  "title": "Date Field",
+  "description": "Medram date field source component.",
+  "dependencies": [
+    "date-fns",
+    "formik",
+    "lucide-react"
+  ],
+  "registryDependencies": [
+    "button",
+    "calendar",
+    "label",
+    "medram/react-ui-kit/form-error",
+    "medram/react-ui-kit/help",
+    "popover"
+  ],
+  "files": [
+    {
+      "path": "registry/source/fields/DateField.tsx",
+      "content": "import { format, isValid } from \"date-fns\"\nimport { ErrorMessage, useField } from \"formik\"\nimport { CalendarIcon } from \"lucide-react\"\nimport type { ComponentProps, ReactNode } from \"react\"\nimport FormError from \"@/components/ui/form-error\"\nimport Help from \"@/components/ui/help\"\nimport { cn } from \"@/lib/utils\"\nimport { Button } from \"@/components/ui/button\"\nimport { Calendar } from \"@/components/ui/calendar\"\nimport { Label } from \"@/components/ui/label\"\nimport { Popover, PopoverContent, PopoverTrigger } from \"@/components/ui/popover\"\n\ntype DateFieldProps = {\n  name: string\n  label?: string\n  help?: string | ReactNode\n  required?: boolean\n  className?: string\n  placeholder?: string\n  disableFn?: (date: Date) => boolean\n  onChange?: (date: Date) => void\n  disabled?: boolean\n} & Omit<ComponentProps<typeof Calendar>, \"mode\" | \"selected\" | \"onSelect\" | \"disabled\">\n\nexport default function DateField({\n  name,\n  label,\n  help,\n  required = false,\n  className,\n  placeholder = \"Pick a date\",\n  disableFn,\n  onChange,\n  disabled,\n  captionLayout = \"dropdown\",\n  defaultMonth,\n  ...props\n}: DateFieldProps) {\n  const [field, _meta, helpers] = useField<Date | string>(name)\n\n  // selectedDate is derived from the form value — no useEffect mirror.\n  const parsedDate = field.value ? new Date(field.value) : null\n  const selectedDate = parsedDate && isValid(parsedDate) ? parsedDate : null\n\n  const setFieldValue = (date: Date | null) => {\n    if (date) {\n      // Adjust the date to compensate for the timezone difference.\n      const adjustedDate = new Date(date.getTime() - date.getTimezoneOffset() * 60000)\n      const formattedDate = adjustedDate.toISOString().split(\"T\")[0]\n      helpers.setValue(formattedDate)\n    }\n  }\n\n  const handleDateChange = (date: Date | undefined) => {\n    if (date) {\n      setFieldValue(date)\n      onChange?.(date)\n    } else {\n      helpers.setValue(\"\")\n    }\n  }\n\n  return (\n    <div key={name} className={cn(`flex flex-col text-primary mb-2 gap-1 ${className}`)}>\n      {label && (\n        <Label htmlFor={name} className=\"mb-2\">\n          {label}\n          {required && <span className=\"text-red-500 ml-1\">*</span>}\n        </Label>\n      )}\n      <Popover>\n        <PopoverTrigger asChild>\n          <Button\n            variant={\"outline\"}\n            className={cn(\n              \"w-full justify-start text-left font-normal\",\n\n              !field.value && \"text-muted-foreground\",\n            )}\n            disabled={disabled}\n          >\n            <CalendarIcon className=\"mr-2 h-4 w-4\" />\n            {field.value && selectedDate && isValid(selectedDate) ? (\n              format(selectedDate, \"PPP\")\n            ) : (\n              <span>{placeholder}</span>\n            )}\n          </Button>\n        </PopoverTrigger>\n\n        <PopoverContent className=\"w-auto p-0\">\n          <Calendar\n            {...field}\n            {...props}\n            mode=\"single\"\n            captionLayout={captionLayout}\n            defaultMonth={defaultMonth ?? selectedDate ?? undefined}\n            selected={selectedDate && isValid(selectedDate) ? selectedDate : undefined}\n            onSelect={(date: Date | undefined) => handleDateChange(date)}\n            disabled={disableFn}\n            required={required}\n          />\n        </PopoverContent>\n      </Popover>\n      {help && <Help>{help}</Help>}\n      <ErrorMessage name={name} component={FormError} />\n    </div>\n  )\n}\n",
+      "type": "registry:ui",
+      "target": "components/ui/date-field.tsx"
+    }
+  ],
+  "type": "registry:ui"
+}

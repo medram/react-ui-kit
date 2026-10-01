@@ -1,0 +1,15 @@
+{
+  "$schema": "https://ui.shadcn.com/schema/registry-item.json",
+  "name": "medram-utils",
+  "title": "Medram Utilities",
+  "description": "Shared utilities required by Medram registry components.",
+  "files": [
+    {
+      "path": "registry/source/shared/medram-utils.ts",
+      "content": "const randomColors = [\n  [\"rgb(226, 232, 240)\", \"rgb(71, 85, 105)\"],\n  [\"rgb(167, 243, 208)\", \"rgb(5, 150, 105)\"],\n  [\"rgb(245, 208, 254)\", \"rgb(192, 38, 211)\"],\n  [\"rgb(153, 246, 228)\", \"rgb(13, 148, 136)\"],\n  [\"rgb(254, 202, 202)\", \"rgb(220, 38, 38)\"],\n] as const\n\nconst formatterCache = new Map<string, Intl.NumberFormat>()\n\nexport function formatCurrency(amount: number, locales = \"fr-FR\"): string {\n  const key = locales\n  let formatter = formatterCache.get(key)\n  if (!formatter) {\n    formatter = new Intl.NumberFormat(locales, { maximumFractionDigits: 2 })\n    formatterCache.set(key, formatter)\n  }\n  return formatter.format(amount)\n}\n\nexport function generateColorsFromString(value: string, intensity = 1) {\n  const seed = Array.from(String(value ?? \"\")).reduce((total, char) => total + char.charCodeAt(0), 0)\n  const palette = randomColors[Math.abs(seed * Math.min(Math.max(intensity, 1), 10)) % randomColors.length]\n  return { shinyColor: palette[0], vibrantColor: palette[1] }\n}\n\nexport function convertTimetoDate(time: string) {\n  const [hour, minute] = time.split(\":\")\n  const date = new Date()\n  date.setHours(Number(hour), Number(minute), 0, 0)\n  return date\n}\n\nexport const AVAILABLE_TIMEZONES_OPTIONS = [\"UTC\", ...Intl.supportedValuesOf(\"timeZone\")]\n  .filter((zone) => zone !== \"Asia/Jerusalem\")\n  .map((zone) => ({ label: zone, value: zone }))\n",
+      "type": "registry:ui",
+      "target": "components/ui/medram-utils.ts"
+    }
+  ],
+  "type": "registry:ui"
+}

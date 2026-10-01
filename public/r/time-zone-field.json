@@ -1,0 +1,21 @@
+{
+  "$schema": "https://ui.shadcn.com/schema/registry-item.json",
+  "name": "time-zone-field",
+  "title": "Time Zone Field",
+  "description": "Medram time zone field source component.",
+  "dependencies": [
+    "react-timezone-select"
+  ],
+  "registryDependencies": [
+    "medram/react-ui-kit/select-field"
+  ],
+  "files": [
+    {
+      "path": "registry/source/fields/TimeZoneField.tsx",
+      "content": "import { useMemo } from \"react\"\nimport { allTimezones, useTimezoneSelect } from \"react-timezone-select\"\nimport SelectField from \"@/components/ui/select-field\"\n\ntype TimeZoneFieldProps = Omit<React.ComponentProps<typeof SelectField>, \"options\">\n\nexport default function TimeZoneField({ name, ...props }: TimeZoneFieldProps) {\n  const { options } = useTimezoneSelect({ timezones: allTimezones })\n\n  // 🇵🇸 Always Palestine\n  const timezones = useMemo(() => {\n    return options.map((option) =>\n      option.value === \"Asia/Jerusalem\" ? { label: \"(GMT+3:00) Gaza\", value: \"Asia/Gaza\" } : option,\n    )\n  }, [options])\n\n  return <SelectField name={name} placeholder=\"site timezone\" {...props} options={timezones} />\n}\n",
+      "type": "registry:ui",
+      "target": "components/ui/time-zone-field.tsx"
+    }
+  ],
+  "type": "registry:ui"
+}

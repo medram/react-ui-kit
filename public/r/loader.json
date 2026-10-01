@@ -1,0 +1,19 @@
+{
+  "$schema": "https://ui.shadcn.com/schema/registry-item.json",
+  "name": "loader",
+  "title": "Loader",
+  "description": "Medram loader source component.",
+  "dependencies": [
+    "next-themes",
+    "react-spinners"
+  ],
+  "files": [
+    {
+      "path": "registry/source/components/Loader.tsx",
+      "content": "import { useTheme } from \"next-themes\"\nimport { PulseLoader } from \"react-spinners\"\n\ntype LoaderProps = {\n  themeColors?: { dark: string; light: string }\n  size?: number\n  speedMultiplier?: number\n  color?: string\n}\n\nexport default function Loader({\n  themeColors = { dark: \"#ffffff\", light: \"#0f172a\" },\n  size = 12,\n  speedMultiplier = 0.8,\n  color,\n}: LoaderProps) {\n  const { theme, systemTheme } = useTheme()\n  const isDarkMode = theme === \"dark\" || (systemTheme === \"dark\" && theme === \"system\")\n\n  return (\n    <PulseLoader\n      color={color ? color : isDarkMode ? themeColors.dark : themeColors.light}\n      speedMultiplier={speedMultiplier}\n      size={size}\n    />\n  )\n}\n",
+      "type": "registry:ui",
+      "target": "components/ui/loader.tsx"
+    }
+  ],
+  "type": "registry:ui"
+}

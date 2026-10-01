@@ -1,0 +1,18 @@
+{
+  "$schema": "https://ui.shadcn.com/schema/registry-item.json",
+  "name": "wizard-controller",
+  "title": "Wizard Controller",
+  "description": "Medram wizard controller source component.",
+  "registryDependencies": [
+    "medram/react-ui-kit/wizard-types"
+  ],
+  "files": [
+    {
+      "path": "registry/source/wizard/wizard-controller.ts",
+      "content": "import { WizardController, WizardEvents, WizardStep } from \"@/components/ui/wizard-types\"\n\nexport type createWizardControllerProps = {\n  events: WizardEvents\n  currentStep: number\n  isLoading: boolean\n  setIsLoading: (loading: boolean) => void\n  setCurrentStep: (step: number) => void\n  stepsDefinition: WizardStep[]\n}\n\nexport function createWizardController({\n  events,\n  currentStep,\n  isLoading,\n  setIsLoading,\n  setCurrentStep,\n  stepsDefinition,\n}: createWizardControllerProps) {\n  const { onStepChange, onNext, onPrevious, onFinish, onReset } = events\n\n  const handleStepChange = async (\n    newStep: number,\n    direction: \"next\" | \"previous\" | \"jump\" = \"jump\",\n  ) => {\n    if (isLoading) return\n\n    try {\n      setIsLoading(true)\n\n      // Call global callbacks based on direction\n      if (direction === \"next\" || direction === \"jump\") {\n        if (newStep === stepsDefinition.length + 1 && onFinish) {\n          await onFinish(newStep)\n        } else if (onNext) {\n          await onNext(currentStep, newStep)\n        }\n      } else if (direction === \"previous\" && onPrevious) {\n        await onPrevious(currentStep, newStep)\n      }\n\n      setCurrentStep(newStep)\n      onStepChange?.(newStep)\n    } catch (error) {\n      console.error(\"Step change error:\", error)\n    } finally {\n      setIsLoading(false)\n    }\n  }\n\n  const controller: WizardController = {\n    next: async () => {\n      if (isLoading) return\n\n      const currentStepData = stepsDefinition[currentStep - 1]\n\n      // Call step-level onNext\n      if (currentStepData?.onNext) {\n        await currentStepData.onNext()\n      }\n\n      const newStep = Math.min(currentStep + 1, stepsDefinition.length)\n      if (newStep !== currentStep) {\n        await handleStepChange(newStep, \"next\")\n      }\n    },\n    previous: async () => {\n      if (isLoading) return\n\n      const currentStepData = stepsDefinition[currentStep - 1]\n\n      // Call step-level onPrevious\n      if (currentStepData?.onPrevious) {\n        await currentStepData.onPrevious()\n      }\n\n      const newStep = Math.max(currentStep - 1, 1)\n      if (newStep !== currentStep) {\n        await handleStepChange(newStep, \"previous\")\n      }\n    },\n\n    jumpTo: async (stepNumber: number) => {\n      if (isLoading) return\n      if (stepNumber >= 1 && stepNumber <= stepsDefinition.length && stepNumber !== currentStep) {\n        await handleStepChange(stepNumber, \"jump\")\n      }\n    },\n\n    reset: () => {\n      if (isLoading) return\n      setCurrentStep(1)\n      onReset?.()\n    },\n  }\n\n  return controller\n}\n",
+      "type": "registry:ui",
+      "target": "components/ui/wizard-controller.ts"
+    }
+  ],
+  "type": "registry:ui"
+}

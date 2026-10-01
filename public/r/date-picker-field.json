@@ -1,0 +1,28 @@
+{
+  "$schema": "https://ui.shadcn.com/schema/registry-item.json",
+  "name": "date-picker-field",
+  "title": "Date Picker Field",
+  "description": "Medram date picker field source component.",
+  "dependencies": [
+    "date-fns",
+    "formik",
+    "lucide-react"
+  ],
+  "registryDependencies": [
+    "button",
+    "calendar",
+    "label",
+    "medram/react-ui-kit/form-error",
+    "medram/react-ui-kit/help",
+    "popover"
+  ],
+  "files": [
+    {
+      "path": "registry/source/fields/DatePickerField.tsx",
+      "content": "import { format, isValid } from \"date-fns\"\nimport { ErrorMessage, useField } from \"formik\"\nimport { CalendarIcon } from \"lucide-react\"\nimport type { ComponentProps } from \"react\"\nimport FormError from \"@/components/ui/form-error\"\nimport Help from \"@/components/ui/help\"\nimport { cn } from \"@/lib/utils\"\nimport { Button } from \"@/components/ui/button\"\nimport { Calendar } from \"@/components/ui/calendar\"\nimport { Label } from \"@/components/ui/label\"\nimport { Popover, PopoverContent, PopoverTrigger } from \"@/components/ui/popover\"\n\ntype DatePickerFieldProps = {\n  name: string\n  label?: string\n  help?: string | React.ReactNode\n  required?: boolean\n  className?: string\n  placeholder?: string\n  disableFn?: (date: Date) => boolean\n  onChange?: (date: Date) => void\n  disabled?: boolean\n  includingTime?: boolean\n  dateOnly?: boolean\n} & Omit<ComponentProps<typeof Calendar>, \"mode\" | \"selected\" | \"onSelect\" | \"disabled\">\n\nexport default function DatePickerField({\n  name,\n  label,\n  help,\n  required = false,\n  className,\n  placeholder = \"Pick a date\",\n  disableFn,\n  onChange,\n  disabled,\n  captionLayout = \"dropdown\",\n  defaultMonth,\n  includingTime = true,\n  dateOnly = false,\n  ...props\n}: DatePickerFieldProps) {\n  const [field, meta, helpers] = useField<Date | string>(name)\n\n  // Parse the field value into a valid Date object if it exists\n  const selectedDate = field.value ? new Date(field.value) : null\n\n  const getFormattedDate = (date: Date) => {\n    if (dateOnly) {\n      return format(date, \"yyyy-MM-dd\")\n    }\n    return includingTime\n      ? date.toISOString()\n      : new Date(date.getTime() - date.getTimezoneOffset() * 60000).toISOString().split(\"T\")[0]\n  }\n\n  return (\n    <div key={name} className={cn(`flex flex-col text-primary mb-2 gap-1 ${className}`)}>\n      {label && (\n        <Label htmlFor={name} className=\"mb-2\">\n          {label}\n          {required && <span className=\"text-red-500 ml-1\">*</span>}\n        </Label>\n      )}\n      <Popover modal={true}>\n        <PopoverTrigger asChild>\n          <Button\n            variant={\"outline\"}\n            className={cn(\n              \"w-full justify-start text-left font-normal\",\n              !field.value && \"text-muted-foreground\",\n            )}\n            disabled={disabled}\n          >\n            <CalendarIcon className=\"mr-2 h-4 w-4\" />\n            {field.value && selectedDate && isValid(selectedDate) ? (\n              format(selectedDate, \"PPP\")\n            ) : (\n              <span>{placeholder}</span>\n            )}\n          </Button>\n        </PopoverTrigger>\n\n        <PopoverContent className=\"flex w-auto flex-col space-y-2 p-0\">\n          <Calendar\n            {...field}\n            {...props}\n            mode=\"single\"\n            captionLayout={captionLayout}\n            selected={selectedDate && isValid(selectedDate) ? selectedDate : undefined}\n            defaultMonth={defaultMonth ?? (selectedDate && isValid(selectedDate) ? selectedDate : undefined)}\n            onSelect={(date: Date | undefined) => {\n              helpers.setValue(date ? getFormattedDate(date) : \"\")\n              if (date) onChange?.(date)\n            }}\n            disabled={disableFn}\n            required={required}\n          />\n        </PopoverContent>\n      </Popover>\n      {help && <Help>{help}</Help>}\n      <ErrorMessage name={name} component={FormError} />\n    </div>\n  )\n}\n",
+      "type": "registry:ui",
+      "target": "components/ui/date-picker-field.tsx"
+    }
+  ],
+  "type": "registry:ui"
+}

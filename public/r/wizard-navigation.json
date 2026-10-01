@@ -1,0 +1,22 @@
+{
+  "$schema": "https://ui.shadcn.com/schema/registry-item.json",
+  "name": "wizard-navigation",
+  "title": "Wizard Navigation",
+  "description": "Medram wizard navigation source component.",
+  "dependencies": [
+    "lucide-react"
+  ],
+  "registryDependencies": [
+    "button",
+    "medram/react-ui-kit/wizard-context-hook"
+  ],
+  "files": [
+    {
+      "path": "registry/source/wizard/WizardNavigation.tsx",
+      "content": "import { ChevronLeft, ChevronRight } from \"lucide-react\"\nimport { cn } from \"@/lib/utils\"\nimport { Button } from \"@/components/ui/button\"\nimport { useWizardContext } from \"@/components/ui/wizard-context-hook\"\n\ntype WizardNavigationProps = {\n  showLabels?: boolean\n  previousLabel?: string\n  nextLabel?: string\n  finishLabel?: string\n  hideOnFirstStep?: boolean\n  hideOnLastStep?: boolean\n  className?: string\n  buttonClassName?: string\n  previousButtonClassName?: string\n  nextButtonClassName?: string\n  disableNextButton?: boolean\n}\n\nexport function WizardNavigation({\n  showLabels = true,\n  previousLabel = \"Previous\",\n  nextLabel = \"Next\",\n  finishLabel = \"Finish\",\n  hideOnFirstStep = false,\n  hideOnLastStep = false,\n  className,\n  buttonClassName,\n  previousButtonClassName,\n  nextButtonClassName,\n  disableNextButton = false,\n}: WizardNavigationProps) {\n  const { currentStep, totalSteps, controller, skipSteps } = useWizardContext()\n\n  const isFirstStep = currentStep === 1\n  const isLastStep = currentStep === totalSteps\n\n  if ((hideOnFirstStep && isFirstStep) || (hideOnLastStep && isLastStep)) {\n    return null\n  }\n\n  return (\n    <div className={cn(\"flex justify-between items-center mt-6\", className)}>\n      <Button\n        onClick={controller.previous}\n        disabled={isFirstStep || !skipSteps}\n        className={cn(buttonClassName, previousButtonClassName)}\n      >\n        <ChevronLeft className=\"w-4 h-4\" />\n        {showLabels && previousLabel}\n      </Button>\n\n      <span className=\"text-sm text-muted-foreground\">\n        {currentStep} / {totalSteps}\n      </span>\n\n      <Button\n        disabled={disableNextButton || !skipSteps}\n        onClick={controller.next}\n        className={cn(buttonClassName, nextButtonClassName)}\n      >\n        {showLabels && (isLastStep ? finishLabel : nextLabel)}\n        <ChevronRight className=\"w-4 h-4\" />\n      </Button>\n    </div>\n  )\n}\n",
+      "type": "registry:ui",
+      "target": "components/ui/wizard-navigation.tsx"
+    }
+  ],
+  "type": "registry:ui"
+}

@@ -1,0 +1,25 @@
+{
+  "$schema": "https://ui.shadcn.com/schema/registry-item.json",
+  "name": "time-field",
+  "title": "Time Field",
+  "description": "Medram time field source component.",
+  "dependencies": [
+    "formik"
+  ],
+  "registryDependencies": [
+    "label",
+    "medram/react-ui-kit/form-error",
+    "medram/react-ui-kit/help",
+    "medram/react-ui-kit/medram-utils",
+    "medram/react-ui-kit/time-picker"
+  ],
+  "files": [
+    {
+      "path": "registry/source/fields/TimeField.tsx",
+      "content": "import { ErrorMessage, useField } from \"formik\"\nimport React, { InputHTMLAttributes } from \"react\"\nimport FormError from \"@/components/ui/form-error\"\nimport Help from \"@/components/ui/help\"\nimport { cn } from \"@/lib/utils\"\nimport { Label } from \"@/components/ui/label\"\nimport { TimePicker } from \"@/components/ui/time-picker\"\nimport { convertTimetoDate } from \"@/components/ui/medram-utils\"\nexport type TimeFieldProps = InputHTMLAttributes<HTMLInputElement> & {\n  name: string\n  label?: string\n  className?: string\n  required?: boolean\n  help?: string | React.ReactNode\n  disabled?: boolean\n}\nexport default function TimeField({\n  name,\n  label,\n  className,\n  required = false,\n  help,\n  disabled,\n  ...props\n}: TimeFieldProps) {\n  const [field, meta, helpers] = useField<string>(name)\n\n  function onChange(value: Date | undefined) {\n    if (value) {\n      const hour = `0${value.getHours()}`.slice(-2)\n      const minute = `0${value.getMinutes()}`.slice(-2)\n      helpers.setValue(`${hour}:${minute}`)\n    } else {\n      helpers.setValue(\"00:00\")\n    }\n  }\n\n  return (\n    <div key={`input-${name}`} className={cn(`flex flex-col text-primary mb-2 gap-1 ${className}`)}>\n      {label && (\n        <Label htmlFor={name} className=\"mb-2\">\n          {label}\n          {required && <span className=\"text-red-500 ml-1\">*</span>}\n        </Label>\n      )}\n      <TimePicker\n        {...props}\n        date={convertTimetoDate(field.value)}\n        onChange={onChange}\n        granularity=\"minute\"\n        disabled={disabled}\n        id={`time-id-${name}`}\n      />\n      {help && <Help>{help}</Help>}\n      <ErrorMessage name={name} component={FormError} />\n    </div>\n  )\n}\n",
+      "type": "registry:ui",
+      "target": "components/ui/time-field.tsx"
+    }
+  ],
+  "type": "registry:ui"
+}

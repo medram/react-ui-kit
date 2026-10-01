@@ -1,0 +1,19 @@
+{
+  "$schema": "https://ui.shadcn.com/schema/registry-item.json",
+  "name": "wizard-context",
+  "title": "Wizard Context",
+  "description": "Medram wizard context source component.",
+  "registryDependencies": [
+    "medram/react-ui-kit/wizard-controller",
+    "medram/react-ui-kit/wizard-types"
+  ],
+  "files": [
+    {
+      "path": "registry/source/wizard/WizardContext.tsx",
+      "content": "\"use client\"\n\nimport { ReactNode, createContext, useCallback, useMemo, useState, useTransition } from \"react\"\nimport { createWizardController } from \"@/components/ui/wizard-controller\"\nimport { WizardController, WizardEvents, WizardStep } from \"@/components/ui/wizard-types\"\n\nexport type WizardContextType = {\n  currentStep: number\n  totalSteps: number\n  stepsDefinition: WizardStep[]\n  controller: WizardController\n  currentStepData: WizardStep\n  isLoading: boolean\n  setCurrentStep: (step: number) => void\n  setIsLoading: (loading: boolean) => void\n  markLastStepAsCompleted?: boolean\n  skipSteps: boolean\n}\n\nexport const WizardContext = createContext<WizardContextType | null>(null)\n\nexport type WizardProviderProps = {\n  children: ReactNode | ((context: WizardContextType) => ReactNode)\n  stepsDefinition: WizardStep[]\n  initialStep?: number\n  events: WizardEvents\n  markLastStepAsCompleted?: boolean\n  skipSteps: boolean\n}\n\nexport function WizardProvider({\n  children,\n  stepsDefinition,\n  initialStep = 1,\n  events,\n  markLastStepAsCompleted = false,\n  skipSteps = false,\n}: WizardProviderProps) {\n  const [currentStep, setCurrentStep] = useState(initialStep)\n  const [isPending, startTransition] = useTransition()\n\n  // No-op kept for backward compat: controller and context consumers may call this\n  const setIsLoading = useCallback((_loading: boolean) => {}, [])\n\n  const baseController = useMemo(\n    () =>\n      createWizardController({\n        events,\n        currentStep,\n        isLoading: isPending,\n        setIsLoading,\n        setCurrentStep,\n        stepsDefinition,\n      }),\n    [events, currentStep, isPending, setIsLoading, setCurrentStep, stepsDefinition],\n  )\n\n  // Wrap each method in startTransition so isPending tracks async step changes\n  const controller = useMemo<WizardController>(\n    () => ({\n      next: () =>\n        startTransition(() => {\n          void baseController.next()\n        }),\n      previous: () =>\n        startTransition(() => {\n          void baseController.previous()\n        }),\n      jumpTo: (n: number) =>\n        startTransition(() => {\n          void baseController.jumpTo(n)\n        }),\n      reset: () =>\n        startTransition(() => {\n          baseController.reset()\n        }),\n    }),\n    [baseController, startTransition],\n  )\n\n  const contextValue: WizardContextType = {\n    currentStep,\n    totalSteps: stepsDefinition.length,\n    stepsDefinition,\n    controller,\n    currentStepData: stepsDefinition[currentStep - 1],\n    isLoading: isPending,\n    setCurrentStep,\n    setIsLoading,\n    markLastStepAsCompleted,\n    skipSteps,\n  }\n\n  return (\n    <WizardContext.Provider value={contextValue}>\n      {typeof children === \"function\" ? children(contextValue) : children}\n    </WizardContext.Provider>\n  )\n}\n",
+      "type": "registry:ui",
+      "target": "components/ui/wizard-context.tsx"
+    }
+  ],
+  "type": "registry:ui"
+}

@@ -1,0 +1,23 @@
+{
+  "$schema": "https://ui.shadcn.com/schema/registry-item.json",
+  "name": "radio-group-field",
+  "title": "Radio Group Field",
+  "description": "Medram radio group field source component.",
+  "dependencies": [
+    "formik"
+  ],
+  "registryDependencies": [
+    "label",
+    "medram/react-ui-kit/help",
+    "radio-group"
+  ],
+  "files": [
+    {
+      "path": "registry/source/fields/RadioGroupField.tsx",
+      "content": "import { useField } from \"formik\"\nimport Help from \"@/components/ui/help\"\nimport { cn } from \"@/lib/utils\"\nimport { Label } from \"@/components/ui/label\"\nimport { RadioGroup, RadioGroupItem } from \"@/components/ui/radio-group\"\n\nexport type RadioGroupOptions = {\n  label: string\n  value: string | number\n}\n\ntype RadioGroupFieldProps = {\n  name: string\n  options: RadioGroupOptions[]\n  label?: string\n  help?: string | React.ReactNode\n  required?: boolean\n  className?: string\n  radioItemClassName?: string\n}\n\nexport default function RadioGroupField({\n  options,\n  name,\n  label = \"\",\n  help,\n  required = false,\n  className = \"\",\n  radioItemClassName = \"\",\n}: RadioGroupFieldProps) {\n  const [field, meta, helpers] = useField<RadioGroupOptions[\"value\"]>(name)\n\n  return (\n    <div className=\"flex flex-col gap-1\">\n      <RadioGroup\n        defaultValue={`${field.value}`}\n        onValueChange={(value) => {\n          let parsedValue: RadioGroupOptions[\"value\"] = value\n\n          // If the value is a number, parse it to an integer\n          if (typeof options[0][\"value\"] === \"number\") {\n            parsedValue = parseInt(value)\n          }\n\n          helpers.setValue(parsedValue)\n        }}\n        className={className}\n      >\n        {label && (\n          <Label className=\"mb-2\">\n            {label}\n            {required && <span className=\"text-red-500 ml-1\">*</span>}\n          </Label>\n        )}\n        {options.map((item) => (\n          <div className={cn(`flex items-center space-x-2`, radioItemClassName)} key={item.value}>\n            <RadioGroupItem value={`${item.value}`} id={`radio-id-${item.value}`} />\n            <Label htmlFor={`radio-id-${item.value}`} className=\"cursor-pointer\">\n              {item.label}\n            </Label>\n          </div>\n        ))}\n      </RadioGroup>\n      {help && <Help>{help}</Help>}\n    </div>\n  )\n}\n",
+      "type": "registry:ui",
+      "target": "components/ui/radio-group-field.tsx"
+    }
+  ],
+  "type": "registry:ui"
+}

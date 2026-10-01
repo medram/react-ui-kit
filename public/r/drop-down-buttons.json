@@ -1,0 +1,24 @@
+{
+  "$schema": "https://ui.shadcn.com/schema/registry-item.json",
+  "name": "drop-down-buttons",
+  "title": "Drop Down Buttons",
+  "description": "Medram drop down buttons source component.",
+  "dependencies": [
+    "lucide-react"
+  ],
+  "registryDependencies": [
+    "button",
+    "dropdown-menu",
+    "medram/react-ui-kit/loader",
+    "medram/react-ui-kit/stacked-modals"
+  ],
+  "files": [
+    {
+      "path": "registry/source/components/DropDownButtons.tsx",
+      "content": "import { LucideProps } from \"lucide-react\"\nimport { useState } from \"react\"\nimport { cn } from \"@/lib/utils\"\nimport { TriggerModal } from \"@/components/ui/stacked-modals\"\nimport { Button } from \"@/components/ui/button\"\nimport {\n  DropdownMenu,\n  DropdownMenuContent,\n  DropdownMenuItem,\n  DropdownMenuTrigger,\n} from \"@/components/ui/dropdown-menu\"\nimport Loader from \"@/components/ui/loader\"\n\n// Local equivalent of the host app's table TableActionsOptionsProps, so the\n// package owns its contract instead of reaching into dashboard/table.\ntype TableActionsOptionsProps = {\n  label?: string\n  icon?: React.ForwardRefExoticComponent<any>\n  style?: \"dropdown\" | \"inline\"\n}\n\nexport type DropDownButtonsItem = {\n  label: string\n  handler?: () => Promise<void>\n  icon?: React.ForwardRefExoticComponent<\n    Omit<LucideProps, \"ref\"> & React.RefAttributes<SVGSVGElement>\n  >\n  hidden?: boolean\n  className?: string\n}\n\ntype DropDownButtonsProps = {\n  actions: DropDownButtonsItem[]\n} & TableActionsOptionsProps\n\nexport default function DropDownButtons({\n  label,\n  icon: TriggerIcon,\n  actions,\n  style = \"dropdown\",\n}: DropDownButtonsProps) {\n  const [isLoading, setIsLoading] = useState<{ index: number; state: boolean }>({\n    index: -1,\n    state: false,\n  })\n  const clickHandler = (index: number, handler: () => Promise<void>) => {\n    setIsLoading({ index, state: true })\n    handler().finally(() => setIsLoading({ index, state: false }))\n  }\n  return (\n    <>\n      {style === \"dropdown\" && (\n        <DropdownMenu modal={false}>\n          <DropdownMenuTrigger asChild disabled={isLoading.state}>\n            <Button variant=\"outline\" className=\"h-8 w-full\">\n              {isLoading.state ? (\n                <Loader size={6} />\n              ) : (\n                TriggerIcon && <TriggerIcon className=\"h-4 w-4\" />\n              )}\n              {!isLoading.state && label}\n            </Button>\n          </DropdownMenuTrigger>\n          <DropdownMenuContent>\n            {actions.map(({ label, handler, icon: ItemIcon, hidden, className }, i) => {\n              if (hidden) return null\n              return (\n                <TriggerModal\n                  onClick={() => (handler ? clickHandler(i, handler) : null)}\n                  key={label}\n                  variant=\"ghost\"\n                  className=\"w-full items-start flex flex-col\"\n                >\n                  <DropdownMenuItem className={cn(\"gap-2 cursor-pointer\", className)}>\n                    {ItemIcon ? <ItemIcon className=\"h-4 w-4\" /> : null}\n                    {label}\n                  </DropdownMenuItem>\n                </TriggerModal>\n              )\n            })}\n          </DropdownMenuContent>\n        </DropdownMenu>\n      )}\n      {style === \"inline\" && (\n        <div className=\"flex gap-2\">\n          {actions.map(({ label, handler, icon: ItemIcon, hidden, className }, i) => {\n            if (hidden) return null\n            return (\n              <TriggerModal\n                key={label}\n                variant=\"outline\"\n                className={cn(\"h-8\", className)}\n                disabled={isLoading.state && isLoading.index === i}\n                onClick={(e) => (handler ? clickHandler(i, handler) : null)}\n              >\n                {isLoading.state && isLoading.index === i ? (\n                  <Loader size={6} />\n                ) : (\n                  <>\n                    {ItemIcon && <ItemIcon className=\"h-4 w-4\" />}\n                    {label}\n                  </>\n                )}\n              </TriggerModal>\n            )\n          })}\n        </div>\n      )}\n    </>\n  )\n}\n",
+      "type": "registry:ui",
+      "target": "components/ui/drop-down-buttons.tsx"
+    }
+  ],
+  "type": "registry:ui"
+}

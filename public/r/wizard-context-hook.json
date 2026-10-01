@@ -1,0 +1,18 @@
+{
+  "$schema": "https://ui.shadcn.com/schema/registry-item.json",
+  "name": "wizard-context-hook",
+  "title": "Wizard Context Hook",
+  "description": "Medram wizard context hook source component.",
+  "registryDependencies": [
+    "medram/react-ui-kit/wizard-context"
+  ],
+  "files": [
+    {
+      "path": "registry/source/wizard/wizard.hook.tsx",
+      "content": "import { useContext } from \"react\"\nimport { WizardContext } from \"@/components/ui/wizard-context\"\n\nexport function useWizardContext() {\n  const context = useContext(WizardContext)\n  if (!context) {\n    throw new Error(\"useWizardContext must be used within a WizardProvider\")\n  }\n\n  return context\n}\n",
+      "type": "registry:ui",
+      "target": "components/ui/wizard-context-hook.tsx"
+    }
+  ],
+  "type": "registry:ui"
+}

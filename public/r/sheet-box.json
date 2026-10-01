@@ -1,0 +1,22 @@
+{
+  "$schema": "https://ui.shadcn.com/schema/registry-item.json",
+  "name": "sheet-box",
+  "title": "Sheet Box",
+  "description": "Medram sheet box source component.",
+  "dependencies": [
+    "@medram/react-ui-kit"
+  ],
+  "registryDependencies": [
+    "button",
+    "sheet"
+  ],
+  "files": [
+    {
+      "path": "registry/source/components/SheetBox.tsx",
+      "content": "import { ReactNode } from \"react\"\nimport { cn } from \"@/lib/utils\"\nimport { Button } from \"@/components/ui/button\"\nimport {\n  Sheet,\n  SheetClose,\n  SheetContent,\n  SheetDescription,\n  SheetFooter,\n  SheetHeader,\n  SheetTitle,\n  SheetTrigger,\n} from \"@/components/ui/sheet\"\nimport type { Prettify } from \"@medram/react-ui-kit/types\"\n\ntype SheetSideType = \"bottom\" | \"top\" | \"right\" | \"left\"\n\ntype SheetBoxProps = Prettify<\n  React.ComponentProps<typeof Sheet> & {\n    trigger: ReactNode\n    children?: ReactNode\n    title?: string\n    subTitle?: string\n    side?: SheetSideType\n    className?: string\n\n    closeButtonText?: string\n    // Footer content\n    footer?: ReactNode\n    disableFooter?: boolean\n  }\n>\n\nexport default function SheetBox({\n  trigger,\n  children,\n  title,\n  subTitle,\n  side = \"right\",\n  className,\n\n  closeButtonText = \"Close\",\n  // Footer content\n  disableFooter = true,\n  footer,\n  ...sheetProps\n}: SheetBoxProps) {\n  return (\n    <Sheet {...sheetProps}>\n      {trigger && <SheetTrigger asChild>{trigger}</SheetTrigger>}\n      <SheetContent side={side} className={className}>\n        <SheetHeader>\n          <SheetTitle className={cn(title ? \"\" : \"hidden\")}>{title}</SheetTitle>\n\n          <SheetDescription className={cn(subTitle ? \"p-2\" : \"hidden\")}>\n            {subTitle}\n          </SheetDescription>\n        </SheetHeader>\n\n        {children}\n\n        {!disableFooter && (\n          <SheetFooter>\n            {footer ? (\n              footer\n            ) : (\n              <SheetClose asChild>\n                <Button type=\"button\">{closeButtonText}</Button>\n              </SheetClose>\n            )}\n          </SheetFooter>\n        )}\n      </SheetContent>\n    </Sheet>\n  )\n}\n",
+      "type": "registry:ui",
+      "target": "components/ui/sheet-box.tsx"
+    }
+  ],
+  "type": "registry:ui"
+}

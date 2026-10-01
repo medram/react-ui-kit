@@ -1,8 +1,16 @@
-import { format, isValid } from "date-fns"
+import { format } from "date-fns"
 import { ErrorMessage, useField } from "formik"
 import { CalendarIcon } from "lucide-react"
 import FormError from "../components/FormError"
 import Help from "../components/Help"
+import {
+  createCalendarDate,
+  currentDateInTimeZone,
+  formatCalendarDate,
+  lastDayOfCalendarMonth,
+  parseCalendarDate,
+  resolveTimeZone,
+} from "../lib/date-time"
 import { cn } from "../lib/cn"
 import { Button } from "../primitives/button"
 import { Label } from "../primitives/label"
@@ -34,6 +42,7 @@ type MonthYearPickerFieldProps = {
   onChange?: (date: Date) => void
   disabled?: boolean
   defaultDay?: number
+  timezone?: string
 }
 
 export default function MonthYearPickerField({
@@ -46,24 +55,30 @@ export default function MonthYearPickerField({
   onChange,
   disabled,
   defaultDay = 1,
+  timezone,
 }: MonthYearPickerFieldProps) {
-  const [field, meta, helpers] = useField<Date | string>(name)
-
-  const selectedDate = field.value ? new Date(field.value) : null
-
-  const currentYear = new Date().getFullYear()
+  const [field, _meta, helpers] = useField<Date | string>(name)
+  const resolvedTimeZone = resolveTimeZone(timezone)
+  const selectedDate = parseCalendarDate(field.value)
+  const currentDate = currentDateInTimeZone(resolvedTimeZone)
+  const currentYear = currentDate.getFullYear()
   const years = [currentYear, currentYear - 1, currentYear - 2, currentYear - 3]
 
-  const handleDateChange = (month: number, year: number, day: number = defaultDay) => {
-    const newDate = new Date(year, month, day)
-    const formattedDate = `${year}-${String(month + 1).padStart(2, "0")}-${String(day).padStart(2, "0")}`
+  const handleDateChange = (monthIndex: number, year: number, day: number = defaultDay) => {
+    const lastDay = lastDayOfCalendarMonth(year, monthIndex)
+    if (lastDay === null) return
 
-    helpers.setValue(formattedDate)
+    const truncatedDay = Number.isFinite(day) ? Math.trunc(day) : 1
+    const validDay = Math.min(Math.max(truncatedDay, 1), lastDay)
+    const newDate = createCalendarDate(year, monthIndex, validDay)
+    if (!newDate) return
+
+    helpers.setValue(formatCalendarDate(newDate))
     onChange?.(newDate)
   }
 
   const getDisplayText = () => {
-    if (field.value && selectedDate && isValid(selectedDate)) {
+    if (field.value && selectedDate) {
       return format(selectedDate, "MMMM yyyy, dd")
     }
     return placeholder
@@ -100,7 +115,7 @@ export default function MonthYearPickerField({
               <Select
                 value={selectedDate ? selectedDate.getFullYear().toString() : ""}
                 onValueChange={(value) => {
-                  const year = parseInt(value)
+                  const year = Number.parseInt(value, 10)
                   const month = selectedDate ? selectedDate.getMonth() : 0
                   handleDateChange(month, year)
                 }}
@@ -123,7 +138,7 @@ export default function MonthYearPickerField({
               <Select
                 value={selectedDate ? selectedDate.getMonth().toString() : ""}
                 onValueChange={(value) => {
-                  const month = parseInt(value)
+                  const month = Number.parseInt(value, 10)
                   const year = selectedDate ? selectedDate.getFullYear() : currentYear
                   handleDateChange(month, year)
                 }}

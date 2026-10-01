@@ -1,0 +1,18 @@
+{
+  "$schema": "https://ui.shadcn.com/schema/registry-item.json",
+  "name": "image-preview",
+  "title": "Image Preview",
+  "description": "Medram image preview source component.",
+  "dependencies": [
+    "@medram/react-ui-kit"
+  ],
+  "files": [
+    {
+      "path": "registry/source/components/ImagePreview.tsx",
+      "content": "import type { FC } from \"react\"\nimport type { AttachmentDto } from \"@medram/react-ui-kit/types\"\n\ninterface ImagePreviewProps {\n  attachment: AttachmentDto\n}\n\nconst ImagePreview: FC<ImagePreviewProps> = ({ attachment }) => (\n  <img\n    src={attachment.link}\n    alt={attachment.name}\n    width={300}\n    height={200}\n    className=\"w-full max-w-[300px] rounded-lg border border-muted p-1 shadow-md\"\n  />\n)\n\nexport default ImagePreview\n",
+      "type": "registry:ui",
+      "target": "components/ui/image-preview.tsx"
+    }
+  ],
+  "type": "registry:ui"
+}

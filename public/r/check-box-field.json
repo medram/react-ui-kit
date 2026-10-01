@@ -1,0 +1,24 @@
+{
+  "$schema": "https://ui.shadcn.com/schema/registry-item.json",
+  "name": "check-box-field",
+  "title": "Check Box Field",
+  "description": "Medram check box field source component.",
+  "dependencies": [
+    "formik"
+  ],
+  "registryDependencies": [
+    "label",
+    "medram/react-ui-kit/base-check-box-field",
+    "medram/react-ui-kit/form-error",
+    "medram/react-ui-kit/help"
+  ],
+  "files": [
+    {
+      "path": "registry/source/fields/CheckBoxField.tsx",
+      "content": "import { ErrorMessage, useField } from \"formik\"\nimport { InputHTMLAttributes, useCallback } from \"react\"\nimport FormError from \"@/components/ui/form-error\"\nimport Help from \"@/components/ui/help\"\nimport { cn } from \"@/lib/utils\"\nimport { Label } from \"@/components/ui/label\"\nimport BaseCheckBoxField, { type BaseCheckBoxFieldProps } from \"@/components/ui/base-check-box-field\"\n\nexport type CheckBoxFieldProps = InputHTMLAttributes<HTMLInputElement> &\n  Omit<BaseCheckBoxFieldProps, \"checked\" | \"onCheckedChange\"> & {\n    label?: string\n    className?: string\n    required?: boolean\n    help?: string | React.ReactNode\n  }\n\nexport default function CheckBoxField({\n  name,\n  className,\n  label,\n  required = false,\n  help,\n  ...props\n}: CheckBoxFieldProps) {\n  // Use Formik's useField hook to access field properties and helpers\n  const [field, _, helpers] = useField<boolean>(name)\n  const handleCheckedChange = useCallback(\n    (checked: boolean) => {\n      helpers.setValue(checked)\n    },\n    [helpers],\n  )\n\n  return (\n    <div key={`input-${name}`} className={cn(`flex flex-col text-primary mb-2 gap-1 ${className}`)}>\n      {label && (\n        <Label htmlFor={name} className=\"mb-2\">\n          {label}\n          {required && <span className=\"text-red-500 ml-1\">*</span>}\n        </Label>\n      )}\n      <BaseCheckBoxField\n        checked={field.value}\n        onCheckedChange={handleCheckedChange}\n        {...props}\n        {...field}\n      />\n      {help && <Help>{help}</Help>}\n      <ErrorMessage name={name} component={FormError} />\n    </div>\n  )\n}\n",
+      "type": "registry:ui",
+      "target": "components/ui/check-box-field.tsx"
+    }
+  ],
+  "type": "registry:ui"
+}

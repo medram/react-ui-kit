@@ -1,0 +1,15 @@
+{
+  "$schema": "https://ui.shadcn.com/schema/registry-item.json",
+  "name": "wizard-types",
+  "title": "Wizard Types",
+  "description": "Medram wizard types source component.",
+  "files": [
+    {
+      "path": "registry/source/wizard/wizard.types.ts",
+      "content": "export type WizardController = {\n  next: () => void\n  previous: () => void\n  jumpTo: (stepNumber: number) => void\n  reset: () => void\n}\n\nexport type ProgressBarRenderProps = {\n  currentStep: number\n  totalSteps: number\n  stepsDefinition: WizardStep[]\n  controller: WizardController\n  isLoading: boolean\n}\n\nexport type WizardStep = {\n  id: string\n  title: string\n  description?: string\n  icon?: React.ComponentType<any>\n  content:\n    | React.ReactNode\n    | ((props: {\n        currentStep: number\n        totalSteps: number\n        controller: WizardController\n      }) => React.ReactNode)\n  titleClassName?: string\n  descriptionClassName?: string\n  contentClassName?: string\n  stepIndicatorClassName?: string\n\n  onNext?: () => void | Promise<void>\n  onPrevious?: () => void | Promise<void>\n}\n\nexport type WizardEvents = {\n  onStepChange?: (step: number) => void\n  onNext?: (currentStep: number, nextStep: number) => void\n  onPrevious?: (currentStep: number, previousStep: number) => void\n  onFinish?: (finalStep: number) => void\n  onReset?: () => void\n}\n",
+      "type": "registry:ui",
+      "target": "components/ui/wizard-types.ts"
+    }
+  ],
+  "type": "registry:ui"
+}

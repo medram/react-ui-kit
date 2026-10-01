@@ -1,0 +1,25 @@
+{
+  "$schema": "https://ui.shadcn.com/schema/registry-item.json",
+  "name": "calendar-date-picker-field",
+  "title": "Calendar Date Picker Field",
+  "description": "Medram calendar date picker field source component.",
+  "dependencies": [
+    "formik",
+    "react-day-picker"
+  ],
+  "registryDependencies": [
+    "label",
+    "medram/react-ui-kit/calendar-date-picker",
+    "medram/react-ui-kit/form-error",
+    "medram/react-ui-kit/help"
+  ],
+  "files": [
+    {
+      "path": "registry/source/fields/CalendarDatePickerField.tsx",
+      "content": "import { ErrorMessage, useField } from \"formik\"\nimport React from \"react\"\nimport { DateRange } from \"react-day-picker\"\nimport { CalendarDatePicker, CalendarDatePickerProps } from \"@/components/ui/calendar-date-picker\"\nimport FormError from \"@/components/ui/form-error\"\nimport Help from \"@/components/ui/help\"\nimport { cn } from \"@/lib/utils\"\nimport { Label } from \"@/components/ui/label\"\n\ntype CalendarDatePickerFieldProps = Omit<CalendarDatePickerProps, \"date\" | \"onDateSelect\"> & {\n  name: string\n  label?: string\n  help?: string | React.ReactNode\n  required?: boolean\n  disableFn?: (date: Date) => boolean\n  className?: string\n  containerClassName?: string\n  closeOnSelect?: boolean\n  numberOfMonths?: 1 | 2\n  yearsRange?: number\n  onDateSelectChange?: (date: DateRange) => void\n}\n\nexport default function CalendarDatePickerField({\n  label,\n  help,\n  className,\n  containerClassName,\n  required,\n  onDateSelectChange,\n  ...props\n}: CalendarDatePickerFieldProps) {\n  const [field, _, helpers] = useField<DateRange>(props.name)\n  return (\n    <div className={cn(`flex flex-col text-primary mb-2 gap-1 ${containerClassName}`)}>\n      {label && (\n        <Label htmlFor={props.name} className=\"mb-2\">\n          {label}\n          {required && <span className=\"text-red-500 ml-1\">*</span>}\n        </Label>\n      )}\n      <CalendarDatePicker\n        date={field.value || { from: undefined, to: undefined }}\n        onDateSelect={function (range: { from: Date; to: Date }): void {\n          helpers.setValue(range)\n          if (onDateSelectChange) {\n            onDateSelectChange(range)\n          }\n        }}\n        variant={\"outline\"}\n        className={cn(`w-fit ${className}`)}\n        {...props}\n      />\n      {help && <Help>{help}</Help>}\n      <ErrorMessage name={props.name} component={FormError} />\n    </div>\n  )\n}\n",
+      "type": "registry:ui",
+      "target": "components/ui/calendar-date-picker-field.tsx"
+    }
+  ],
+  "type": "registry:ui"
+}

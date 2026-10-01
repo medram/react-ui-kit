@@ -1,0 +1,21 @@
+{
+  "$schema": "https://ui.shadcn.com/schema/registry-item.json",
+  "name": "base-wizard",
+  "title": "Base Wizard",
+  "description": "Medram base wizard source component.",
+  "registryDependencies": [
+    "medram/react-ui-kit/wizard-content",
+    "medram/react-ui-kit/wizard-context",
+    "medram/react-ui-kit/wizard-navigation",
+    "medram/react-ui-kit/wizard-progress-bar"
+  ],
+  "files": [
+    {
+      "path": "registry/source/wizard/BaseWizard.ts",
+      "content": "// Bundle of wizard primitives consumed by both the index re-export and the\n// top-level `Wizard` shell. Living in its own module breaks the cycle that\n// existed when `Wizard.tsx` imported `BaseWizard` from `./index.ts`.\nimport { WizardContent } from \"@/components/ui/wizard-content\"\nimport { WizardProvider } from \"@/components/ui/wizard-context\"\nimport { WizardNavigation } from \"@/components/ui/wizard-navigation\"\nimport { WizardProgressBar } from \"@/components/ui/wizard-progress-bar\"\n\nexport const BaseWizard = {\n  Provider: WizardProvider,\n  ProgressBar: WizardProgressBar,\n  Content: WizardContent,\n  Navigation: WizardNavigation,\n}\n",
+      "type": "registry:ui",
+      "target": "components/ui/base-wizard.ts"
+    }
+  ],
+  "type": "registry:ui"
+}

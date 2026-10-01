@@ -1,0 +1,15 @@
+{
+  "$schema": "https://ui.shadcn.com/schema/registry-item.json",
+  "name": "webcam-file-upload",
+  "title": "Webcam File Upload",
+  "description": "Medram webcam file upload source component.",
+  "files": [
+    {
+      "path": "registry/source/webcam/utils/fileUpload.ts",
+      "content": "export function dataURLtoFile(dataUrl: string, filename: string): File {\n  const arr = dataUrl.split(\",\")\n  const mimeMatch = arr[0].match(/:(.*?);/)\n  const mime = mimeMatch ? mimeMatch[1] : \"image/jpeg\"\n  const bstr = atob(arr[1])\n  let n = bstr.length\n  const u8arr = new Uint8Array(n)\n  while (n--) u8arr[n] = bstr.charCodeAt(n)\n  return new File([u8arr], filename, { type: mime })\n}\n\n/** Center-crops any dataURL to an exact square JPEG and returns a new dataURL. */\nexport function cropToSquareDataUrl(\n  dataUrl: string,\n  width = 626,\n  height = 626,\n  quality = 0.95,\n): Promise<string> {\n  const { promise, resolve, reject } = Promise.withResolvers<string>()\n  const img = new Image()\n  img.onload = () => {\n    try {\n      const srcSize = Math.min(img.width, img.height)\n      const sx = Math.max(0, (img.width - srcSize) / 2)\n      const sy = Math.max(0, (img.height - srcSize) / 2)\n      const canvas = document.createElement(\"canvas\")\n      canvas.width = width\n      canvas.height = height\n      const ctx = canvas.getContext(\"2d\")\n      if (!ctx) {\n        reject(new Error(\"Canvas not supported\"))\n        return\n      }\n      ctx.drawImage(img, sx, sy, srcSize, srcSize, 0, 0, width, height)\n      resolve(canvas.toDataURL(\"image/jpeg\", quality))\n    } catch (e) {\n      reject(e)\n    }\n  }\n  img.onerror = () => reject(new Error(\"Failed to load image for cropping\"))\n  img.src = dataUrl\n  return promise\n}\n\nasync function resizeAndCropFileToSquare(file: File, size = 626): Promise<File> {\n  const { promise, resolve, reject } = Promise.withResolvers<string>()\n  const reader = new FileReader()\n  reader.onload = () => resolve(reader.result as string)\n  reader.onerror = () => reject(new Error(\"Failed to read file\"))\n  reader.readAsDataURL(file)\n\n  const dataUrl = await promise\n  const cropped = await cropToSquareDataUrl(dataUrl, size, size, 0.95)\n  const base = file.name.replace(/\\.[^/.]+$/, \"\") || \"upload\"\n  return dataURLtoFile(cropped, `${base}-cropped.jpeg`)\n}\n",
+      "type": "registry:ui",
+      "target": "components/ui/webcam-file-upload.ts"
+    }
+  ],
+  "type": "registry:ui"
+}

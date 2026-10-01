@@ -1,0 +1,19 @@
+{
+  "$schema": "https://ui.shadcn.com/schema/registry-item.json",
+  "name": "avatar",
+  "title": "Avatar",
+  "description": "Medram avatar source component.",
+  "registryDependencies": [
+    "avatar",
+    "tooltip"
+  ],
+  "files": [
+    {
+      "path": "registry/source/components/Avatar.tsx",
+      "content": "import { cn } from \"@/lib/utils\"\nimport { AvatarFallback, AvatarImage, Avatar as BaseAvatar } from \"@/components/ui/avatar\"\nimport { Tooltip, TooltipContent, TooltipProvider, TooltipTrigger } from \"@/components/ui/tooltip\"\n\ntype AvatarProps = {\n  fallback: string\n  src?: string\n  alt?: string\n  className?: string\n  tooltipContent?: string\n  size?: number\n}\n\nexport default function Avatar({\n  src = \"\",\n  alt = \"\",\n  fallback,\n  className = \"\",\n  tooltipContent = \"\",\n  size = 11,\n}: AvatarProps) {\n  return (\n    <TooltipProvider>\n      <Tooltip>\n        <TooltipTrigger asChild>\n          <BaseAvatar\n            className={cn(\n              `flex items-center justify-center rounded-full cursor-default ${className}`,\n            )}\n            style={{\n              width: `${size * 0.25}rem`,\n              height: `${size * 0.25}rem`,\n              minWidth: `${size * 0.25}rem`,\n              minHeight: `${size * 0.25}rem`,\n            }}\n          >\n            {src && <AvatarImage className=\"object-cover rounded-full\" src={src} alt={alt} />}\n            <AvatarFallback className=\"flex justify-center items-center text-15 font-semibold w-full h-full\">\n              {fallback}\n            </AvatarFallback>\n          </BaseAvatar>\n        </TooltipTrigger>\n        {tooltipContent && (\n          <TooltipContent>\n            <p>{tooltipContent}</p>\n          </TooltipContent>\n        )}\n      </Tooltip>\n    </TooltipProvider>\n  )\n}\n",
+      "type": "registry:ui",
+      "target": "components/ui/medram-avatar.tsx"
+    }
+  ],
+  "type": "registry:ui"
+}

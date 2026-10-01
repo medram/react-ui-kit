@@ -1,0 +1,19 @@
+{
+  "$schema": "https://ui.shadcn.com/schema/registry-item.json",
+  "name": "basic-time-zones-field",
+  "title": "Basic Time Zones Field",
+  "description": "Medram basic time zones field source component.",
+  "registryDependencies": [
+    "medram/react-ui-kit/medram-utils",
+    "medram/react-ui-kit/select-field"
+  ],
+  "files": [
+    {
+      "path": "registry/source/fields/BasicTimeZonesField.tsx",
+      "content": "import { AVAILABLE_TIMEZONES_OPTIONS } from \"@/components/ui/medram-utils\"\nimport SelectField from \"@/components/ui/select-field\"\n\ntype BasicTimeZonesFieldProps = Omit<React.ComponentProps<typeof SelectField>, \"options\">\n\nexport default function BasicTimeZonesField({ name, ...props }: BasicTimeZonesFieldProps) {\n  return (\n    <SelectField\n      name={name}\n      placeholder=\"site timezone\"\n      {...props}\n      options={AVAILABLE_TIMEZONES_OPTIONS}\n    />\n  )\n}\n",
+      "type": "registry:ui",
+      "target": "components/ui/basic-time-zones-field.tsx"
+    }
+  ],
+  "type": "registry:ui"
+}

@@ -1,0 +1,20 @@
+{
+  "$schema": "https://ui.shadcn.com/schema/registry-item.json",
+  "name": "wizard",
+  "title": "Wizard",
+  "description": "Medram wizard source component.",
+  "registryDependencies": [
+    "medram/react-ui-kit/base-wizard",
+    "medram/react-ui-kit/loading-section",
+    "medram/react-ui-kit/wizard-types"
+  ],
+  "files": [
+    {
+      "path": "registry/source/wizard/Wizard.tsx",
+      "content": "import { ReactNode, Suspense } from \"react\"\nimport LoadingSection from \"@/components/ui/loading-section\"\nimport { BaseWizard } from \"@/components/ui/base-wizard\"\nimport { ProgressBarRenderProps, WizardStep } from \"@/components/ui/wizard-types\"\n\ntype WizardProps = {\n  children?: ReactNode\n  steps: WizardStep[]\n  initialStep?: number\n  onStepChange?: (stepNumber: number) => void\n  onNext?: (currentStep: number, nextStep: number) => void | Promise<void>\n  onPrevious?: (currentStep: number, previousStep: number) => void | Promise<void>\n  onFinish?: (finalStep: number) => void | Promise<void>\n  onReset?: () => void | Promise<void>\n\n  // Layout customization props (used only when render prop is not provided)\n  className?: string\n  progressBarClassName?: string\n  activeStepClassName?: string\n  navigationClassName?: string\n  buttonClassName?: string\n  showProgressBar?: boolean\n  showNavigation?: boolean\n  showStepNumbers?: boolean\n  renderProgressBar?: (props: ProgressBarRenderProps) => ReactNode\n  markLastStepAsCompleted?: boolean\n  skipSteps?: boolean\n  contentLoadingFallback?: ReactNode\n}\n\nexport function Wizard({\n  children,\n  steps: stepsDefinition,\n  initialStep = 1,\n  onStepChange,\n  onNext,\n  onPrevious,\n  onFinish,\n  onReset,\n  className,\n  progressBarClassName,\n  activeStepClassName,\n  navigationClassName,\n  buttonClassName,\n  showProgressBar = true,\n  showNavigation = true,\n  showStepNumbers = true,\n  renderProgressBar,\n  markLastStepAsCompleted = false,\n  skipSteps = false,\n  contentLoadingFallback,\n}: WizardProps) {\n  const extraContext = {\n    skipSteps,\n    markLastStepAsCompleted,\n  }\n\n  return (\n    <BaseWizard.Provider\n      stepsDefinition={stepsDefinition}\n      initialStep={initialStep}\n      events={{\n        onStepChange,\n        onNext,\n        onPrevious,\n        onFinish,\n        onReset,\n      }}\n      {...extraContext}\n    >\n      {({ isLoading, currentStep, controller }) => (\n        <div className={className}>\n          {showProgressBar &&\n            (renderProgressBar ? (\n              renderProgressBar({\n                currentStep,\n                totalSteps: stepsDefinition.length,\n                stepsDefinition,\n                controller,\n                isLoading,\n              })\n            ) : (\n              <BaseWizard.ProgressBar\n                progressBarClassName={progressBarClassName}\n                activeStepClassName={activeStepClassName}\n                showStepNumbers={showStepNumbers}\n              />\n            ))}\n          <Suspense fallback={<LoadingSection />}>\n            <BaseWizard.Content />\n          </Suspense>\n\n          {children}\n\n          {showNavigation && (\n            <BaseWizard.Navigation\n              className={navigationClassName}\n              buttonClassName={buttonClassName}\n            />\n          )}\n        </div>\n      )}\n    </BaseWizard.Provider>\n  )\n}\n",
+      "type": "registry:ui",
+      "target": "components/ui/wizard.tsx"
+    }
+  ],
+  "type": "registry:ui"
+}

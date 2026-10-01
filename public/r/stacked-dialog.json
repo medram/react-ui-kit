@@ -1,0 +1,22 @@
+{
+  "$schema": "https://ui.shadcn.com/schema/registry-item.json",
+  "name": "stacked-dialog",
+  "title": "Stacked Dialog",
+  "description": "Medram stacked dialog source component.",
+  "dependencies": [
+    "@radix-ui/react-dialog",
+    "lucide-react"
+  ],
+  "registryDependencies": [
+    "button"
+  ],
+  "files": [
+    {
+      "path": "registry/source/modal/StackedDialog.tsx",
+      "content": "\"use client\"\n\nimport * as DialogPrimitive from \"@radix-ui/react-dialog\"\nimport { XIcon } from \"lucide-react\"\nimport * as React from \"react\"\nimport { Button } from \"@/components/ui/button\"\nimport { cn } from \"@/lib/utils\"\n\nconst DialogStack = DialogPrimitive.Root\n\nconst DialogStackTrigger = DialogPrimitive.Trigger\n\nconst DialogStackClose = DialogPrimitive.Close\n\n// Make the overlay optional via the className prop\nfunction DialogStackOverlay({\n  className,\n  ref,\n  ...props\n}: React.ComponentProps<typeof DialogPrimitive.Overlay>) {\n  return (\n    <DialogPrimitive.Overlay\n      ref={ref}\n      className={cn(\n        \"fixed inset-0 isolate z-50 bg-black/10 duration-100 supports-backdrop-filter:backdrop-blur-xs data-[state=open]:animate-in data-[state=open]:fade-in-0 data-[state=closed]:animate-out data-[state=closed]:fade-out-0\",\n        className,\n      )}\n      {...props}\n    />\n  )\n}\n\n// Container for stacked dialogs without its own overlay\nfunction DialogStackBody({\n  className,\n  ref,\n  ...props\n}: React.HTMLAttributes<HTMLDivElement> & { ref?: React.Ref<HTMLDivElement> }) {\n  return (\n    <DialogPrimitive.Portal>\n      <div\n        ref={ref}\n        className={cn(\"fixed inset-0 z-50 flex items-center justify-center\", className)}\n        {...props}\n      />\n    </DialogPrimitive.Portal>\n  )\n}\n\nfunction DialogStackContent({\n  className,\n  children,\n  ref,\n  ...props\n}: React.ComponentProps<typeof DialogPrimitive.Content>) {\n  return (\n    <DialogPrimitive.Content\n      ref={ref}\n      className={cn(\n        \"relative z-50 grid w-full max-w-[calc(100%-2rem)] gap-4 rounded-xl bg-popover p-4 text-sm text-popover-foreground ring-1 ring-foreground/10 duration-100 outline-none data-[state=open]:animate-in data-[state=open]:fade-in-0 data-[state=open]:zoom-in-95 data-[state=closed]:animate-out data-[state=closed]:fade-out-0 data-[state=closed]:zoom-out-95\",\n        className,\n      )}\n      {...props}\n    >\n      {children}\n      <DialogPrimitive.Close data-slot=\"dialog-close\" asChild>\n        <Button variant=\"ghost\" className=\"absolute top-2 right-2\" size=\"icon-sm\">\n          <XIcon />\n          <span className=\"sr-only\">Close</span>\n        </Button>\n      </DialogPrimitive.Close>\n    </DialogPrimitive.Content>\n  )\n}\n\nconst DialogStackHeader = ({ className, ...props }: React.HTMLAttributes<HTMLDivElement>) => (\n  <div className={cn(\"flex flex-col gap-2\", className)} {...props} />\n)\nDialogStackHeader.displayName = \"DialogStackHeader\"\n\nconst DialogStackFooter = ({ className, ...props }: React.HTMLAttributes<HTMLDivElement>) => (\n  <div\n    className={cn(\n      \"-mx-4 -mb-4 flex flex-col-reverse gap-2 rounded-b-xl border-t bg-muted/50 p-4 sm:flex-row sm:justify-end\",\n      className,\n    )}\n    {...props}\n  />\n)\nDialogStackFooter.displayName = \"DialogStackFooter\"\n\nfunction DialogStackTitle({\n  className,\n  ref,\n  ...props\n}: React.ComponentProps<typeof DialogPrimitive.Title>) {\n  return (\n    <DialogPrimitive.Title\n      ref={ref}\n      className={cn(\"font-heading text-base leading-none font-medium\", className)}\n      {...props}\n    />\n  )\n}\n\nfunction DialogStackDescription({\n  className,\n  ref,\n  ...props\n}: React.ComponentProps<typeof DialogPrimitive.Description>) {\n  return (\n    <DialogPrimitive.Description\n      ref={ref}\n      className={cn(\n        \"text-sm text-muted-foreground *:[a]:underline *:[a]:underline-offset-3 *:[a]:hover:text-foreground\",\n        className,\n      )}\n      {...props}\n    />\n  )\n}\n\nexport {\n  DialogStack,\n  DialogStackBody,\n  DialogStackClose,\n  DialogStackContent,\n  DialogStackDescription,\n  DialogStackFooter,\n  DialogStackHeader,\n  DialogStackOverlay,\n  DialogStackTitle,\n  DialogStackTrigger,\n}\n",
+      "type": "registry:ui",
+      "target": "components/ui/stacked-dialog.tsx"
+    }
+  ],
+  "type": "registry:ui"
+}

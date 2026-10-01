@@ -1,0 +1,19 @@
+{
+  "$schema": "https://ui.shadcn.com/schema/registry-item.json",
+  "name": "full-screen-loading",
+  "title": "Full Screen Loading",
+  "description": "Medram full screen loading source component.",
+  "dependencies": [
+    "next-themes",
+    "react-spinners"
+  ],
+  "files": [
+    {
+      "path": "registry/source/components/FullScreenLoading.tsx",
+      "content": "import { useTheme } from \"next-themes\"\nimport { HashLoader } from \"react-spinners\"\n\nexport default function FullScreenLoading() {\n  const { theme, systemTheme } = useTheme()\n\n  const isDarkMode = theme === \"dark\" || (systemTheme === \"dark\" && theme === \"system\")\n\n  return (\n    <div\n      className={`w-full h-full ${isDarkMode ? \"\" : \"bg-slate-200\"} absolute flex justify-center items-center`}\n    >\n      <HashLoader color=\"#888\" />\n    </div>\n  )\n}\n",
+      "type": "registry:ui",
+      "target": "components/ui/full-screen-loading.tsx"
+    }
+  ],
+  "type": "registry:ui"
+}

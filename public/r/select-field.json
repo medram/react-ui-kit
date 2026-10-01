@@ -1,0 +1,24 @@
+{
+  "$schema": "https://ui.shadcn.com/schema/registry-item.json",
+  "name": "select-field",
+  "title": "Select Field",
+  "description": "Medram select field source component.",
+  "dependencies": [
+    "formik"
+  ],
+  "registryDependencies": [
+    "label",
+    "medram/react-ui-kit/form-error",
+    "medram/react-ui-kit/help",
+    "select"
+  ],
+  "files": [
+    {
+      "path": "registry/source/fields/SelectField.tsx",
+      "content": "import { ErrorMessage, useField } from \"formik\"\nimport FormError from \"@/components/ui/form-error\"\nimport Help from \"@/components/ui/help\"\nimport { cn } from \"@/lib/utils\"\nimport { Label } from \"@/components/ui/label\"\nimport {\n  Select,\n  SelectContent,\n  SelectGroup,\n  SelectItem,\n  SelectLabel,\n  SelectTrigger,\n  SelectValue,\n} from \"@/components/ui/select\"\n\nexport type SelectOptions<T> = {\n  readonly label: string\n  readonly value: T\n}\n\n// This is a temporary value to represent the empty string value \"\" in the select field (Must be unpredictable)\nconst TEMP_NULL_OPTION_VALUE: string = \"-----------------\"\n\nexport type SelectFieldProps<T extends string | number | null> = {\n  name: string\n  options: SelectOptions<T>[]\n  label?: string\n  required?: boolean\n  className?: string\n  optionLabel?: string\n  placeholder?: string\n  nullable?: boolean\n  help?: string | React.ReactNode\n  errorMessage?: string\n  onChange?: (value: T, selectedOption: SelectOptions<T>) => void\n} & Omit<React.ComponentProps<typeof Select>, \"onValueChange\" | \"defaultValue\">\n\nexport default function SelectField<\n  T extends string | number | null | (string | null) | (number | null),\n>({\n  name,\n  label,\n  required = false,\n  className,\n  options,\n  optionLabel,\n  placeholder = \"Select an option...\",\n  help,\n  errorMessage,\n  onChange,\n  ...props\n}: SelectFieldProps<T>) {\n  const [field, meta, helpers] = useField<T>({\n    name,\n    validate: (value: any) => {\n      if (!value && required) {\n        return errorMessage ?? \"Please select an Item\"\n      }\n      return undefined\n    },\n  })\n  const selectedOption = options.find(\n    (option) =>\n      String(option.value === \"\" ? TEMP_NULL_OPTION_VALUE : option.value) ===\n      `${field.value === \"\" ? TEMP_NULL_OPTION_VALUE : field.value}`,\n  )\n\n\n  return (\n    <div className={cn(`flex flex-col text-primary mb-2 gap-1 ${className}`)}>\n      {label && (\n        <Label htmlFor={name} className=\"mb-2\">\n          {label}\n          {required && <span className=\"text-red-500 ml-1\">*</span>}\n        </Label>\n      )}\n      <Select\n        onValueChange={(value: string) => {\n          const nextValue =\n            value === \"null\"\n              ? (null as T)\n              : typeof field.value === \"number\" || options.some((option) => typeof option.value === \"number\")\n                ? (Number(value) as T)\n                : ((value === TEMP_NULL_OPTION_VALUE ? \"\" : value) as T)\n          helpers.setValue(nextValue)\n          const selectedOption = options.find(\n            (option) => String(option.value === \"\" ? TEMP_NULL_OPTION_VALUE : option.value) === value,\n          )\n          if (selectedOption) onChange?.(nextValue, selectedOption)\n        }}\n        defaultValue={`${field.value === \"\" ? TEMP_NULL_OPTION_VALUE : field.value}`}\n        value={`${field.value === \"\" ? TEMP_NULL_OPTION_VALUE : field.value}`}\n        {...props}\n      >\n        <SelectTrigger className=\"w-full\">\n          <SelectValue placeholder={placeholder}>{selectedOption?.label}</SelectValue>\n        </SelectTrigger>\n        <SelectContent>\n          <SelectGroup>\n            {optionLabel && <SelectLabel>{optionLabel}</SelectLabel>}\n            {options.map((item) => (\n              <SelectItem\n                key={item.value}\n                value={`${item.value === \"\" ? TEMP_NULL_OPTION_VALUE : item.value}`}\n                className=\"cursor-pointer\"\n              >\n                {item.label}\n              </SelectItem>\n            ))}\n          </SelectGroup>\n        </SelectContent>\n      </Select>\n      {help && <Help>{help}</Help>}\n      <ErrorMessage name={name} component={FormError} />\n    </div>\n  )\n}\n",
+      "type": "registry:ui",
+      "target": "components/ui/select-field.tsx"
+    }
+  ],
+  "type": "registry:ui"
+}

@@ -1,0 +1,18 @@
+{
+  "$schema": "https://ui.shadcn.com/schema/registry-item.json",
+  "name": "copy-button",
+  "title": "Copy Button",
+  "description": "Medram copy button source component.",
+  "dependencies": [
+    "lucide-react"
+  ],
+  "files": [
+    {
+      "path": "registry/source/components/CopyableButton.tsx",
+      "content": "import { Check, Copy } from \"lucide-react\"\nimport { useState } from \"react\"\n\nexport default function CopyButton({ text }: { text: string }) {\n  const [copied, setCopied] = useState(false)\n\n  const handleCopy = (e: React.MouseEvent) => {\n    e.stopPropagation()\n    e.preventDefault()\n    if (!text || typeof text !== \"string\") return\n\n    navigator.clipboard\n      .writeText(text)\n      .then(() => {\n        setCopied(true)\n        setTimeout(() => setCopied(false), 2000)\n      })\n      .catch((err) => console.error(\"Failed to copy text: \", err))\n  }\n\n  return (\n    <button\n      type=\"button\"\n      onClick={handleCopy}\n      className=\"ml-2 p-1 rounded hover:bg-gray-200 dark:hover:bg-gray-700 transition-colors\"\n      aria-label=\"Copy to clipboard\"\n    >\n      {copied ? <Check size={14} className=\"text-green-500\" /> : <Copy size={14} />}\n    </button>\n  )\n}\n",
+      "type": "registry:ui",
+      "target": "components/ui/copy-button.tsx"
+    }
+  ],
+  "type": "registry:ui"
+}

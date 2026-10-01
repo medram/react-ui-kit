@@ -1,0 +1,18 @@
+{
+  "$schema": "https://ui.shadcn.com/schema/registry-item.json",
+  "name": "date-range-yup-schema",
+  "title": "Date Range Yup Schema",
+  "description": "Medram date range yup schema source component.",
+  "dependencies": [
+    "yup"
+  ],
+  "files": [
+    {
+      "path": "registry/source/fields/DateRangeYupSchema.ts",
+      "content": "// Yup schema for the DateRangeField. Lives outside the component file so Fast Refresh\n// can preserve component state when only the schema or the component changes.\nimport * as yup from \"yup\"\n\nexport const DateRangeYupSchema = yup.object().shape({\n  from: yup.date(),\n  to: yup.date(),\n})\n",
+      "type": "registry:ui",
+      "target": "components/ui/date-range-yup-schema.ts"
+    }
+  ],
+  "type": "registry:ui"
+}

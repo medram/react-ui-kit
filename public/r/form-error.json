@@ -1,0 +1,15 @@
+{
+  "$schema": "https://ui.shadcn.com/schema/registry-item.json",
+  "name": "form-error",
+  "title": "Form Error",
+  "description": "Medram form error source component.",
+  "files": [
+    {
+      "path": "registry/source/components/FormError.tsx",
+      "content": "import type { ComponentProps } from \"react\"\n\nexport default function FormError({ children, ...props }: ComponentProps<\"p\">) {\n  return (\n    <p role=\"alert\" className=\"mt-2 text-sm text-destructive\" {...props}>\n      {children}\n    </p>\n  )\n}\n",
+      "type": "registry:ui",
+      "target": "components/ui/form-error.tsx"
+    }
+  ],
+  "type": "registry:ui"
+}

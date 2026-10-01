@@ -1,0 +1,18 @@
+{
+  "$schema": "https://ui.shadcn.com/schema/registry-item.json",
+  "name": "loading-section",
+  "title": "Loading Section",
+  "description": "Medram loading section source component.",
+  "registryDependencies": [
+    "medram/react-ui-kit/loader"
+  ],
+  "files": [
+    {
+      "path": "registry/source/components/LoadingSection.tsx",
+      "content": "import Loader from \"@/components/ui/loader\"\n\nexport default function LoadingSection() {\n  return (\n    <div className=\"flex justify-center items-center h-full\">\n      <Loader />\n    </div>\n  )\n}\n",
+      "type": "registry:ui",
+      "target": "components/ui/loading-section.tsx"
+    }
+  ],
+  "type": "registry:ui"
+}

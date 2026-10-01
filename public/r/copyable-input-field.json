@@ -1,0 +1,26 @@
+{
+  "$schema": "https://ui.shadcn.com/schema/registry-item.json",
+  "name": "copyable-input-field",
+  "title": "Copyable Input Field",
+  "description": "Medram copyable input field source component.",
+  "dependencies": [
+    "formik",
+    "lucide-react"
+  ],
+  "registryDependencies": [
+    "button",
+    "input",
+    "label",
+    "medram/react-ui-kit/form-error",
+    "medram/react-ui-kit/help"
+  ],
+  "files": [
+    {
+      "path": "registry/source/fields/CopyableInputField.tsx",
+      "content": "\"use client\"\n\nimport { ErrorMessage, useField } from \"formik\"\nimport { Check, Clipboard } from \"lucide-react\"\nimport { useRef, useState, type ComponentProps } from \"react\"\nimport FormError from \"@/components/ui/form-error\"\nimport Help from \"@/components/ui/help\"\nimport { cn } from \"@/lib/utils\"\nimport { Button } from \"@/components/ui/button\"\nimport { Input } from \"@/components/ui/input\"\nimport { Label } from \"@/components/ui/label\"\n\ntype CopyableFieldProps = ComponentProps<typeof Input> & {\n  name: string\n  label?: string\n  className?: string\n  InputClassName?: string\n  required?: boolean\n  help?: string | React.ReactNode\n}\n\nfunction CopyableField({\n  name,\n  label,\n  InputClassName = \"\",\n  className = \"\",\n  required = false,\n  help,\n  ref,\n  ...props\n}: CopyableFieldProps & { ref?: React.Ref<HTMLInputElement> }) {\n  const [field] = useField<string>(name)\n\n  const inputRef = useRef<HTMLInputElement>(null)\n  const [isCopied, setIsCopied] = useState(false)\n\n  const handleCopyInputValue = () => {\n    if (inputRef.current) {\n      navigator.clipboard.writeText(inputRef.current.value)\n\n      setIsCopied(true)\n      setTimeout(() => {\n        setIsCopied(false)\n      }, 2000)\n    }\n  }\n\n  return (\n    <div key={name} className={cn(`flex flex-col text-primary mb-2 gap-1 ${className}`)}>\n      {label && (\n        <Label htmlFor={name} className=\"mb-2\">\n          {label}\n          {required && <span className=\"text-red-500 ml-1\">*</span>}\n        </Label>\n      )}\n      <div className=\"relative\">\n        <Input className={cn(\"pr-10 z-0\", className)} ref={inputRef} {...field} {...props} />\n        {!isCopied ? (\n          <Button\n            type=\"button\"\n            variant=\"ghost\"\n            size=\"sm\"\n            className=\"absolute right-0 top-0 h-full px-3 z-10 py-2 hover:cursor-pointer hover:bg-transparent\"\n            onClick={() => handleCopyInputValue()}\n            disabled={props.disabled}\n          >\n            <Clipboard className=\"h-4 w-4\" aria-hidden=\"true\" />\n          </Button>\n        ) : (\n          <Button\n            type=\"button\"\n            variant=\"ghost\"\n            size=\"sm\"\n            className=\"absolute right-0 top-0 h-full px-3 z-10 py-2 hover:cursor-pointer hover:bg-transparent\"\n            onClick={() => setIsCopied(false)}\n            disabled={props.disabled}\n          >\n            <Check className=\"h-4 w-4 text-green-500\" aria-hidden=\"true\" />\n            <span className=\"text-green-500 font-semibold transition-all\">copied</span>\n          </Button>\n        )}\n      </div>\n      {help && <Help>{help}</Help>}\n      <ErrorMessage name={name} component={FormError} />\n    </div>\n  )\n}\n\nexport default CopyableField\n",
+      "type": "registry:ui",
+      "target": "components/ui/copyable-input-field.tsx"
+    }
+  ],
+  "type": "registry:ui"
+}

@@ -1,0 +1,18 @@
+{
+  "$schema": "https://ui.shadcn.com/schema/registry-item.json",
+  "name": "base-select",
+  "title": "Base Select",
+  "description": "Medram base select source component.",
+  "registryDependencies": [
+    "select"
+  ],
+  "files": [
+    {
+      "path": "registry/source/components/BaseSelect.tsx",
+      "content": "import { cn } from \"@/lib/utils\"\nimport {\n  Select,\n  SelectContent,\n  SelectGroup,\n  SelectItem,\n  SelectTrigger,\n  SelectValue,\n} from \"@/components/ui/select\"\n\nexport type SelectOptions<T> = {\n  readonly label: string\n  readonly value: T\n}\n\nexport type SelectProps<T extends string | number | null> = {\n  options: SelectOptions<T>[]\n  defaultValue?: T\n  className?: string\n  placeholder?: string\n  onChange?: (value: T, selectedOption: SelectOptions<T> | undefined) => void\n} & Omit<React.ComponentProps<typeof Select>, \"onValueChange\" | \"defaultValue\">\n\nexport default function BaseSelect<\n  T extends string | number | null | (string | null) | (number | null),\n>({\n  options,\n  name,\n  defaultValue,\n  required = false,\n  className,\n  placeholder = \"Select an option...\",\n  onChange,\n  ...props\n}: SelectProps<T>) {\n  return (\n    <div className={cn(`flex flex-col text-primary mb-2 gap-1 ${className}`)}>\n      <Select\n        onValueChange={(value) => {\n          // needed to return the correct/original type\n          const selectedOption = options.find(\n            (option) => `${option.value}` == value || (`${option.value}` === \"\" && value === \"-\"),\n          ) as SelectOptions<T>\n\n          onChange?.(selectedOption.value, selectedOption)\n        }}\n        defaultValue={`${defaultValue ?? \"\"}`}\n        {...props}\n      >\n        <SelectTrigger className=\"h-8 w-full\">\n          <SelectValue placeholder={placeholder} />\n        </SelectTrigger>\n        <SelectContent>\n          <SelectGroup>\n            {options.map((item) => (\n              <SelectItem\n                key={item.value}\n                value={`${item.value === \"\" ? \"-\" : item.value}`}\n                className=\"cursor-pointer\"\n              >\n                {item.label}\n              </SelectItem>\n            ))}\n          </SelectGroup>\n        </SelectContent>\n      </Select>\n    </div>\n  )\n}\n",
+      "type": "registry:ui",
+      "target": "components/ui/base-select.tsx"
+    }
+  ],
+  "type": "registry:ui"
+}

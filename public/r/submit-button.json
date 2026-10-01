@@ -1,0 +1,22 @@
+{
+  "$schema": "https://ui.shadcn.com/schema/registry-item.json",
+  "name": "submit-button",
+  "title": "Submit Button",
+  "description": "Medram submit button source component.",
+  "dependencies": [
+    "formik"
+  ],
+  "registryDependencies": [
+    "button",
+    "medram/react-ui-kit/loader"
+  ],
+  "files": [
+    {
+      "path": "registry/source/components/SubmitButton.tsx",
+      "content": "import { useFormikContext } from \"formik\"\nimport { Button } from \"@/components/ui/button\"\nimport Loader from \"@/components/ui/loader\"\n\ntype ButtonProps = {\n  title?: string\n  children?: React.ReactNode\n  className?: string\n} & Parameters<typeof Button>[0]\n\nexport default function SubmitButton({ title, children, className, ...rest }: ButtonProps) {\n  // access the formik context\n  const formik = useFormikContext()\n  return (\n    <Button type=\"submit\" className={className} {...rest}>\n      {formik.isSubmitting ? (\n        <Loader themeColors={{ light: \"#fff\", dark: \"#333\" }} speedMultiplier={0.8} size={10} />\n      ) : (\n        title || children\n      )}\n    </Button>\n  )\n}\n",
+      "type": "registry:ui",
+      "target": "components/ui/submit-button.tsx"
+    }
+  ],
+  "type": "registry:ui"
+}

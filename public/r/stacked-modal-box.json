@@ -1,0 +1,19 @@
+{
+  "$schema": "https://ui.shadcn.com/schema/registry-item.json",
+  "name": "stacked-modal-box",
+  "title": "Stacked Modal Box",
+  "description": "Medram stacked modal box source component.",
+  "registryDependencies": [
+    "dialog",
+    "medram/react-ui-kit/stacked-dialog"
+  ],
+  "files": [
+    {
+      "path": "registry/source/modal/ModalStackedBox.tsx",
+      "content": "\"use client\"\n\nimport { ReactNode } from \"react\"\nimport { cn } from \"@/lib/utils\"\nimport { DialogHeader } from \"@/components/ui/dialog\"\nimport {\n  DialogStack,\n  DialogStackBody,\n  DialogStackContent,\n  DialogStackDescription,\n  DialogStackOverlay,\n  DialogStackTitle,\n  DialogStackTrigger,\n} from \"@/components/ui/stacked-dialog\"\n\nexport type ModalStackBoxProps = {\n  isOpen?: boolean\n  onOpenChange?: (open: boolean) => void\n  title?: string\n  description?: string\n  children?: ReactNode\n  contentClassName?: string\n  headerClassName?: string\n  trigger?: ReactNode\n  showOverlay?: boolean\n}\n\nexport function ModalStackedBox({\n  isOpen,\n  children,\n  title,\n  description,\n  onOpenChange,\n  contentClassName,\n  headerClassName,\n  showOverlay = false,\n  trigger,\n}: ModalStackBoxProps) {\n  return (\n    <DialogStack\n      open={isOpen}\n      onOpenChange={(openState) => {\n        if (isOpen && !openState) {\n          onOpenChange?.(false)\n        }\n      }}\n    >\n      {showOverlay && <DialogStackOverlay />}\n      {trigger && <DialogStackTrigger asChild>{trigger}</DialogStackTrigger>}\n      <DialogStackBody>\n        <DialogStackContent\n          className={cn(\n            \"max-w-[85vw] sm:max-w-xl max-h-[90vh] overflow-y-auto\",\n            contentClassName,\n          )}\n        >\n          <DialogHeader className={headerClassName}>\n            <DialogStackTitle className={cn(title ? \"\" : \"hidden\")}>\n              {title}\n            </DialogStackTitle>\n            <DialogStackDescription className={cn(description ? \"\" : \"hidden\")}>\n              {description}\n            </DialogStackDescription>\n          </DialogHeader>\n          {children}\n        </DialogStackContent>\n      </DialogStackBody>\n    </DialogStack>\n  )\n}\n",
+      "type": "registry:ui",
+      "target": "components/ui/stacked-modal-box.tsx"
+    }
+  ],
+  "type": "registry:ui"
+}

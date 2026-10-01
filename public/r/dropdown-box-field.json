@@ -1,0 +1,21 @@
+{
+  "$schema": "https://ui.shadcn.com/schema/registry-item.json",
+  "name": "dropdown-box-field",
+  "title": "Dropdown Box Field",
+  "description": "Medram dropdown box field source component.",
+  "dependencies": [
+    "formik"
+  ],
+  "registryDependencies": [
+    "dropdown-menu"
+  ],
+  "files": [
+    {
+      "path": "registry/source/fields/DropdownBoxField.tsx",
+      "content": "\"use client\"\n\nimport { useField } from \"formik\"\nimport * as React from \"react\"\nimport { cn } from \"@/lib/utils\"\nimport {\n  DropdownMenu,\n  DropdownMenuCheckboxItem,\n  DropdownMenuContent,\n  DropdownMenuLabel,\n  DropdownMenuRadioGroup,\n  DropdownMenuRadioItem,\n  DropdownMenuSeparator,\n  DropdownMenuTrigger,\n} from \"@/components/ui/dropdown-menu\"\n\nexport type DropdownOption = {\n  label: string\n  value: string\n  disabled?: boolean\n}\n\nexport type DropdownBoxProps = {\n  name: string\n  type: \"checkbox\" | \"radio\"\n  options: DropdownOption[]\n  children: React.ReactNode\n  label?: string\n  className?: string\n  position?: \"left\" | \"right\" | \"bottom\" | \"top\"\n  itemClassName?: string\n}\n\nexport default function DropdownBox({\n  label,\n  type,\n  options,\n  name,\n  children: menuTrigger,\n  className,\n  position = \"bottom\",\n  itemClassName,\n}: DropdownBoxProps) {\n  const [field, meta, helpers] = useField<string[]>(name)\n  const { value } = field\n  const { setValue } = helpers\n\n  const handleCheckboxChange = React.useCallback(\n    (optionValue: string, checked: boolean) => {\n      let newValue = [...value]\n      if (checked) {\n        newValue.push(optionValue)\n      } else {\n        newValue = newValue.filter((item) => item !== optionValue)\n      }\n      setValue(newValue)\n    },\n    [value, setValue],\n  )\n\n  const handleRadioChange = React.useCallback(\n    (optionValue: string) => {\n      setValue([optionValue])\n    },\n    [setValue],\n  )\n\n  return (\n    <DropdownMenu modal={false}>\n      <div>\n        <DropdownMenuTrigger asChild>{menuTrigger}</DropdownMenuTrigger>\n      </div>\n      <DropdownMenuContent className={`w-56 ${className}`} side={position}>\n        {label && (\n          <>\n            <DropdownMenuLabel>{label}</DropdownMenuLabel>\n            <DropdownMenuSeparator />\n          </>\n        )}\n\n        {type === \"checkbox\" &&\n          options.map((option) => (\n            <DropdownMenuCheckboxItem\n              key={option.value}\n              checked={value.includes(option.value)}\n              onCheckedChange={(checked) => handleCheckboxChange(option.value, checked)}\n              disabled={option.disabled}\n              className={cn(\"cursor-pointer\", itemClassName)}\n            >\n              {option.label}\n            </DropdownMenuCheckboxItem>\n          ))}\n\n        {type === \"radio\" && (\n          <DropdownMenuRadioGroup value={value[0] || \"\"} onValueChange={handleRadioChange}>\n            {options.map((option) => (\n              <DropdownMenuRadioItem\n                key={option.value}\n                value={option.value}\n                disabled={option.disabled}\n                className={cn(\"cursor-pointer\", itemClassName)}\n              >\n                {option.label}\n              </DropdownMenuRadioItem>\n            ))}\n          </DropdownMenuRadioGroup>\n        )}\n      </DropdownMenuContent>\n    </DropdownMenu>\n  )\n}\n",
+      "type": "registry:ui",
+      "target": "components/ui/dropdown-box-field.tsx"
+    }
+  ],
+  "type": "registry:ui"
+}

@@ -1,0 +1,23 @@
+{
+  "$schema": "https://ui.shadcn.com/schema/registry-item.json",
+  "name": "line-charts",
+  "title": "Line Charts",
+  "description": "Medram line charts source component.",
+  "dependencies": [
+    "@medram/react-ui-kit"
+  ],
+  "registryDependencies": [
+    "chart",
+    "medram/react-ui-kit/base-chart-card",
+    "medram/react-ui-kit/line-chart-content"
+  ],
+  "files": [
+    {
+      "path": "registry/source/charts/LineCharts.tsx",
+      "content": "\"use client\"\n\nimport { Suspense, lazy, useMemo, type ComponentProps } from \"react\"\nimport type { ChartConfig } from \"@/components/ui/chart\"\nimport type { Prettify } from \"@medram/react-ui-kit/types\"\nimport { BaseChartCard, ChartFallback } from \"@/components/ui/base-chart-card\"\nimport type { LineChartContentProps, LineChartDataItem } from \"@/components/ui/line-chart-content\"\n\nconst LineChartContent = lazy(() => import(\"@/components/ui/line-chart-content\"))\n\ntype LineChartProps = Prettify<\n  Omit<\n    ComponentProps<typeof BaseChartCard>,\n    \"headerTitle\" | \"headerDescription\" | \"footerDescription\"\n  > & {\n    data: LineChartDataItem[]\n    chartContainerClassName?: string\n    strokeWidth?: number\n    enableTooltip?: boolean\n    enableLegend?: boolean\n    legendPosition?: \"top\" | \"right\" | \"bottom\" | \"left\"\n    selectedOption?: string\n    onOptionChange?: (option: string) => void\n    headerTitle?: React.ReactNode\n    headerDescription?: React.ReactNode\n    footerDescription?: React.ReactNode\n  }\n>\n\nexport function LineCharts({\n  data,\n  chartContainerClassName,\n  strokeWidth = 2,\n  enableTooltip = true,\n  enableLegend = true,\n  legendPosition = \"bottom\",\n  selectedOption,\n  onOptionChange,\n  headerTitle: staticHeaderTitle,\n  headerDescription: staticHeaderDescription,\n  footerDescription: staticFooterDescription,\n  ...baseChartCardProps\n}: LineChartProps) {\n  const chartsKeys = useMemo(() => data.map((chart) => Object.keys(chart.data[0] || {})), [data])\n\n  const chartConfigFromData = useMemo(\n    () =>\n      chartsKeys.map((keys) =>\n        keys?.reduce((acc, key) => {\n          acc[key] = {\n            label: key.charAt(0).toUpperCase() + key.slice(1),\n            color: `var(--chart-${keys.indexOf(key) + 1})`,\n          }\n          return acc\n        }, {} as ChartConfig),\n      ),\n    [chartsKeys],\n  )\n\n  const availableOptions = useMemo(\n    () => data.map((chart, index) => ({ label: chart.label, value: index.toString() })),\n    [data],\n  )\n\n  return (\n    <BaseChartCard\n      options={availableOptions}\n      value={selectedOption}\n      onValueChange={(value) => onOptionChange?.(String(value))}\n      {...baseChartCardProps}\n      headerTitle={({ optionIndex }) =>\n        (optionIndex != null ? data[optionIndex]?.headerTitle : undefined) || staticHeaderTitle\n      }\n      headerDescription={({ optionIndex }) =>\n        (optionIndex != null ? data[optionIndex]?.headerDescription : undefined) ||\n        staticHeaderDescription\n      }\n      footerDescription={({ optionIndex }) =>\n        (optionIndex != null ? data[optionIndex]?.footerDescription : undefined) ||\n        staticFooterDescription\n      }\n    >\n      {({ optionIndex }) => {\n        if (optionIndex == null || !data[optionIndex]) return null\n        const contentProps: LineChartContentProps = {\n          optionIndex,\n          data,\n          chartConfigFromData,\n          chartsKeys,\n          chartContainerClassName,\n          strokeWidth,\n          enableTooltip,\n          enableLegend,\n          legendPosition,\n        }\n        return (\n          <Suspense fallback={<ChartFallback className=\"h-[200px] sm:h-[250px] lg:h-[300px]\" />}>\n            <LineChartContent {...contentProps} />\n          </Suspense>\n        )\n      }}\n    </BaseChartCard>\n  )\n}\n",
+      "type": "registry:ui",
+      "target": "components/ui/line-charts.tsx"
+    }
+  ],
+  "type": "registry:ui"
+}

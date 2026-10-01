@@ -1,0 +1,24 @@
+{
+  "$schema": "https://ui.shadcn.com/schema/registry-item.json",
+  "name": "check-box-group-field",
+  "title": "Check Box Group Field",
+  "description": "Medram check box group field source component.",
+  "dependencies": [
+    "formik"
+  ],
+  "registryDependencies": [
+    "label",
+    "medram/react-ui-kit/base-check-box-field",
+    "medram/react-ui-kit/form-error",
+    "medram/react-ui-kit/help"
+  ],
+  "files": [
+    {
+      "path": "registry/source/fields/CheckBoxGroupField.tsx",
+      "content": "import { ErrorMessage, useField } from \"formik\"\nimport FormError from \"@/components/ui/form-error\"\nimport Help from \"@/components/ui/help\"\nimport { Label } from \"@/components/ui/label\"\nimport BaseCheckBoxField from \"@/components/ui/base-check-box-field\"\n\ntype OptionType = {\n  label: string\n  id: number | string\n}\n\nexport type CheckBoxGroupFieldProps = {\n  label?: string\n  help?: string | React.ReactNode\n  options: OptionType[]\n  name: string\n  required?: boolean\n}\n\nexport default function CheckBoxGroupField({\n  label,\n  help,\n  options,\n  name,\n  required = false,\n}: CheckBoxGroupFieldProps) {\n  const [field, meta, helpers] = useField<(number | string)[]>(name)\n\n  const handleCheckedChange = (checked: boolean, itemId: number | string) => {\n    if (checked) {\n      helpers.setValue([...field.value, itemId])\n    } else {\n      helpers.setValue(field.value.filter((value) => value !== itemId))\n    }\n  }\n\n  return (\n    <div className=\"flex flex-col gap-1\">\n      {label && (\n        <Label htmlFor={name}>\n          {label}\n          {required && <span className=\"text-red-500 ml-1\">*</span>}\n        </Label>\n      )}\n      {options.map((item, i) => (\n        <BaseCheckBoxField\n          key={item.id}\n          name={`checkbox-${i}`}\n          checkboxLabel={item.label}\n          checked={field.value?.includes(item.id)}\n          onCheckedChange={(checked: boolean) => handleCheckedChange(checked, item.id)}\n        />\n      ))}\n      {help && <Help>{help}</Help>}\n      <ErrorMessage name={name} component={FormError} />\n    </div>\n  )\n}\n",
+      "type": "registry:ui",
+      "target": "components/ui/check-box-group-field.tsx"
+    }
+  ],
+  "type": "registry:ui"
+}

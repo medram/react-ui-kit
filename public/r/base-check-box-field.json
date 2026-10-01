@@ -1,0 +1,18 @@
+{
+  "$schema": "https://ui.shadcn.com/schema/registry-item.json",
+  "name": "base-check-box-field",
+  "title": "Base Check Box Field",
+  "description": "Medram base check box field source component.",
+  "registryDependencies": [
+    "checkbox"
+  ],
+  "files": [
+    {
+      "path": "registry/source/fields/BaseCheckBoxField.tsx",
+      "content": "import { Checkbox } from \"@/components/ui/checkbox\"\n\nexport type BaseCheckBoxFieldProps = {\n  name: string\n  checked: boolean\n  onCheckedChange: (checked: boolean) => void\n  inputClassName?: string\n  checkboxLabel?: string\n}\n\nexport default function BaseCheckBoxField({\n  checkboxLabel,\n  name,\n  ...props\n}: BaseCheckBoxFieldProps) {\n  return (\n    <div className=\"items-top items-center flex space-x-2\">\n      <Checkbox {...props} id={name} />\n      {checkboxLabel && (\n        <div className=\"grid gap-1.5 leading-none\">\n          <label\n            htmlFor={name}\n            className=\"text-sm font-medium leading-none peer-disabled:cursor-not-allowed peer-disabled:opacity-70 cursor-pointer\"\n          >\n            {checkboxLabel}\n          </label>\n        </div>\n      )}\n    </div>\n  )\n}\n",
+      "type": "registry:ui",
+      "target": "components/ui/base-check-box-field.tsx"
+    }
+  ],
+  "type": "registry:ui"
+}
